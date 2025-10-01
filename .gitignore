@@ -34,3 +34,7 @@ build/
 # Temporary files
 *.tmp
 temp/
+
+# OG Image generation tools (development only)
+generate-og-image.js
+og-image.html
