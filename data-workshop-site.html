@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터공작소 개발 TFT - 혁신적인 솔루션</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로 여러분의 작업을 더욱 효율적으로 만들어보세요. CutStudio, StockAI, Crypto Factory 등 다양한 오픈소스 프로젝트를 제공합니다.">
+    <meta name="keywords" content="데이터공작소, TFT, 개발, 오픈소스, AI, 백테스팅, 암호화폐, 주식분석, 트레이딩, 동영상편집">
+    <meta name="author" content="데이터공작소 개발 TFT">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="데이터공작소 개발 TFT - 혁신적인 솔루션">
+    <meta property="og:description" content="데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로 여러분의 작업을 더욱 효율적으로 만들어보세요">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gongjakso-tft.up.railway.app">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="데이터공작소 개발 TFT - 혁신적인 솔루션">
+    <meta name="twitter:description" content="데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f0f1e;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #25253a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --border-color: #2d2d45;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+        
+        /* 네비게이션 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .nav-logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e5e7eb;
+        }
+
+        /* 키보드 포커스 스타일 (접근성) */
+        a:focus, button:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        .card-link:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .hero-button:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 4px;
+        }
+
+        /* Skip Navigation (접근성) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-primary);
+            color: white;
+            padding: 8px 16px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .hero-button:hover {
+            background: var(--accent-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        
+        /* 미니멀 3D 배경 효과 */
+        .hero-3d-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        /* 별 효과 (은빛) */
+        .star {
+            position: absolute;
+            background: radial-gradient(circle, #ffffff, #e8e8e8, #c0c0c0);
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            box-shadow:
+                0 0 20px rgba(192, 192, 192, 0.8),
+                0 0 40px rgba(192, 192, 192, 0.4),
+                0 0 60px rgba(192, 192, 192, 0.2);
+        }
+
+        .star.large {
+            box-shadow:
+                0 0 30px rgba(255, 255, 255, 1),
+                0 0 60px rgba(192, 192, 192, 0.6),
+                0 0 90px rgba(192, 192, 192, 0.3);
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        @keyframes twinkleLarge {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(2) rotate(180deg);
+            }
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: rotate(-45deg) translateX(0) translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(-45deg) translateX(700px) translateY(0) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #fff, #ffd700);
+            border-radius: 50%;
+            box-shadow:
+                0 0 20px 6px rgba(255, 215, 0, 1),
+                0 0 40px 12px rgba(255, 215, 0, 0.6),
+                0 0 60px 16px rgba(255, 215, 0, 0.3);
+            animation: shootingStar 3s linear infinite;
+            transform-origin: center center;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.5), rgba(255, 215, 0, 0.8), #ffd700);
+            transform: translate(-100%, -50%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 200px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.5));
+            transform: translate(-100%, -50%);
+            border-radius: 3px;
+            filter: blur(3px);
+        }
+
+        /* 그리드 배경 */
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            transform: perspective(1000px) rotateX(60deg) scale(2);
+            transform-origin: center center;
+        }
+
+        /* 심플한 그래디언트 오브 */
+        .geometric-shape {
+            position: absolute;
+            filter: blur(100px);
+            opacity: 0.3;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -10%;
+            right: -5%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent);
+            animation: slowFloat 20s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -15%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+            animation: slowFloat 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes slowFloat {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50px, -50px);
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* 카드 반짝임 효과 */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+
+        /* 네비게이션 스크롤 효과 */
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        /* 후원 섹션 */
+        .support-section {
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .support-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><text x="10" y="50" font-size="40" opacity="0.05">☕</text></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .support-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .support-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .support-subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.125rem);
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .support-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto 48px;
+        }
+
+        @media (min-width: 768px) {
+            .support-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .support-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+        }
+
+        .support-card.featured {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 2px solid var(--accent-primary);
+        }
+
+        .support-card.featured:hover {
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+        }
+
+        .support-card.featured .support-amount {
+            color: white;
+        }
+
+        .support-card.featured .support-description {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .coffee-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .support-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .support-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .support-card.featured .support-label {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .support-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .support-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .support-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .support-card.featured .support-button {
+            background: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .support-info {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-primary);
+        }
+
+        .support-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .support-info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .support-info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .support-info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .support-info-list i {
+            color: var(--accent-primary);
+            font-size: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* QR 코드 메인 섹션 */
+        .support-qr-main {
+            max-width: 900px;
+            margin: 0 auto 80px;
+        }
+
+        .qr-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 60px 40px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .qr-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .qr-text-section {
+            text-align: left;
+        }
+
+        .qr-main-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .qr-icon-wrapper {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .qr-main-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 28px;
+            font-size: 1rem;
+        }
+
+        .qr-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .suggestion-chip {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .suggestion-chip:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .featured-chip {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .qr-code-section {
+            text-align: center;
+        }
+
+        .qr-code-wrapper {
+            display: inline-block;
+        }
+
+        .qr-code-image {
+            width: 260px;
+            height: 260px;
+            display: block;
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .qr-code-image:hover {
+            transform: scale(1.03);
+        }
+
+        .qr-scan-text {
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 767px) {
+            .qr-content {
+                padding: 40px 24px;
+            }
+
+            .qr-code-image {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        .qr-scan-text i {
+            color: var(--accent-primary);
+        }
+        
+        /* 섹션 스타일 */
+        .section {
+            padding: 120px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.125rem);
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 64px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        
+        /* 프로젝트 그리드 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* 프로젝트 카드 */
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            background: var(--bg-tertiary);
+        }
+        
+        .project-card.working {
+            border: 1px solid var(--accent-secondary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .icon-blue { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+        .icon-green { background: linear-gradient(135deg, #10b981, #06b6d4); }
+        .icon-red { background: linear-gradient(135deg, #ef4444, #ec4899); }
+        .icon-youtube { background: linear-gradient(135deg, #dc2626, #f97316); }
+        .icon-docker { background: linear-gradient(135deg, #2563eb, #6366f1); }
+        .icon-orange { background: linear-gradient(135deg, #f59e0b, #eab308); }
+        .icon-bitcoin { background: linear-gradient(135deg, #f7931a, #ffb347); }
+        .icon-blue-dark { background: linear-gradient(135deg, #3b82f6, #1e40af); }
+        .icon-green-dark { background: linear-gradient(135deg, #059669, #10b981); }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .status-complete {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .status-working {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-purple { background: #ede9fe; color: #7c3aed; }
+        .tag-green { background: #d1fae5; color: #065f46; }
+        .tag-teal { background: #ccfbf1; color: #0f766e; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-pink { background: #fce7f3; color: #be185d; }
+        .tag-orange { background: #fed7aa; color: #9a3412; }
+        .tag-yellow { background: #fef3c7; color: #92400e; }
+        .tag-indigo { background: #e0e7ff; color: #3730a3; }
+        
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .card-link:hover {
+            color: var(--accent-secondary);
+            gap: 12px;
+        }
+        
+        /* About 섹션 */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .about-item {
+            text-align: center;
+        }
+        
+        .about-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .about-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .about-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* 푸터 */
+        .footer {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 48px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .footer-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .footer-divider {
+            border-top: 1px solid var(--border-color);
+            padding-top: 32px;
+            margin-top: 32px;
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Navigation Link (접근성) -->
+    <a href="#projects" class="skip-link">메인 콘텐츠로 건너뛰기</a>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <span class="nav-logo-text">데이터공작소 TFT</span>
+            </div>
+            <div class="nav-links">
+                <a href="#projects">프로젝트</a>
+                <a href="#about">소개</a>
+                <a href="#support">후원</a>
+                <a href="#contact">연락처</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- 3D 배경 효과 -->
+        <div class="hero-3d-bg">
+            <!-- 그리드 배경 -->
+            <div class="hero-grid"></div>
+
+            <!-- 기하학 도형들 (미니멀) -->
+            <div class="geometric-shape shape-1"></div>
+            <div class="geometric-shape shape-2"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">
+                혁신적인 솔루션을
+                <span class="hero-highlight">창조합니다</span>
+            </h1>
+            <p class="hero-subtitle">
+                데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로 
+                여러분의 작업을 더욱 효율적으로 만들어보세요
+            </p>
+            <a href="#projects" class="hero-button">
+                프로젝트 둘러보기
+                <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">데이터공작소 TFT 프로젝트</h2>
+            <p class="section-subtitle fade-in">
+                다양한 분야에서 혁신적인 솔루션을 제공하는 우리의 프로젝트들을 만나보세요
+            </p>
+
+            <div class="projects-grid fade-in">
+                <!-- CutStudio -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-blue">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">CutStudio</h3>
+                    <p class="card-description">
+                        직관적이고 강력한 비디오 편집 도구로, 전문가부터 초보자까지 모두가 쉽게 사용할 수 있는 스튜디오급 편집 환경을 제공합니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-blue">Video Editing</span>
+                        <span class="tech-tag tag-purple">UI/UX</span>
+                    </div>
+                    <a href="https://github.com/jeromwolf/CutStudio" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- StockAI -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">StockAI</h3>
+                    <p class="card-description">
+                        AI 기반 주식 분석 플랫폼으로 머신러닝과 빅데이터를 활용하여 투자자들에게 정확한 시장 분석과 예측을 제공합니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-green">AI/ML</span>
+                        <span class="tech-tag tag-teal">Finance</span>
+                        <span class="tech-tag tag-blue">Big Data</span>
+                    </div>
+                    <a href="https://github.com/jeromwolf/greatworld" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- MP4 Compress -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-red">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">MP4 압축 도구</h3>
+                    <p class="card-description">
+                        고품질을 유지하면서 동영상 파일 크기를 효율적으로 줄여주는 강력한 압축 유틸리티입니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-red">Video Processing</span>
+                        <span class="tech-tag tag-pink">Compression</span>
+                    </div>
+                    <a href="https://github.com/ryhyh98/MP4Compress" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- YouTube Downloader -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-youtube">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">유튜브 다운로더</h3>
+                    <p class="card-description">
+                        유튜브 영상과 음악을 고품질로 다운로드할 수 있는 사용자 친화적인 유틸리티입니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-red">Download</span>
+                        <span class="tech-tag tag-orange">YouTube</span>
+                        <span class="tech-tag tag-yellow">Utility</span>
+                    </div>
+                    <a href="https://github.com/ryhyh98/Youtubedownload" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Docker Management -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-docker">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">도커 관리 사이트</h3>
+                    <p class="card-description">
+                        Docker 컨테이너와 이미지를 쉽게 관리할 수 있는 웹 기반 대시보드로 개발 워크플로우를 향상시킵니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-blue">Docker</span>
+                        <span class="tech-tag tag-indigo">DevOps</span>
+                        <span class="tech-tag tag-purple">Management</span>
+                    </div>
+                    <a href="https://codeindocker.com/mains/list" target="_blank" rel="noopener noreferrer" class="card-link">
+                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Crypto Factory -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-bitcoin">
+                            <i class="fab fa-bitcoin"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">Crypto Factory</h3>
+                    <p class="card-description">
+                        실시간 암호화폐 시장 데이터와 차트 분석을 제공하는 종합 플랫폼입니다. Python 컨테이너 기반으로 구축되었으며, 향후 DB 최적화를 통해 성능을 지속적으로 개선할 예정입니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-orange">Cryptocurrency</span>
+                        <span class="tech-tag tag-blue">Python</span>
+                        <span class="tech-tag tag-green">Real-time Data</span>
+                        <span class="tech-tag tag-purple">Container</span>
+                    </div>
+                    <a href="https://crypto-factory.cloud/" target="_blank" rel="noopener noreferrer" class="card-link">
+                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- PayLens -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-green">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">PayLens</h3>
+                    <p class="card-description">
+                        한국과 미국의 공식 정부 통계를 기반으로 연봉 퍼센타일을 분석해주는 현대적인 웹 애플리케이션입니다. 정확한 데이터로 자신의 연봉 위치를 확인하세요.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-green">Statistics</span>
+                        <span class="tech-tag tag-blue">Analytics</span>
+                        <span class="tech-tag tag-purple">Government Data</span>
+                    </div>
+                    <a href="https://paylens-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-link">
+                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Backtesting Framework (Source) -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-blue-dark">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">백테스팅 프레임워크 (소스코드)</h3>
+                    <p class="card-description">
+                        트레이딩 전략을 검증하는 오픈소스 백테스팅 프레임워크입니다. prd.md 파일만으로 원하는 도구에서 직접 코드를 생성할 수 있어, 개발자가 자신만의 백테스팅 시스템을 빠르게 구축할 수 있습니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-blue">Backtesting</span>
+                        <span class="tech-tag tag-green">Trading Strategy</span>
+                        <span class="tech-tag tag-purple">Code Generation</span>
+                        <span class="tech-tag tag-teal">Investment Analysis</span>
+                    </div>
+                    <a href="https://github.com/simverse/TradingBackTester" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Trading Backtest System (Web UI) -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">백테스팅 시스템 (웹 UI)</h3>
+                    <p class="card-description">
+                        웹 브라우저에서 바로 사용할 수 있는 인터랙티브 백테스팅 시스템입니다. 다양한 트레이딩 전략을 선택하고, 기간 설정 및 초기 자본을 조정하며 상세한 성과 분석과 차트를 확인할 수 있습니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-green">Web UI</span>
+                        <span class="tech-tag tag-blue">Interactive</span>
+                        <span class="tech-tag tag-purple">Real-time</span>
+                        <span class="tech-tag tag-teal">Dashboard</span>
+                    </div>
+                    <a href="https://backtesting-flux.up.railway.app/" target="_blank" rel="noopener noreferrer" class="card-link">
+                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Income Tax Calculator -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-green-dark">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <span class="status-badge status-complete">완료</span>
+                    </div>
+                    <h3 class="card-title">종합소득세 계산기</h3>
+                    <p class="card-description">
+                        금융이자소득, 배당금, 양도소득세 등 복잡한 소득세 항목별 세액을 정확하게 계산해주는 종합 세무 프로그램입니다. 다양한 소득 유형별 세율과 공제 혜택을 한눈에 확인하세요.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-green">Interest Income</span>
+                        <span class="tech-tag tag-blue">Capital Gains</span>
+                        <span class="tech-tag tag-purple">Dividends</span>
+                        <span class="tech-tag tag-teal">Tax Calculator</span>
+                    </div>
+                    <a href="https://github.com/ryhyh98/IncomeTax" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Business Plan MCP -->
+                <div class="project-card working">
+                    <div class="card-header">
+                        <div class="card-icon icon-orange">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <span class="status-badge status-working">작업중</span>
+                    </div>
+                    <h3 class="card-title">사업계획서 도우미 MCP</h3>
+                    <p class="card-description">
+                        AI를 활용하여 전문적인 사업계획서 작성을 도와주는 혁신적인 Model Context Protocol 기반 도구입니다.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag tag-orange">AI Assistant</span>
+                        <span class="tech-tag tag-yellow">Business</span>
+                        <span class="tech-tag tag-green">MCP</span>
+                    </div>
+                    <a href="https://github.com/jeromwolf/business-plan-hwp-mcp" target="_blank" rel="noopener noreferrer" class="card-link">
+                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">데이터공작소 개발 TFT</h2>
+            <p class="section-subtitle fade-in">
+                혁신적인 기술과 창의적인 아이디어로 실용적인 솔루션을 만들어가는 개발팀입니다
+            </p>
+
+            <div class="about-grid fade-in">
+                <div class="about-item">
+                    <div class="about-icon icon-blue">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="about-title">혁신적 사고</h3>
+                    <p class="about-description">새로운 아이디어와 최신 기술을 접목하여 독창적인 솔루션을 개발합니다</p>
+                </div>
+                
+                <div class="about-item">
+                    <div class="about-icon icon-green">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="about-title">협업 중심</h3>
+                    <p class="about-description">팀워크와 지식 공유를 통해 더 나은 결과를 만들어냅니다</p>
+                </div>
+                
+                <div class="about-item">
+                    <div class="about-icon icon-orange">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="about-title">빠른 실행력</h3>
+                    <p class="about-description">아이디어를 빠르게 실현하여 실용적인 도구로 만들어냅니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="section support-section">
+        <div class="container support-content">
+            <h2 class="support-title fade-in">☕ 커피 한 잔의 후원</h2>
+            <p class="support-subtitle fade-in">
+                우리는 오픈소스와 기술 공유를 통해 더 나은 개발 생태계를 만들어가고 있습니다.<br>
+                Claude Code, GitHub Copilot 등 AI 도구의 정액제 비용을 후원해 주시면,<br>
+                더 많은 프로젝트를 개발하고 소스를 공개할 수 있습니다. 💜
+            </p>
+
+            <!-- QR 코드 메인 섹션 -->
+            <div class="support-qr-main fade-in">
+                <div class="qr-content">
+                    <div class="qr-text-section">
+                        <h3 class="qr-main-title">
+                            <span class="qr-icon-wrapper">☕</span>
+                            따뜻한 마음을 담아
+                        </h3>
+                        <p class="qr-main-description">
+                            여러분의 후원은 더 나은 오픈소스 프로젝트를 만드는 데 사용됩니다.<br>
+                            원하시는 금액으로 자유롭게 후원해주세요.
+                        </p>
+                        <div class="qr-suggestions">
+                            <div class="suggestion-chip">☕ ₩5,000 커피 한 잔</div>
+                            <div class="suggestion-chip featured-chip">⭐ ₩20,000 AI 도구 지원</div>
+                            <div class="suggestion-chip">💝 자유 금액</div>
+                        </div>
+                    </div>
+                    <div class="qr-code-section">
+                        <div class="qr-code-wrapper">
+                            <img src="toss-qr.png" alt="데이터공작소 TFT 후원을 위한 토스 송금 QR 코드 - 카메라로 스캔하여 후원하기" class="qr-code-image">
+                            <p class="qr-scan-text">
+                                <i class="fas fa-mobile-alt"></i>
+                                카메라로 스캔하세요
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="support-info fade-in">
+                <h3>
+                    <i class="fas fa-lightbulb"></i>
+                    후원금은 이렇게 사용됩니다
+                </h3>
+                <ul class="support-info-list">
+                    <li>
+                        <i class="fas fa-robot"></i>
+                        <span>Claude Code, GitHub Copilot 등 AI 개발 도구 구독료</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-code"></i>
+                        <span>더 많은 오픈소스 프로젝트 개발 및 유지보수</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-server"></i>
+                        <span>서버 호스팅 및 인프라 운영 비용</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>기술 문서화 및 튜토리얼 제작</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-heart"></i>
+                        <span>커뮤니티와 함께 성장하는 개발 생태계 조성</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <span class="footer-title">데이터공작소 개발 TFT</span>
+            </div>
+            <p class="footer-subtitle">혁신적인 솔루션으로 더 나은 세상을 만들어갑니다</p>
+            
+            <div class="footer-divider">
+                <p class="footer-copyright">© <span id="currentYear"></span> 데이터공작소 개발 TFT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // 네비게이션 스크롤 효과
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 카드에 마우스 움직임 효과 (터치 디바이스 제외)
+        if (!('ontouchstart' in window)) {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        }
+
+        // Hero 섹션 마우스 인터랙션 (미니멀)
+        const hero = document.querySelector('.hero');
+        const shapes = document.querySelectorAll('.geometric-shape');
+
+        hero.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 10;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // 별 생성 함수
+        function createStars() {
+            const hero3dBg = document.querySelector('.hero-3d-bg');
+            const starCount = 75;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                // 10%는 큰 별로
+                const isLarge = Math.random() < 0.1;
+                if (isLarge) {
+                    star.classList.add('large');
+                    star.style.animationName = 'twinkleLarge';
+                }
+
+                // 별 크기 (더 크게)
+                const size = isLarge ? Math.random() * 4 + 3 : Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+
+                // 위치
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+
+                // 애니메이션 딜레이와 지속시간
+                const duration = Math.random() * 2 + 1.5;
+                star.style.setProperty('--duration', duration + 's');
+                star.style.animationDelay = Math.random() * 3 + 's';
+
+                hero3dBg.appendChild(star);
+            }
+        }
+
+        // 유성 생성 함수
+        function createShootingStars() {
+            const hero3dBg = document.querySelector('.hero-3d-bg');
+
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+
+                // 시작 위치 (화면 상단)
+                shootingStar.style.left = Math.random() * 80 + '%';
+                shootingStar.style.top = Math.random() * 30 + '%';
+
+                // 랜덤 지속시간
+                const duration = Math.random() * 1.5 + 1.5;
+                shootingStar.style.animationDuration = duration + 's';
+
+                hero3dBg.appendChild(shootingStar);
+
+                // 애니메이션 끝나면 제거
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, duration * 1000);
+            }, 3000); // 3초마다 유성 생성
+        }
+
+        // 별과 유성 생성
+        createStars();
+        createShootingStars();
+
+        // 저작권 연도 자동 업데이트
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // QR 코드 이미지 에러 핸들링
+        const qrImage = document.querySelector('.qr-code-image');
+        if (qrImage) {
+            qrImage.onerror = function() {
+                this.alt = '후원 QR 코드를 불러올 수 없습니다. 나중에 다시 시도해주세요.';
+                this.style.background = 'var(--bg-tertiary)';
+                this.style.display = 'flex';
+                this.style.alignItems = 'center';
+                this.style.justifyContent = 'center';
+            };
+        }
+    </script>
+</body>
+</html>

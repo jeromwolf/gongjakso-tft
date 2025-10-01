@@ -1,0 +1,19 @@
+{
+  "name": "gongjakso-tft-homepage",
+  "version": "1.0.0",
+  "description": "켈리 데이터공작소 TFT 홈페이지",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["homepage", "tft", "data-workshop"],
+  "author": "데이터공작소 TFT",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
