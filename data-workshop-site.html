@@ -721,6 +721,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
             margin-bottom: 32px;
+            border: none;
+            cursor: pointer;
         }
 
         .toss-main-button:hover {
@@ -1420,9 +1422,9 @@
                         </div>
                     </div>
                     <div class="qr-code-section">
-                        <a href="supertoss://send?amount=0&bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100039997509&origin=qr" class="toss-main-button" target="_blank" rel="noopener noreferrer">
+                        <button onclick="openTossPayment()" class="toss-main-button">
                             💝 토스로 후원하기
-                        </a>
+                        </button>
                         <div class="qr-code-wrapper">
                             <img src="toss-qr.png" alt="데이터공작소 TFT 후원을 위한 토스 송금 QR 코드 - 카메라로 스캔하여 후원하기" class="qr-code-image">
                             <p class="qr-scan-text">
@@ -1625,6 +1627,29 @@
         // 별과 유성 생성
         createStars();
         createShootingStars();
+
+        // 토스 후원 버튼 클릭 핸들러
+        function openTossPayment() {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const tossUrl = 'supertoss://send?amount=0&bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100039997509&origin=qr';
+            const accountNumber = '토스뱅크 100039997509';
+
+            if (isMobile) {
+                // 모바일: 토스 앱 열기
+                window.location.href = tossUrl;
+            } else {
+                // PC: 계좌번호 복사 및 안내
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(accountNumber).then(() => {
+                        alert('📋 계좌번호가 복사되었습니다!\n\n' + accountNumber + '\n\n토스 앱이나 은행 앱에서 붙여넣기 해주세요 😊');
+                    }).catch(() => {
+                        alert('💝 후원 계좌번호\n\n' + accountNumber + '\n\n토스 앱이나 은행 앱에서 송금해주세요!');
+                    });
+                } else {
+                    alert('💝 후원 계좌번호\n\n' + accountNumber + '\n\n토스 앱이나 은행 앱에서 송금해주세요!');
+                }
+            }
+        }
 
         // 저작권 연도 자동 업데이트
         document.getElementById('currentYear').textContent = new Date().getFullYear();
