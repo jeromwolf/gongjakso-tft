@@ -709,6 +709,26 @@
             text-align: center;
         }
 
+        .toss-main-button {
+            display: inline-block;
+            padding: 20px 48px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+            margin-bottom: 32px;
+        }
+
+        .toss-main-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #7c3aed, #6366f1);
+        }
+
         .qr-code-wrapper {
             display: inline-block;
         }
@@ -1400,11 +1420,14 @@
                         </div>
                     </div>
                     <div class="qr-code-section">
+                        <a href="supertoss://send?amount=0&bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100039997509&origin=qr" class="toss-main-button" target="_blank" rel="noopener noreferrer">
+                            💝 토스로 후원하기
+                        </a>
                         <div class="qr-code-wrapper">
                             <img src="toss-qr.png" alt="데이터공작소 TFT 후원을 위한 토스 송금 QR 코드 - 카메라로 스캔하여 후원하기" class="qr-code-image">
                             <p class="qr-scan-text">
                                 <i class="fas fa-mobile-alt"></i>
-                                카메라로 스캔하세요
+                                또는 QR 코드를 스캔하세요
                             </p>
                         </div>
                     </div>
