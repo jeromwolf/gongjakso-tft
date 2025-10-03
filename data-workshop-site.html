@@ -1182,7 +1182,635 @@
             color: var(--text-secondary);
             line-height: 1.7;
         }
-        
+
+        /* Use Cases 섹션 */
+        .usecases-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .usecases-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .usecases-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .usecase-card {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .usecase-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+
+        .usecase-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .usecase-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .usecase-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Resources 섹션 */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .resources-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .resource-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+
+        .resource-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .icon-techstack {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .icon-faq {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .icon-changelog {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .resource-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .resource-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .resource-stats {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .stat-item i {
+            color: var(--accent-primary);
+        }
+
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent-primary);
+            border-radius: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .resource-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+            gap: 12px;
+        }
+
+        .faq-preview {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+            text-align: left;
+        }
+
+        .faq-preview li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .faq-preview i {
+            color: var(--accent-primary);
+            margin-top: 4px;
+            font-size: 0.75rem;
+        }
+
+        .changelog-items {
+            margin: 16px 0;
+        }
+
+        .changelog-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+        }
+
+        .changelog-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            min-width: 60px;
+        }
+
+        .changelog-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: left;
+            flex: 1;
+        }
+
+        /* 프로젝트 카드 액션 버튼 */
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .card-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .card-btn-details {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .card-btn-details:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .card-btn-github {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .card-btn-github:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .card-btn-full {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            margin-top: 16px;
+            border-radius: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-btn-full:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 10001;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            z-index: 10002;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff4444;
+            color: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            padding: 40px 32px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .modal-status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .modal-image-section {
+            margin: -32px -32px 32px -32px;
+            border-radius: 24px 24px 0 0;
+            overflow: hidden;
+        }
+
+        .modal-project-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-description-detailed {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .modal-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .modal-features-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .modal-features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .modal-usage-example {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .modal-section {
+            margin-bottom: 32px;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .modal-section-title i {
+            color: var(--accent-primary);
+        }
+
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .tech-stack-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .tech-stack-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .tech-stack-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .tech-stack-value {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .github-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .github-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .github-stat i {
+            color: var(--accent-primary);
+        }
+
+        .github-stat span {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .modal-link:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .modal-link-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-link i {
+            color: var(--accent-primary);
+        }
+
+        .modal-footer {
+            padding: 24px 32px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-primary {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+        }
+
+        .modal-btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
         /* 푸터 */
         .footer {
             background: var(--bg-primary);
@@ -1231,7 +1859,41 @@
         .footer-copyright {
             color: var(--text-secondary);
         }
-        
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .social-link:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
         /* 반응형 */
         @media (max-width: 768px) {
             .nav-links {
@@ -1345,7 +2007,7 @@
 
             <div class="projects-grid fade-in">
                 <!-- CutStudio -->
-                <div class="project-card" data-category="video">
+                <div class="project-card" data-category="video" data-project-id="cutstudio">
                     <div class="card-header">
                         <div class="card-icon icon-blue">
                             <i class="fas fa-cut"></i>
@@ -1360,13 +2022,14 @@
                         <span class="tech-tag tag-blue">Video Editing</span>
                         <span class="tech-tag tag-purple">UI/UX</span>
                     </div>
-                    <a href="https://github.com/jeromwolf/CutStudio" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('cutstudio')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- StockAI -->
-                <div class="project-card" data-category="aiml finance">
+                <div class="project-card" data-category="aiml finance" data-project-id="stockai">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-line"></i>
@@ -1382,13 +2045,14 @@
                         <span class="tech-tag tag-teal">Finance</span>
                         <span class="tech-tag tag-blue">Big Data</span>
                     </div>
-                    <a href="https://github.com/jeromwolf/greatworld" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('stockai')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- MP4 Compress -->
-                <div class="project-card" data-category="video">
+                <div class="project-card" data-category="video" data-project-id="mp4compress">
                     <div class="card-header">
                         <div class="card-icon icon-red">
                             <i class="fas fa-compress"></i>
@@ -1403,13 +2067,14 @@
                         <span class="tech-tag tag-red">Video Processing</span>
                         <span class="tech-tag tag-pink">Compression</span>
                     </div>
-                    <a href="https://github.com/ryhyh98/MP4Compress" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('mp4compress')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- YouTube Downloader -->
-                <div class="project-card" data-category="video">
+                <div class="project-card" data-category="video" data-project-id="youtubedownload">
                     <div class="card-header">
                         <div class="card-icon icon-youtube">
                             <i class="fab fa-youtube"></i>
@@ -1425,13 +2090,14 @@
                         <span class="tech-tag tag-orange">YouTube</span>
                         <span class="tech-tag tag-yellow">Utility</span>
                     </div>
-                    <a href="https://github.com/ryhyh98/Youtubedownload" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('youtubedownload')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Docker Management -->
-                <div class="project-card" data-category="devops">
+                <div class="project-card" data-category="devops" data-project-id="dockermanage">
                     <div class="card-header">
                         <div class="card-icon icon-docker">
                             <i class="fab fa-docker"></i>
@@ -1447,13 +2113,14 @@
                         <span class="tech-tag tag-indigo">DevOps</span>
                         <span class="tech-tag tag-purple">Management</span>
                     </div>
-                    <a href="https://codeindocker.com/mains/list" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('dockermanage')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Crypto Factory -->
-                <div class="project-card" data-category="finance">
+                <div class="project-card" data-category="finance" data-project-id="cryptofactory">
                     <div class="card-header">
                         <div class="card-icon icon-bitcoin">
                             <i class="fab fa-bitcoin"></i>
@@ -1470,13 +2137,14 @@
                         <span class="tech-tag tag-green">Real-time Data</span>
                         <span class="tech-tag tag-purple">Container</span>
                     </div>
-                    <a href="https://crypto-factory.cloud/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('cryptofactory')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- PayLens -->
-                <div class="project-card" data-category="finance">
+                <div class="project-card" data-category="finance" data-project-id="paylens">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-bar"></i>
@@ -1492,13 +2160,14 @@
                         <span class="tech-tag tag-blue">Analytics</span>
                         <span class="tech-tag tag-purple">Government Data</span>
                     </div>
-                    <a href="https://paylens-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('paylens')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Backtesting Framework (Source) -->
-                <div class="project-card" data-category="finance">
+                <div class="project-card" data-category="finance" data-project-id="backtesting-framework">
                     <div class="card-header">
                         <div class="card-icon icon-blue-dark">
                             <i class="fas fa-code"></i>
@@ -1515,13 +2184,14 @@
                         <span class="tech-tag tag-purple">Code Generation</span>
                         <span class="tech-tag tag-teal">Investment Analysis</span>
                     </div>
-                    <a href="https://github.com/simverse/TradingBackTester" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('backtesting-framework')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Trading Backtest System (Web UI) -->
-                <div class="project-card" data-category="finance">
+                <div class="project-card" data-category="finance" data-project-id="backtesting-webui">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-line"></i>
@@ -1538,13 +2208,14 @@
                         <span class="tech-tag tag-purple">Real-time</span>
                         <span class="tech-tag tag-teal">Dashboard</span>
                     </div>
-                    <a href="https://backtesting-flux.up.railway.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('backtesting-webui')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Income Tax Calculator -->
-                <div class="project-card" data-category="finance">
+                <div class="project-card" data-category="finance" data-project-id="aitranslator">
                     <div class="card-header">
                         <div class="card-icon icon-green-dark">
                             <i class="fas fa-calculator"></i>
@@ -1561,13 +2232,14 @@
                         <span class="tech-tag tag-purple">Dividends</span>
                         <span class="tech-tag tag-teal">Tax Calculator</span>
                     </div>
-                    <a href="https://github.com/ryhyh98/IncomeTax" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('aitranslator')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- WorldFlow PDF Translation -->
-                <div class="project-card" data-category="aiml">
+                <div class="project-card" data-category="aiml" data-project-id="gptfinetuning">
                     <div class="card-header">
                         <div class="card-icon icon-purple">
                             <i class="fas fa-language"></i>
@@ -1584,13 +2256,14 @@
                         <span class="tech-tag tag-blue">Markdown</span>
                         <span class="tech-tag tag-green">Automation</span>
                     </div>
-                    <a href="https://worldflow-frontend.up.railway.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('worldflow')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
 
                 <!-- Business Plan MCP -->
-                <div class="project-card working" data-category="aiml">
+                <div class="project-card working" data-category="aiml" data-project-id="gongjakso-tft">
                     <div class="card-header">
                         <div class="card-icon icon-orange">
                             <i class="fas fa-file-alt"></i>
@@ -1606,9 +2279,10 @@
                         <span class="tech-tag tag-yellow">Business</span>
                         <span class="tech-tag tag-green">MCP</span>
                     </div>
-                    <a href="https://github.com/jeromwolf/business-plan-hwp-mcp" target="_blank" rel="noopener noreferrer" class="card-link">
-                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <button class="card-btn-full" onclick="openProjectModal('gongjakso-tft')">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="projects.button.details">상세 보기</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1645,6 +2319,58 @@
                     </div>
                     <h3 class="about-title" data-i18n="about.execution.title">빠른 실행력</h3>
                     <p class="about-description" data-i18n="about.execution.desc">아이디어를 빠르게 실현하여 실용적인 도구로 만들어냅니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="usecases" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in" data-i18n="usecases.title">활용 사례</h2>
+            <p class="section-subtitle fade-in" data-i18n="usecases.subtitle">
+                데이터공작소 TFT의 프로젝트들이 실제로 어떻게 활용되고 있는지 확인해보세요
+            </p>
+
+            <div class="usecases-grid fade-in">
+                <div class="usecase-card">
+                    <div class="usecase-icon icon-blue">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="usecase-title" data-i18n="usecases.productivity.title">개발 생산성 향상</h3>
+                    <p class="usecase-description" data-i18n="usecases.productivity.desc">
+                        AI 도구와 자동화 시스템을 활용하여 반복적인 작업을 줄이고, 핵심 개발에 집중할 수 있습니다. Docker 관리, 비디오 편집 등 다양한 도구로 작업 효율을 극대화하세요.
+                    </p>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon icon-green">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="usecase-title" data-i18n="usecases.datadriven.title">데이터 기반 의사결정</h3>
+                    <p class="usecase-description" data-i18n="usecases.datadriven.desc">
+                        실시간 암호화폐 데이터 분석, 연봉 퍼센타일 비교, AI 주식 분석 등을 통해 정확한 데이터를 기반으로 현명한 결정을 내릴 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon icon-purple">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="usecase-title" data-i18n="usecases.trading.title">투자 전략 검증</h3>
+                    <p class="usecase-description" data-i18n="usecases.trading.desc">
+                        백테스팅 프레임워크와 시스템을 사용하여 트레이딩 전략을 과거 데이터로 검증하고, 리스크를 최소화하면서 수익을 극대화할 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="usecase-card">
+                    <div class="usecase-icon icon-orange">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="usecase-title" data-i18n="usecases.content.title">콘텐츠 제작 효율화</h3>
+                    <p class="usecase-description" data-i18n="usecases.content.desc">
+                        비디오 편집, MP4 압축, AI 번역 등의 도구로 콘텐츠 제작 과정을 자동화하고, 더 많은 시간을 창의적인 작업에 투자할 수 있습니다.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1724,6 +2450,158 @@
         </div>
     </section>
 
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in" data-i18n="resources.title">리소스</h2>
+            <p class="section-subtitle fade-in" data-i18n="resources.subtitle">
+                프로젝트를 더 잘 이해하고 활용하기 위한 실용적인 정보
+            </p>
+
+            <div class="resources-grid fade-in">
+                <div class="resource-card">
+                    <div class="resource-icon icon-techstack">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="resource-title" data-i18n="resources.techstack.title">기술 스택 아카이브</h3>
+                    <p class="resource-description" data-i18n="resources.techstack.desc">
+                        각 프로젝트에 사용된 언어, 프레임워크, 배포 환경을 한눈에 확인하고, 기술 선택의 이유를 알아보세요.
+                    </p>
+                    <div class="resource-stats">
+                        <span class="stat-item"><i class="fas fa-code"></i> <span data-i18n="resources.techstack.stat1">12개 프로젝트</span></span>
+                        <span class="stat-item"><i class="fas fa-tools"></i> <span data-i18n="resources.techstack.stat2">15개 기술 스택</span></span>
+                    </div>
+                    <button class="resource-btn" onclick="scrollToProjects()">
+                        <span data-i18n="resources.techstack.button">프로젝트 살펴보기</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon icon-faq">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="resource-title" data-i18n="resources.faq.title">자주 묻는 질문</h3>
+                    <p class="resource-description" data-i18n="resources.faq.desc">
+                        프로젝트 라이선스, 사용 방법, 기여 가이드 등 자주 묻는 질문과 답변을 확인하세요.
+                    </p>
+                    <ul class="faq-preview">
+                        <li><i class="fas fa-chevron-right"></i> <span data-i18n="resources.faq.q1">모든 프로젝트는 MIT 라이선스로 공개됩니다</span></li>
+                        <li><i class="fas fa-chevron-right"></i> <span data-i18n="resources.faq.q2">누구나 자유롭게 사용하고 수정할 수 있습니다</span></li>
+                        <li><i class="fas fa-chevron-right"></i> <span data-i18n="resources.faq.q3">기여는 GitHub Pull Request로 환영합니다</span></li>
+                    </ul>
+                    <a href="https://github.com/jeromwolf" target="_blank" rel="noopener noreferrer" class="resource-btn">
+                        <span data-i18n="resources.faq.button">GitHub에서 더 보기</span> <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon icon-changelog">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="resource-title" data-i18n="resources.changelog.title">업데이트 로그</h3>
+                    <p class="resource-description" data-i18n="resources.changelog.desc">
+                        최신 프로젝트 업데이트, 재정 투명성 보고서, Featured 프로젝트를 확인하세요.
+                    </p>
+                    <div class="changelog-items">
+                        <div class="changelog-item">
+                            <span class="changelog-date">2025-10</span>
+                            <span class="changelog-text" data-i18n="resources.changelog.item1">🚀 TFT 홈페이지 2차 개선 (다국어, 모달)</span>
+                        </div>
+                        <div class="changelog-item">
+                            <span class="changelog-date">2025-10</span>
+                            <span class="changelog-text" data-i18n="resources.changelog.item2">💰 후원금 투명 보고서 (AI 도구 50%)</span>
+                        </div>
+                        <div class="changelog-item">
+                            <span class="changelog-date">2025-09</span>
+                            <span class="changelog-text" data-i18n="resources.changelog.item3">⭐ Featured: StockAI 프로젝트</span>
+                        </div>
+                    </div>
+                    <button class="resource-btn" onclick="alert('업데이트 로그 페이지는 준비 중입니다.')">
+                        <span data-i18n="resources.changelog.button">전체 로그 보기</span> <i class="fas fa-history"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProjectModal()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2 class="modal-title" id="modalTitle">프로젝트 제목</h2>
+                <span class="modal-status-badge" id="modalStatus">🟢 Active</span>
+            </div>
+
+            <div class="modal-body">
+                <!-- 프로젝트 이미지 -->
+                <div class="modal-image-section" id="modalImageSection" style="display: none;">
+                    <img id="modalImage" src="" alt="프로젝트 스크린샷" class="modal-project-image">
+                </div>
+
+                <!-- 상세 설명 -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-align-left"></i>
+                        <span data-i18n="modal.description">프로젝트 소개</span>
+                    </h3>
+                    <p class="modal-description-detailed" id="modalDescription">프로젝트 상세 설명</p>
+                </div>
+
+                <!-- 주요 기능 -->
+                <div class="modal-section" id="modalFeaturesSection">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-star"></i>
+                        <span data-i18n="modal.features">주요 기능</span>
+                    </h3>
+                    <ul class="modal-features-list" id="modalFeatures">
+                        <!-- Dynamic features -->
+                    </ul>
+                </div>
+
+                <!-- 기술 스택 -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-layer-group"></i>
+                        <span data-i18n="modal.techstack">기술 스택</span>
+                    </h3>
+                    <div class="tech-stack-grid" id="modalTechStack">
+                        <!-- Dynamic tech stack items -->
+                    </div>
+                </div>
+
+                <!-- 사용 예시 -->
+                <div class="modal-section" id="modalUsageSection" style="display: none;">
+                    <h3 class="modal-section-title">
+                        <i class="fas fa-code"></i>
+                        <span data-i18n="modal.usage">사용 예시</span>
+                    </h3>
+                    <div class="modal-usage-example" id="modalUsage">
+                        <!-- Dynamic usage example -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a id="modalGitHubLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-primary">
+                    <i class="fab fa-github"></i>
+                    <span data-i18n="modal.view.github">GitHub에서 보기</span>
+                </a>
+                <a id="modalWebLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-secondary" style="display: none;">
+                    <i class="fas fa-globe"></i>
+                    <span data-i18n="modal.view.web">웹사이트 방문</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer id="contact" class="footer">
         <div class="container">
@@ -1734,6 +2612,15 @@
                 <span class="footer-title" data-i18n="nav.logo">데이터공작소 개발 TFT</span>
             </div>
             <p class="footer-subtitle" data-i18n="footer.tagline">혁신적인 솔루션으로 더 나은 세상을 만들어갑니다</p>
+
+            <div class="footer-social">
+                <a href="https://github.com/jeromwolf" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCzwPW_BSlr4Art7ckUYK5kw" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
 
             <div class="footer-divider">
                 <p class="footer-copyright">© <span id="currentYear"></span> <span data-i18n="footer.copyright">데이터공작소 개발 TFT. All rights reserved.</span></p>
@@ -1802,9 +2689,42 @@
                 'support.usage.4': '기술 문서화 및 튜토리얼 제작',
                 'support.usage.5': '커뮤니티와 함께 성장하는 개발 생태계 조성',
 
+                // Use Cases
+                'usecases.title': '활용 사례',
+                'usecases.subtitle': '데이터공작소 TFT의 프로젝트들이 실제로 어떻게 활용되고 있는지 확인해보세요',
+                'usecases.productivity.title': '개발 생산성 향상',
+                'usecases.productivity.desc': 'AI 도구와 자동화 시스템을 활용하여 반복적인 작업을 줄이고, 핵심 개발에 집중할 수 있습니다. Docker 관리, 비디오 편집 등 다양한 도구로 작업 효율을 극대화하세요.',
+                'usecases.datadriven.title': '데이터 기반 의사결정',
+                'usecases.datadriven.desc': '실시간 암호화폐 데이터 분석, 연봉 퍼센타일 비교, AI 주식 분석 등을 통해 정확한 데이터를 기반으로 현명한 결정을 내릴 수 있습니다.',
+                'usecases.trading.title': '투자 전략 검증',
+                'usecases.trading.desc': '백테스팅 프레임워크와 시스템을 사용하여 트레이딩 전략을 과거 데이터로 검증하고, 리스크를 최소화하면서 수익을 극대화할 수 있습니다.',
+                'usecases.content.title': '콘텐츠 제작 효율화',
+                'usecases.content.desc': '비디오 편집, MP4 압축, AI 번역 등의 도구로 콘텐츠 제작 과정을 자동화하고, 더 많은 시간을 창의적인 작업에 투자할 수 있습니다.',
+
                 // Footer
                 'footer.tagline': '혁신적인 솔루션으로 더 나은 세상을 만들어갑니다',
                 'footer.copyright': '데이터공작소 개발 TFT. All rights reserved.',
+
+                // Community
+                'resources.title': '리소스',
+                'resources.subtitle': '프로젝트를 더 잘 이해하고 활용하기 위한 실용적인 정보',
+                'resources.techstack.title': '기술 스택 아카이브',
+                'resources.techstack.desc': '각 프로젝트에 사용된 언어, 프레임워크, 배포 환경을 한눈에 확인하고, 기술 선택의 이유를 알아보세요.',
+                'resources.techstack.stat1': '12개 프로젝트',
+                'resources.techstack.stat2': '15개 기술 스택',
+                'resources.techstack.button': '프로젝트 살펴보기',
+                'resources.faq.title': '자주 묻는 질문',
+                'resources.faq.desc': '프로젝트 라이선스, 사용 방법, 기여 가이드 등 자주 묻는 질문과 답변을 확인하세요.',
+                'resources.faq.q1': '모든 프로젝트는 MIT 라이선스로 공개됩니다',
+                'resources.faq.q2': '누구나 자유롭게 사용하고 수정할 수 있습니다',
+                'resources.faq.q3': '기여는 GitHub Pull Request로 환영합니다',
+                'resources.faq.button': 'GitHub에서 더 보기',
+                'resources.changelog.title': '업데이트 로그',
+                'resources.changelog.desc': '최신 프로젝트 업데이트, 재정 투명성 보고서, Featured 프로젝트를 확인하세요.',
+                'resources.changelog.item1': '🚀 TFT 홈페이지 2차 개선 (다국어, 모달)',
+                'resources.changelog.item2': '💰 후원금 투명 보고서 (AI 도구 50%)',
+                'resources.changelog.item3': '⭐ Featured: StockAI 프로젝트',
+                'resources.changelog.button': '전체 로그 보기',
 
                 // Project Cards
                 'cutstudio.title': 'CutStudio',
@@ -1830,7 +2750,18 @@
                 'worldflow.title': 'WorldFlow',
                 'worldflow.desc': 'AI 기반 PDF 번역 시스템으로 한국어 강의 자료를 해외 강사에게 빠르고 정확하게 전달합니다. PDF → Markdown → AI 번역 → 편집 → PDF 생성까지 한 번에 처리하는 통합 솔루션입니다.',
                 'businessplan.title': '사업계획서 도우미 MCP',
-                'businessplan.desc': 'AI를 활용하여 전문적인 사업계획서 작성을 도와주는 혁신적인 Model Context Protocol 기반 도구입니다.'
+                'businessplan.desc': 'AI를 활용하여 전문적인 사업계획서 작성을 도와주는 혁신적인 Model Context Protocol 기반 도구입니다.',
+
+                // Project Modal
+                'projects.button.details': '상세 보기',
+                'modal.description': '프로젝트 소개',
+                'modal.features': '주요 기능',
+                'modal.techstack': '기술 스택',
+                'modal.usage': '사용 예시',
+                'modal.github': 'GitHub 정보',
+                'modal.links': '링크',
+                'modal.view.github': 'GitHub에서 보기',
+                'modal.view.web': '웹사이트 방문'
             },
             en: {
                 // Navigation
@@ -1890,9 +2821,42 @@
                 'support.usage.4': 'Technical documentation and tutorial creation',
                 'support.usage.5': 'Building a development ecosystem that grows with the community',
 
+                // Use Cases
+                'usecases.title': 'Use Cases',
+                'usecases.subtitle': 'See how Gongjakso TFT projects are being used in real-world scenarios',
+                'usecases.productivity.title': 'Boost Development Productivity',
+                'usecases.productivity.desc': 'Reduce repetitive tasks and focus on core development using AI tools and automation systems. Maximize work efficiency with various tools like Docker management and video editing.',
+                'usecases.datadriven.title': 'Data-Driven Decision Making',
+                'usecases.datadriven.desc': 'Make informed decisions based on accurate data through real-time cryptocurrency analysis, salary percentile comparison, and AI stock analysis.',
+                'usecases.trading.title': 'Validate Investment Strategies',
+                'usecases.trading.desc': 'Verify trading strategies with historical data using backtesting frameworks and systems, minimizing risk while maximizing returns.',
+                'usecases.content.title': 'Streamline Content Creation',
+                'usecases.content.desc': 'Automate content creation processes with tools like video editing, MP4 compression, and AI translation, investing more time in creative work.',
+
                 // Footer
                 'footer.tagline': 'Making a better world with innovative solutions',
                 'footer.copyright': 'Gongjakso Development TFT. All rights reserved.',
+
+                // Community
+                'resources.title': 'Resources',
+                'resources.subtitle': 'Practical information to better understand and utilize our projects',
+                'resources.techstack.title': 'Tech Stack Archive',
+                'resources.techstack.desc': 'Explore the languages, frameworks, and deployment environments used in each project, and understand the reasoning behind our technology choices.',
+                'resources.techstack.stat1': '12 Projects',
+                'resources.techstack.stat2': '15 Tech Stacks',
+                'resources.techstack.button': 'Explore Projects',
+                'resources.faq.title': 'Frequently Asked Questions',
+                'resources.faq.desc': 'Find answers to common questions about project licenses, usage, contribution guidelines, and more.',
+                'resources.faq.q1': 'All projects are released under MIT license',
+                'resources.faq.q2': 'Anyone can freely use and modify the code',
+                'resources.faq.q3': 'Contributions are welcome via GitHub Pull Requests',
+                'resources.faq.button': 'Learn More on GitHub',
+                'resources.changelog.title': 'Update Log',
+                'resources.changelog.desc': 'Check the latest project updates, financial transparency reports, and featured projects.',
+                'resources.changelog.item1': '🚀 TFT Homepage Phase 2 (Multilingual, Modal)',
+                'resources.changelog.item2': '💰 Donation Transparency Report (50% AI Tools)',
+                'resources.changelog.item3': '⭐ Featured: StockAI Project',
+                'resources.changelog.button': 'View Full Log',
 
                 // Project Cards
                 'cutstudio.title': 'CutStudio',
@@ -1918,7 +2882,18 @@
                 'worldflow.title': 'WorldFlow',
                 'worldflow.desc': 'An AI-powered PDF translation system that quickly and accurately delivers Korean lecture materials to international instructors. An integrated solution handling PDF → Markdown → AI Translation → Editing → PDF Generation all at once.',
                 'businessplan.title': 'Business Plan Assistant MCP',
-                'businessplan.desc': 'An innovative Model Context Protocol-based tool that helps create professional business plans using AI.'
+                'businessplan.desc': 'An innovative Model Context Protocol-based tool that helps create professional business plans using AI.',
+
+                // Project Modal
+                'projects.button.details': 'View Details',
+                'modal.description': 'Project Overview',
+                'modal.features': 'Key Features',
+                'modal.techstack': 'Tech Stack',
+                'modal.usage': 'Usage Example',
+                'modal.github': 'GitHub Info',
+                'modal.links': 'Links',
+                'modal.view.github': 'View on GitHub',
+                'modal.view.web': 'Visit Website'
             }
         };
 
@@ -1992,6 +2967,14 @@
             });
         });
 
+        // Resources 섹션 유틸 함수
+        function scrollToProjects() {
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // 카테고리 필터 기능
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
@@ -2022,8 +3005,741 @@
             });
         });
 
+        // 프로젝트 모달 데이터
+        const projectData = {
+            ko: {
+                'cutstudio': {
+                    icon: 'fas fa-cut',
+                    iconClass: 'icon-blue',
+                    title: 'CutStudio',
+                    status: '🟢 Active',
+                    description: 'AI 기반 영상 편집 자동화 도구로, 교육용 영상 편집 시간을 10시간에서 15분으로 단축시킵니다. 화자 분리, 자동 무음 제거, 음성-텍스트 변환 기능을 통해 편집 효율을 97.5% 향상시킵니다.',
+                    features: [
+                        '최대 10명의 화자 자동 분리 및 화자별 타임라인 생성',
+                        '3초 이상 무음 및 간투사(음, 아) 자동 제거로 영상 길이 50% 단축',
+                        '95% 정확도의 음성 인식과 SRT 자막 파일 자동 생성',
+                        'Gemini AI 기반 영상 요약 기능',
+                        'Streamlit 기반 직관적인 웹 인터페이스'
+                    ],
+                    techStack: {
+                        language: 'Python 3.11+',
+                        framework: 'Streamlit 1.29.0',
+                        ai: 'Whisper, PyAnnote, Gemini',
+                        processing: 'MoviePy, FFmpeg'
+                    },
+                    usageExample: '영상 업로드 후 자동으로 화자 분리 및 무음 구간 제거, 자막 생성까지 원클릭 처리',
+                    github: 'https://github.com/jeromwolf/CutStudio',
+                    webUrl: null,
+                    imageUrl: null
+                },
+            'stockai': {
+                icon: 'fas fa-chart-line',
+                iconClass: 'icon-green',
+                title: 'StockAI',
+                status: '🚀 Featured',
+                description: 'A2A 멀티에이전트 시스템을 기반으로 한 실시간 주식 분석 챗봇 서비스입니다. 5개의 전문 AI 에이전트가 협업하여 자연어 질문을 분석하고 기술적/재무적 분석 결과를 제공합니다.',
+                features: [
+                    '자연어 이해, 재무 분석, 기술적 분석, 감성 분석, 실시간 가격 데이터 에이전트 협업',
+                    'Yahoo Finance, DART, SEC 공시 데이터 통합 분석',
+                    'Reddit, StockTwits 등 소셜 미디어 감성 분석',
+                    'WebSocket 기반 실시간 데이터 스트리밍',
+                    '가중치 기반 데이터 소스 신뢰도 시스템'
+                ],
+                techStack: {
+                    backend: 'FastAPI, Python 3.8+',
+                    frontend: 'Next.js',
+                    database: 'PostgreSQL 12+, Redis 6+',
+                    deployment: 'uvicorn'
+                },
+                usageExample: '챗봇에 "삼성전자 주가 전망은?" 질문 시 AI 에이전트들이 협업하여 종합 분석 제공',
+                github: 'https://github.com/jeromwolf/greatworld',
+                webUrl: null,
+                imageUrl: null
+            },
+            'mp4compress': {
+                icon: 'fas fa-compress',
+                iconClass: 'icon-red',
+                title: 'MP4 압축 도구',
+                status: '🟢 Active',
+                description: 'MP4 영상 파일의 용량을 고품질을 유지하면서 대폭 줄여주는 압축 유틸리티입니다. H.265(HEVC) 코덱을 사용하여 CLI와 GUI 두 가지 인터페이스를 제공하며, CRF 값 조정을 통해 품질과 용량의 균형을 맞출 수 있습니다.',
+                features: [
+                    'H.265(HEVC) 코덱 기반 고효율 압축',
+                    'CLI 및 GUI 인터페이스 모두 지원',
+                    'CRF(Constant Rate Factor) 값 조정으로 압축률 제어',
+                    '실시간 압축 진행률 표시',
+                    '특수문자 포함 파일 경로 처리 지원'
+                ],
+                techStack: {
+                    language: 'Python 3.x',
+                    processing: 'FFmpeg',
+                    gui: 'Tkinter',
+                    packaging: 'PyInstaller'
+                },
+                usageExample: 'python mp4_compressor.py video.mp4 --crf 26',
+                github: 'https://github.com/ryhyh98/MP4Compress',
+                webUrl: null,
+                imageUrl: null
+            },
+            'youtubedownload': {
+                icon: 'fab fa-youtube',
+                iconClass: 'icon-youtube',
+                title: '유튜브 다운로더',
+                status: '🟢 Active',
+                description: 'YouTube 동영상과 오디오를 간편하게 다운로드할 수 있는 GUI 애플리케이션입니다. 1080p, 720p, 480p 등 다양한 해상도를 지원하며, MP3 오디오 추출 기능도 제공합니다.',
+                features: [
+                    '1080p, 720p, 480p 등 다양한 해상도 선택 가능',
+                    'MP3 오디오 전용 다운로드 지원',
+                    '직관적인 GUI 인터페이스',
+                    '실시간 다운로드 진행률 표시',
+                    'downloads 폴더에 자동 저장'
+                ],
+                techStack: {
+                    language: 'Python 3',
+                    downloader: 'yt-dlp',
+                    processing: 'FFmpeg',
+                    gui: 'Tkinter'
+                },
+                usageExample: 'YouTube URL 붙여넣기 → 해상도 선택 → 다운로드 버튼 클릭',
+                github: 'https://github.com/ryhyh98/YoutubeDownload',
+                webUrl: null,
+                imageUrl: null
+            },
+            'dockermanage': {
+                icon: 'fab fa-docker',
+                iconClass: 'icon-docker',
+                title: '도커 관리 사이트',
+                status: '🟢 Active',
+                description: 'Docker 컨테이너, 이미지, 볼륨, 네트워크를 웹 인터페이스에서 관리할 수 있는 관리 도구입니다. 복잡한 CLI 명령어 없이 직관적인 대시보드에서 Docker 리소스를 모니터링하고 제어할 수 있습니다.',
+                features: [
+                    '컨테이너 시작/중지/재시작 원클릭 제어',
+                    '이미지 풀/삭제 관리 및 태그 조회',
+                    '볼륨 및 네트워크 생성/삭제 기능',
+                    '실시간 컨테이너 로그 모니터링',
+                    '리소스 사용량 대시보드'
+                ],
+                techStack: {
+                    backend: 'Python, Flask',
+                    api: 'Docker SDK for Python',
+                    frontend: 'HTML, CSS, JavaScript',
+                    deployment: 'Docker'
+                },
+                usageExample: '웹 대시보드에서 컨테이너 상태 확인 및 원클릭으로 시작/중지 제어',
+                github: null,
+                webUrl: 'https://codeindocker.com/mains/list',
+                imageUrl: null
+            },
+            'cryptofactory': {
+                icon: 'fab fa-bitcoin',
+                iconClass: 'icon-crypto',
+                title: 'Crypto Factory',
+                status: '🟡 Maintenance',
+                description: '암호화폐 자동 거래 및 백테스팅 플랫폼으로, 다양한 거래소 API를 통합하고 사용자 정의 전략을 테스트할 수 있습니다. 실시간 시장 데이터 분석과 자동 매매 실행을 지원합니다.',
+                features: [
+                    '다중 거래소 API 통합 (Binance, Upbit 등)',
+                    '사용자 정의 매매 전략 백테스팅',
+                    '실시간 시장 데이터 모니터링',
+                    '자동 매매 실행 엔진',
+                    '수익률 및 리스크 분석 대시보드'
+                ],
+                techStack: {
+                    language: 'Python',
+                    framework: 'FastAPI',
+                    database: 'PostgreSQL',
+                    deployment: 'Docker'
+                },
+                usageExample: '전략 코드 작성 → 백테스팅 실행 → 결과 분석 → 실전 자동 거래 적용',
+                github: null,
+                webUrl: 'https://crypto-factory.cloud',
+                imageUrl: null
+            },
+            'paylens': {
+                icon: 'fas fa-dollar-sign',
+                iconClass: 'icon-teal',
+                title: 'PayLens',
+                status: '🟢 Active',
+                description: '내 연봉은 상위 몇%? 정확한 데이터로 당신의 소득 위치를 렌즈처럼 선명하게 보여드립니다. 국세청과 US Census Bureau의 2024년 공식 데이터를 기반으로 한국과 미국의 소득 분위를 실시간으로 분석합니다.',
+                features: [
+                    '실시간 소득 백분위 분석 (한국/미국)',
+                    '국세청 및 US Census Bureau 2024년 공식 데이터 기반',
+                    '목표 소득 설정 및 격차 분석',
+                    '국가 간 소득 비교 기능',
+                    'Framer Motion 기반 부드러운 애니메이션'
+                ],
+                techStack: {
+                    framework: 'Next.js 15.5.3',
+                    language: 'TypeScript',
+                    styling: 'Tailwind CSS',
+                    deployment: 'Vercel'
+                },
+                usageExample: '연봉 입력 시 실시간으로 상위 몇%인지 분석하고 목표 소득과의 격차 확인',
+                github: 'https://github.com/jeromwolf/paylens',
+                webUrl: 'https://paylens-kappa.vercel.app',
+                imageUrl: null
+            },
+            'backtesting-framework': {
+                icon: 'fas fa-code',
+                iconClass: 'icon-purple',
+                title: '백테스팅 프레임워크',
+                status: '🟢 Active',
+                description: '주식 및 암호화폐 거래 전략을 과거 데이터로 검증하는 백테스팅 프레임워크입니다. 다양한 기술적 지표와 커스텀 전략을 지원하며, 상세한 성과 분석 리포트를 제공합니다.',
+                features: [
+                    '다양한 기술적 지표 내장 (MA, RSI, MACD, Bollinger Bands 등)',
+                    '커스텀 전략 작성 및 테스트',
+                    '상세한 수익률, 샤프 비율, MDD 분석',
+                    '캔들스틱 차트와 매매 시점 시각화',
+                    'CSV 데이터 임포트 지원'
+                ],
+                techStack: {
+                    language: 'Python',
+                    libraries: 'pandas, numpy, matplotlib',
+                    indicators: 'TA-Lib',
+                    analysis: 'scipy, sklearn'
+                },
+                usageExample: '전략 함수 정의 → 과거 데이터 로드 → 백테스트 실행 → 성과 지표 확인',
+                github: 'https://github.com/simverse/TradingBackTester',
+                webUrl: null,
+                imageUrl: null
+            },
+            'backtesting-webui': {
+                icon: 'fas fa-chart-area',
+                iconClass: 'icon-orange',
+                title: '백테스팅 시스템 (웹 UI)',
+                status: '🟢 Active',
+                description: '백테스팅 프레임워크를 웹 인터페이스로 제공하는 대시보드입니다. 코딩 없이 드래그 앤 드롭으로 전략을 구성하고, 실시간으로 백테스트 결과를 시각화할 수 있습니다.',
+                features: [
+                    '노코드 전략 빌더 (드래그 앤 드롭)',
+                    '실시간 백테스트 결과 시각화',
+                    '인터랙티브 차트 및 성과 대시보드',
+                    '다중 전략 비교 분석',
+                    '전략 템플릿 라이브러리'
+                ],
+                techStack: {
+                    frontend: 'React, TypeScript',
+                    backend: 'FastAPI, Python',
+                    charts: 'Chart.js, D3.js',
+                    deployment: 'Vercel, Railway'
+                },
+                usageExample: '전략 블록 조합 → 종목 및 기간 선택 → 백테스트 실행 → 대시보드에서 결과 확인',
+                github: 'https://github.com/jeromwolf/Backtesting',
+                webUrl: 'https://backtesting-flux.up.railway.app',
+                imageUrl: null
+            },
+            'aitranslator': {
+                icon: 'fas fa-calculator',
+                iconClass: 'icon-green-dark',
+                title: '종합소득세 계산기',
+                status: '🟢 Active',
+                description: '근로소득이 있으면서 금융소득이 2백만원을 초과하는 개인을 위한 웹 기반 종합 금융소득세 계산기입니다. 추가 세금, 해외 ETF 양도소득세, 외국 ETF 배당금 원천징수세, 추가 건강보험료를 정확하게 계산합니다.',
+                features: [
+                    'MAX(A, B) 방식의 종합소득세 정확한 계산',
+                    '해외 ETF 양도소득세 자동 계산',
+                    '외국 ETF 배당금 원천징수세 정보 제공',
+                    '금융소득 기반 추가 건강보험료 계산',
+                    '직관적인 단일 페이지 인터페이스와 투명한 계산 과정',
+                    '다양한 금융소득 시나리오 지원 (이자, 배당, 양도차익)'
+                ],
+                techStack: {
+                    language: 'Python 3.8+',
+                    backend: 'Flask',
+                    frontend: 'HTML, CSS, JavaScript',
+                    deployment: 'Flask app / Windows exe'
+                },
+                usageExample: '근로소득과 금융소득 입력 → 공식 세율표 기반 종합소득세 계산 → 추가 세금, ETF 세금, 건강보험료 확인',
+                github: 'https://github.com/ryhyh98/IncomeTax',
+                webUrl: null,
+                imageUrl: null
+            },
+            'gptfinetuning': {
+                icon: 'fas fa-brain',
+                iconClass: 'icon-indigo',
+                title: 'GPT Fine-tuning',
+                status: '🟡 Maintenance',
+                description: 'OpenAI GPT 모델을 특정 도메인이나 업무에 맞게 파인튜닝하는 도구입니다. 학습 데이터 준비부터 모델 훈련, 평가까지 전 과정을 자동화하고 관리할 수 있는 통합 플랫폼입니다.',
+                features: [
+                    '학습 데이터 자동 포맷팅 및 검증',
+                    'OpenAI Fine-tuning API 통합',
+                    '학습 진행률 모니터링 대시보드',
+                    '모델 성능 A/B 테스트',
+                    '파인튜닝 비용 계산 및 최적화'
+                ],
+                techStack: {
+                    ai: 'OpenAI API (GPT-3.5, GPT-4)',
+                    backend: 'Python, FastAPI',
+                    data: 'pandas, jsonl',
+                    monitoring: 'Weights & Biases'
+                },
+                usageExample: '학습 데이터 업로드 → 파인튜닝 설정 → 모델 학습 → 성능 평가 및 배포',
+                github: 'https://github.com/jeromwolf/gpt-fine-tuning',
+                webUrl: 'https://gpt-fine-tuning.up.railway.app',
+                imageUrl: null
+            },
+            'worldflow': {
+                icon: 'fas fa-file-pdf',
+                iconClass: 'icon-purple',
+                title: 'WorldFlow',
+                status: '🟢 Active',
+                description: 'AI 기반 PDF 번역 플랫폼으로 한국어 교육 자료를 국제 학술 활동에 맞게 영문으로 번역합니다. 표, 차트, 이미지를 포함한 원본 레이아웃을 유지하면서 3-5분 내에 빠른 번역이 가능합니다.',
+                features: [
+                    '🚀 Quick Mode: 3-5분 내 빠른 번역 처리',
+                    '👨‍🏫 Pro Mode: 실시간 마크다운 편집 및 고품질 전문 번역',
+                    '📊 원본 문서 레이아웃 보존 (표, 차트, 이미지 유지)',
+                    '✏️ 실시간 마크다운 편집 인터페이스 및 라이브 프리뷰',
+                    '🔧 번역 전체에 걸친 용어 일관성 유지'
+                ],
+                techStack: {
+                    backend: 'Python 3.11+, FastAPI, PostgreSQL, Redis, Celery',
+                    frontend: 'TypeScript, React 18, Vite, TailwindCSS',
+                    processing: 'PyMuPDF',
+                    deployment: 'Railway'
+                },
+                usageExample: 'PDF 업로드 → Markdown 변환 → AI 번역 → 실시간 편집 → PDF 생성 및 다운로드',
+                github: 'https://github.com/jeromwolf/WorldFlow',
+                webUrl: 'https://worldflow-frontend.up.railway.app',
+                imageUrl: null
+            },
+            'gongjakso-tft': {
+                icon: 'fas fa-file-alt',
+                iconClass: 'icon-orange',
+                title: '사업계획서 도우미 MCP',
+                status: '🚧 Working',
+                description: '엑셀 사업계획서 데이터를 한글(HWP) 문서로 자동 변환하는 AI 기반 도구입니다. Model Context Protocol(MCP)을 활용하여 AI 기반 콘텐츠 분석 및 개선 제안을 제공하며, 전문적인 사업계획서 작성을 쉽고 효율적으로 만듭니다.',
+                features: [
+                    'Excel → HWP 변환 (DOCX 중간 포맷 처리)',
+                    'HWP 호환성을 위한 특수문자 자동 처리',
+                    '한글 텍스트를 위한 멀티 인코딩 지원 (UTF-8, EUC-KR, CP949)',
+                    '변환 중 복잡한 표 구조 보존',
+                    '드래그 앤 드롭 파일 업로드 및 실시간 미리보기',
+                    '3개 전문 템플릿: 표준 사업계획서, VC 투자제안서, 정부 프로젝트 제안서',
+                    'MCP 기반 AI 콘텐츠 분석 및 개선 제안',
+                    '대용량 파일 지원 (10,000+ 행)',
+                    '커스터마이징 가능한 템플릿'
+                ],
+                techStack: {
+                    language: 'TypeScript',
+                    framework: 'Electron (Windows, macOS, Linux)',
+                    frontend: 'React',
+                    ai: 'MCP (Model Context Protocol)',
+                    libraries: 'xlsx, docx, iconv-lite, sharp'
+                },
+                usageExample: '앱 실행 → Excel 파일 드래그 앤 드롭 → 템플릿 선택 → 특수문자 처리된 DOCX 변환 → AI MCP 분석 및 개선 제안 → 최종 HWP 문서 생성',
+                github: 'https://github.com/jeromwolf/business-plan-hwp-mcp',
+                webUrl: null,
+                imageUrl: null
+            }
+        },
+        en: {
+                'cutstudio': {
+                    icon: 'fas fa-cut',
+                    iconClass: 'icon-blue',
+                    title: 'CutStudio',
+                    status: '🟢 Active',
+                    description: 'AI-powered video editing automation tool that reduces educational video editing time from 10 hours to 15 minutes. Improves editing efficiency by 97.5% through speaker separation, automatic silence removal, and speech-to-text conversion.',
+                    features: [
+                        'Automatic separation of up to 10 speakers with individual timelines',
+                        'Auto-removal of 3+ second silences and filler words (um, uh) to reduce video length by 50%',
+                        '95% accurate speech recognition with automatic SRT subtitle generation',
+                        'Gemini AI-powered video summarization',
+                        'Intuitive web interface built with Streamlit'
+                    ],
+                    techStack: {
+                        language: 'Python 3.11+',
+                        framework: 'Streamlit 1.29.0',
+                        ai: 'Whisper, PyAnnote, Gemini',
+                        processing: 'MoviePy, FFmpeg'
+                    },
+                    usageExample: 'Upload video → automatic speaker separation, silence removal, and subtitle generation with one click',
+                    github: 'https://github.com/jeromwolf/CutStudio',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'stockai': {
+                    icon: 'fas fa-chart-line',
+                    iconClass: 'icon-green',
+                    title: 'StockAI',
+                    status: '🚀 Featured',
+                    description: 'Real-time stock analysis chatbot service based on A2A multi-agent system. Five specialized AI agents collaborate to analyze natural language queries and provide technical/financial analysis results.',
+                    features: [
+                        'Collaborative AI agents for NLU, financial analysis, technical analysis, sentiment analysis, and real-time price data',
+                        'Integrated analysis of Yahoo Finance, DART, SEC filing data',
+                        'Social media sentiment analysis from Reddit, StockTwits, etc.',
+                        'WebSocket-based real-time data streaming',
+                        'Weighted data source reliability system'
+                    ],
+                    techStack: {
+                        backend: 'FastAPI, Python 3.8+',
+                        frontend: 'Next.js',
+                        database: 'PostgreSQL 12+, Redis 6+',
+                        deployment: 'uvicorn'
+                    },
+                    usageExample: 'Ask chatbot "What\'s the outlook for Samsung Electronics?" and AI agents collaborate to provide comprehensive analysis',
+                    github: 'https://github.com/jeromwolf/greatworld',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'mp4compress': {
+                    icon: 'fas fa-compress',
+                    iconClass: 'icon-red',
+                    title: 'MP4 Compression Tool',
+                    status: '🟢 Active',
+                    description: 'Compression utility that significantly reduces MP4 video file sizes while maintaining high quality. Uses H.265(HEVC) codec with both CLI and GUI interfaces, allowing quality-size balance through CRF value adjustment.',
+                    features: [
+                        'H.265(HEVC) codec-based high-efficiency compression',
+                        'Both CLI and GUI interfaces supported',
+                        'Compression ratio control via CRF (Constant Rate Factor) value',
+                        'Real-time compression progress display',
+                        'Special character file path handling support'
+                    ],
+                    techStack: {
+                        language: 'Python 3.x',
+                        processing: 'FFmpeg',
+                        gui: 'Tkinter',
+                        packaging: 'PyInstaller'
+                    },
+                    usageExample: 'python mp4_compressor.py video.mp4 --crf 26',
+                    github: 'https://github.com/ryhyh98/MP4Compress',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'youtubedownload': {
+                    icon: 'fab fa-youtube',
+                    iconClass: 'icon-youtube',
+                    title: 'YouTube Downloader',
+                    status: '🟢 Active',
+                    description: 'GUI application for easily downloading YouTube videos and audio. Supports various resolutions including 1080p, 720p, 480p, and also provides MP3 audio extraction functionality.',
+                    features: [
+                        'Various resolution options: 1080p, 720p, 480p, etc.',
+                        'MP3 audio-only download support',
+                        'Intuitive GUI interface',
+                        'Real-time download progress display',
+                        'Auto-save to downloads folder'
+                    ],
+                    techStack: {
+                        language: 'Python 3',
+                        downloader: 'yt-dlp',
+                        processing: 'FFmpeg',
+                        gui: 'Tkinter'
+                    },
+                    usageExample: 'Paste YouTube URL → Select resolution → Click download button',
+                    github: 'https://github.com/ryhyh98/YoutubeDownload',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'dockermanage': {
+                    icon: 'fab fa-docker',
+                    iconClass: 'icon-docker',
+                    title: 'Docker Management Site',
+                    status: '🟢 Active',
+                    description: 'Management tool for controlling Docker containers, images, volumes, and networks via web interface. Monitor and control Docker resources through an intuitive dashboard without complex CLI commands.',
+                    features: [
+                        'One-click container start/stop/restart control',
+                        'Image pull/delete management and tag viewing',
+                        'Volume and network create/delete functionality',
+                        'Real-time container log monitoring',
+                        'Resource usage dashboard'
+                    ],
+                    techStack: {
+                        backend: 'Python, Flask',
+                        api: 'Docker SDK for Python',
+                        frontend: 'HTML, CSS, JavaScript',
+                        deployment: 'Docker'
+                    },
+                    usageExample: 'Check container status in web dashboard and control start/stop with one click',
+                    github: null,
+                    webUrl: 'https://codeindocker.com/mains/list',
+                    imageUrl: null
+                },
+                'cryptofactory': {
+                    icon: 'fab fa-bitcoin',
+                    iconClass: 'icon-crypto',
+                    title: 'Crypto Factory',
+                    status: '🟡 Maintenance',
+                    description: 'Cryptocurrency automated trading and backtesting platform that integrates various exchange APIs and allows testing of custom strategies. Supports real-time market data analysis and automated trade execution.',
+                    features: [
+                        'Multi-exchange API integration (Binance, Upbit, etc.)',
+                        'Custom trading strategy backtesting',
+                        'Real-time market data monitoring',
+                        'Automated trade execution engine',
+                        'Profit and risk analysis dashboard'
+                    ],
+                    techStack: {
+                        language: 'Python',
+                        framework: 'FastAPI',
+                        database: 'PostgreSQL',
+                        deployment: 'Docker'
+                    },
+                    usageExample: 'Write strategy code → Run backtest → Analyze results → Apply to live automated trading',
+                    github: null,
+                    webUrl: 'https://crypto-factory.cloud',
+                    imageUrl: null
+                },
+                'paylens': {
+                    icon: 'fas fa-dollar-sign',
+                    iconClass: 'icon-teal',
+                    title: 'PayLens',
+                    status: '🟢 Active',
+                    description: 'What percentile is your salary? See your income position crystal clear with accurate data, like a lens. Real-time income percentile analysis for Korea and USA based on 2024 official data from National Tax Service and US Census Bureau.',
+                    features: [
+                        'Real-time income percentile analysis (Korea/USA)',
+                        'Based on National Tax Service and US Census Bureau 2024 official data',
+                        'Goal income setting and gap analysis',
+                        'Cross-country income comparison',
+                        'Smooth animations with Framer Motion'
+                    ],
+                    techStack: {
+                        framework: 'Next.js 15.5.3',
+                        language: 'TypeScript',
+                        styling: 'Tailwind CSS',
+                        deployment: 'Vercel'
+                    },
+                    usageExample: 'Enter salary to instantly see percentile ranking and gap to goal income',
+                    github: 'https://github.com/jeromwolf/paylens',
+                    webUrl: 'https://paylens-kappa.vercel.app',
+                    imageUrl: null
+                },
+                'backtesting-framework': {
+                    icon: 'fas fa-code',
+                    iconClass: 'icon-purple',
+                    title: 'Backtesting Framework',
+                    status: '🟢 Active',
+                    description: 'Backtesting framework for validating stock and cryptocurrency trading strategies with historical data. Supports various technical indicators and custom strategies, providing detailed performance analysis reports.',
+                    features: [
+                        'Built-in technical indicators (MA, RSI, MACD, Bollinger Bands, etc.)',
+                        'Custom strategy writing and testing',
+                        'Detailed returns, Sharpe ratio, MDD analysis',
+                        'Candlestick charts with trade signal visualization',
+                        'CSV data import support'
+                    ],
+                    techStack: {
+                        language: 'Python',
+                        libraries: 'pandas, numpy, matplotlib',
+                        indicators: 'TA-Lib',
+                        analysis: 'scipy, sklearn'
+                    },
+                    usageExample: 'Define strategy function → Load historical data → Run backtest → Review performance metrics',
+                    github: 'https://github.com/simverse/TradingBackTester',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'backtesting-webui': {
+                    icon: 'fas fa-chart-area',
+                    iconClass: 'icon-orange',
+                    title: 'Backtesting System (Web UI)',
+                    status: '🟢 Active',
+                    description: 'Dashboard providing the backtesting framework through a web interface. Build strategies with drag-and-drop without coding, and visualize backtest results in real-time.',
+                    features: [
+                        'No-code strategy builder (drag-and-drop)',
+                        'Real-time backtest result visualization',
+                        'Interactive charts and performance dashboard',
+                        'Multi-strategy comparison analysis',
+                        'Strategy template library'
+                    ],
+                    techStack: {
+                        frontend: 'React, TypeScript',
+                        backend: 'FastAPI, Python',
+                        charts: 'Chart.js, D3.js',
+                        deployment: 'Vercel, Railway'
+                    },
+                    usageExample: 'Combine strategy blocks → Select stocks and period → Run backtest → View results in dashboard',
+                    github: 'https://github.com/jeromwolf/Backtesting',
+                    webUrl: 'https://backtesting-flux.up.railway.app',
+                    imageUrl: null
+                },
+                'aitranslator': {
+                    icon: 'fas fa-calculator',
+                    iconClass: 'icon-green-dark',
+                    title: 'Comprehensive Income Tax Calculator',
+                    status: '🟢 Active',
+                    description: 'Web-based comprehensive financial income tax calculator for individuals with earned income and financial income exceeding 2 million won. Accurately calculates additional taxes, overseas ETF capital gains tax, foreign ETF dividend withholding tax, and additional health insurance premiums.',
+                    features: [
+                        'Accurate comprehensive income tax calculation using MAX(A, B) method',
+                        'Automatic overseas ETF capital gains tax calculation',
+                        'Foreign ETF dividend withholding tax information',
+                        'Financial income-based additional health insurance calculation',
+                        'Intuitive single-page interface with transparent calculation process',
+                        'Support for various financial income scenarios (interest, dividends, capital gains)'
+                    ],
+                    techStack: {
+                        language: 'Python 3.8+',
+                        backend: 'Flask',
+                        frontend: 'HTML, CSS, JavaScript',
+                        deployment: 'Flask app / Windows exe'
+                    },
+                    usageExample: 'Enter earned and financial income → Calculate comprehensive income tax based on official tax brackets → Check additional taxes, ETF taxes, health insurance',
+                    github: 'https://github.com/ryhyh98/IncomeTax',
+                    webUrl: null,
+                    imageUrl: null
+                },
+                'gptfinetuning': {
+                    icon: 'fas fa-brain',
+                    iconClass: 'icon-indigo',
+                    title: 'GPT Fine-tuning',
+                    status: '🟡 Maintenance',
+                    description: 'Tool for fine-tuning OpenAI GPT models for specific domains or tasks. Integrated platform that automates and manages the entire process from training data preparation to model training and evaluation.',
+                    features: [
+                        'Automatic training data formatting and validation',
+                        'OpenAI Fine-tuning API integration',
+                        'Training progress monitoring dashboard',
+                        'Model performance A/B testing',
+                        'Fine-tuning cost calculation and optimization'
+                    ],
+                    techStack: {
+                        ai: 'OpenAI API (GPT-3.5, GPT-4)',
+                        backend: 'Python, FastAPI',
+                        data: 'pandas, jsonl',
+                        monitoring: 'Weights & Biases'
+                    },
+                    usageExample: 'Upload training data → Configure fine-tuning → Train model → Evaluate performance and deploy',
+                    github: 'https://github.com/jeromwolf/gpt-fine-tuning',
+                    webUrl: 'https://gpt-fine-tuning.up.railway.app',
+                    imageUrl: null
+                },
+                'worldflow': {
+                    icon: 'fas fa-file-pdf',
+                    iconClass: 'icon-purple',
+                    title: 'WorldFlow',
+                    status: '🟢 Active',
+                    description: 'AI-powered PDF translation platform that translates Korean educational materials to English for international academic activities. Maintains original layout including tables, charts, and images with fast translation within 3-5 minutes.',
+                    features: [
+                        '🚀 Quick Mode: Fast translation processing within 3-5 minutes',
+                        '👨‍🏫 Pro Mode: Real-time markdown editing and high-quality professional translation',
+                        '📊 Original document layout preservation (maintains tables, charts, images)',
+                        '✏️ Real-time markdown editing interface with live preview',
+                        '🔧 Terminology consistency throughout translation'
+                    ],
+                    techStack: {
+                        backend: 'Python 3.11+, FastAPI, PostgreSQL, Redis, Celery',
+                        frontend: 'TypeScript, React 18, Vite, TailwindCSS',
+                        processing: 'PyMuPDF',
+                        deployment: 'Railway'
+                    },
+                    usageExample: 'Upload PDF → Convert to Markdown → AI translation → Real-time editing → Generate and download PDF',
+                    github: 'https://github.com/jeromwolf/WorldFlow',
+                    webUrl: 'https://worldflow-frontend.up.railway.app',
+                    imageUrl: null
+                },
+                'gongjakso-tft': {
+                    icon: 'fas fa-file-alt',
+                    iconClass: 'icon-orange',
+                    title: 'Business Plan Helper MCP',
+                    status: '🚧 Working',
+                    description: 'AI-powered tool that automatically converts Excel business plan data to HWP (Korean word processor) documents. Provides AI-based content analysis and improvement suggestions using Model Context Protocol (MCP), making professional business plan creation easy and efficient.',
+                    features: [
+                        'Excel → HWP conversion (DOCX intermediate format processing)',
+                        'Automatic special character handling for HWP compatibility',
+                        'Multi-encoding support for Korean text (UTF-8, EUC-KR, CP949)',
+                        'Preserves complex table structures during conversion',
+                        'Drag-and-drop file upload with real-time preview',
+                        '3 professional templates: Standard Business Plan, VC Investment Proposal, Government Project Proposal',
+                        'MCP-based AI content analysis and improvement suggestions',
+                        'Large file support (10,000+ rows)',
+                        'Customizable templates'
+                    ],
+                    techStack: {
+                        language: 'TypeScript',
+                        framework: 'Electron (Windows, macOS, Linux)',
+                        frontend: 'React',
+                        ai: 'MCP (Model Context Protocol)',
+                        libraries: 'xlsx, docx, iconv-lite, sharp'
+                    },
+                    usageExample: 'Launch app → Drag and drop Excel file → Select template → Convert to DOCX with special character handling → AI MCP analysis and improvement suggestions → Generate final HWP document',
+                    github: 'https://github.com/jeromwolf/business-plan-hwp-mcp',
+                    webUrl: null,
+                    imageUrl: null
+                }
+            }
+        };
+
+        // 모달 열기 함수
+        function openProjectModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const project = projectData[currentLang][projectId];
+
+            if (!project) return;
+
+            // 모달 헤더 업데이트
+            document.getElementById('modalIcon').className = `modal-icon ${project.iconClass}`;
+            document.getElementById('modalIcon').innerHTML = `<i class="${project.icon}"></i>`;
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalStatus').textContent = project.status;
+
+            // 프로젝트 이미지
+            const imageSection = document.getElementById('modalImageSection');
+            if (project.imageUrl) {
+                document.getElementById('modalImage').src = project.imageUrl;
+                imageSection.style.display = 'block';
+            } else {
+                imageSection.style.display = 'none';
+            }
+
+            // 상세 설명
+            document.getElementById('modalDescription').textContent = project.description;
+
+            // 주요 기능
+            const featuresHTML = project.features.map(feature => `<li>${feature}</li>`).join('');
+            document.getElementById('modalFeatures').innerHTML = featuresHTML;
+
+            // 기술 스택
+            const techStackHTML = Object.entries(project.techStack).map(([key, value]) => `
+                <div class="tech-stack-item">
+                    <span class="tech-stack-label">${key}</span>
+                    <span class="tech-stack-value">${value}</span>
+                </div>
+            `).join('');
+            document.getElementById('modalTechStack').innerHTML = techStackHTML;
+
+            // 사용 예시
+            const usageSection = document.getElementById('modalUsageSection');
+            if (project.usageExample) {
+                document.getElementById('modalUsage').textContent = project.usageExample;
+                usageSection.style.display = 'block';
+            } else {
+                usageSection.style.display = 'none';
+            }
+
+            // Footer 버튼
+            const githubLinkBtn = document.getElementById('modalGitHubLink');
+            if (project.github) {
+                githubLinkBtn.href = project.github;
+                githubLinkBtn.style.display = 'flex';
+            } else {
+                githubLinkBtn.style.display = 'none';
+            }
+
+            const webLinkBtn = document.getElementById('modalWebLink');
+            if (project.webUrl) {
+                webLinkBtn.href = project.webUrl;
+                webLinkBtn.style.display = 'flex';
+            } else {
+                webLinkBtn.style.display = 'none';
+            }
+
+            // 모달 표시
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // 번역 적용
+            switchLanguage(currentLang);
+        }
+
+        // 모달 닫기 함수
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+
         // 부드러운 스크롤
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // 모달 내부의 링크는 제외 (외부 링크이므로)
+            if (anchor.closest('#projectModal')) return;
+
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
