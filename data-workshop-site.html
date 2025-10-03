@@ -124,6 +124,166 @@
             color: #e5e7eb;
         }
 
+        /* 언어 전환 버튼 */
+        .language-switcher {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        /* 햄버거 메뉴 버튼 */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-icon {
+            position: relative;
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-icon::before {
+            top: -8px;
+        }
+
+        .hamburger-icon::after {
+            top: 8px;
+        }
+
+        /* 햄버거 메뉴 활성화 (X 모양) */
+        .hamburger-menu.active .hamburger-icon {
+            background: transparent;
+        }
+
+        .hamburger-menu.active .hamburger-icon::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-icon::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        /* 모바일 메뉴 패널 */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 80px;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-menu-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            padding: 20px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-links a:hover {
+            background: rgba(99, 102, 241, 0.2);
+            padding-left: 40px;
+        }
+
+        /* 모바일 언어 전환 */
+        .mobile-language-switcher {
+            display: flex;
+            gap: 8px;
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-lang-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .mobile-lang-btn.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
         /* 키보드 포커스 스타일 (접근성) */
         a:focus, button:focus {
             outline: 2px solid var(--accent-primary);
@@ -799,13 +959,49 @@
             font-size: clamp(0.95rem, 2vw, 1.125rem);
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 64px;
+            margin-bottom: 48px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.7;
         }
-        
+
+        /* 카테고리 필터 */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
         /* 프로젝트 그리드 */
         .projects-grid {
             display: grid;
@@ -1041,11 +1237,15 @@
             .nav-links {
                 display: none;
             }
-            
+
+            .hamburger-menu {
+                display: flex;
+            }
+
             .hero-title {
                 font-size: 2.5rem;
             }
-            
+
             .hero-subtitle {
                 font-size: 1rem;
             }
@@ -1054,7 +1254,7 @@
 </head>
 <body>
     <!-- Skip Navigation Link (접근성) -->
-    <a href="#projects" class="skip-link">메인 콘텐츠로 건너뛰기</a>
+    <a href="#projects" class="skip-link" data-i18n="nav.skip">메인 콘텐츠로 건너뛰기</a>
 
     <!-- Navigation -->
     <nav>
@@ -1063,16 +1263,40 @@
                 <div class="nav-logo-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
-                <span class="nav-logo-text">데이터공작소 TFT</span>
+                <span class="nav-logo-text" data-i18n="nav.logo">데이터공작소 TFT</span>
             </div>
             <div class="nav-links">
-                <a href="#projects">프로젝트</a>
-                <a href="#about">소개</a>
-                <a href="#support">후원</a>
-                <a href="#contact">연락처</a>
+                <a href="#projects" data-i18n="nav.projects">프로젝트</a>
+                <a href="#about" data-i18n="nav.about">소개</a>
+                <a href="#support" data-i18n="nav.support">후원</a>
+                <a href="#contact" data-i18n="nav.contact">연락처</a>
             </div>
+            <!-- 언어 전환 버튼 -->
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="ko" aria-label="한국어">KO</button>
+                <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+            </div>
+            <!-- 햄버거 메뉴 버튼 -->
+            <button class="hamburger-menu" aria-label="메뉴 열기" aria-expanded="false">
+                <span class="hamburger-icon"></span>
+            </button>
         </div>
     </nav>
+
+    <!-- 모바일 메뉴 패널 -->
+    <div class="mobile-menu">
+        <!-- 모바일 언어 전환 -->
+        <div class="mobile-language-switcher">
+            <button class="mobile-lang-btn active" data-lang="ko" aria-label="한국어">🇰🇷 한국어</button>
+            <button class="mobile-lang-btn" data-lang="en" aria-label="English">🇺🇸 English</button>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="#projects" data-i18n="nav.projects">프로젝트</a>
+            <a href="#about" data-i18n="nav.about">소개</a>
+            <a href="#support" data-i18n="nav.support">후원</a>
+            <a href="#contact" data-i18n="nav.contact">연락처</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1088,15 +1312,15 @@
 
         <div class="hero-content">
             <h1 class="hero-title">
-                혁신적인 솔루션을
-                <span class="hero-highlight">창조합니다</span>
+                <span data-i18n="hero.title.1">혁신적인 솔루션을</span>
+                <span class="hero-highlight" data-i18n="hero.title.2">창조합니다</span>
             </h1>
-            <p class="hero-subtitle">
-                데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로 
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+                데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로
                 여러분의 작업을 더욱 효율적으로 만들어보세요
             </p>
             <a href="#projects" class="hero-button">
-                프로젝트 둘러보기
+                <span data-i18n="hero.cta">프로젝트 둘러보기</span>
                 <i class="fas fa-arrow-down"></i>
             </a>
         </div>
@@ -1105,22 +1329,31 @@
     <!-- Projects Section -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">데이터공작소 TFT 프로젝트</h2>
-            <p class="section-subtitle fade-in">
+            <h2 class="section-title fade-in" data-i18n="projects.title">데이터공작소 TFT 프로젝트</h2>
+            <p class="section-subtitle fade-in" data-i18n="projects.subtitle">
                 다양한 분야에서 혁신적인 솔루션을 제공하는 우리의 프로젝트들을 만나보세요
             </p>
 
+            <!-- Category Filter -->
+            <div class="category-filter fade-in">
+                <button class="filter-btn active" data-category="all" data-i18n="projects.filter.all">전체</button>
+                <button class="filter-btn" data-category="aiml" data-i18n="projects.filter.aiml">AI/ML</button>
+                <button class="filter-btn" data-category="finance" data-i18n="projects.filter.finance">금융</button>
+                <button class="filter-btn" data-category="video" data-i18n="projects.filter.video">비디오</button>
+                <button class="filter-btn" data-category="devops" data-i18n="projects.filter.devops">DevOps</button>
+            </div>
+
             <div class="projects-grid fade-in">
                 <!-- CutStudio -->
-                <div class="project-card">
+                <div class="project-card" data-category="video">
                     <div class="card-header">
                         <div class="card-icon icon-blue">
                             <i class="fas fa-cut"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">CutStudio</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="cutstudio.title">CutStudio</h3>
+                    <p class="card-description" data-i18n="cutstudio.desc">
                         직관적이고 강력한 비디오 편집 도구로, 전문가부터 초보자까지 모두가 쉽게 사용할 수 있는 스튜디오급 편집 환경을 제공합니다.
                     </p>
                     <div class="tech-tags">
@@ -1128,20 +1361,20 @@
                         <span class="tech-tag tag-purple">UI/UX</span>
                     </div>
                     <a href="https://github.com/jeromwolf/CutStudio" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- StockAI -->
-                <div class="project-card">
+                <div class="project-card" data-category="aiml finance">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">StockAI</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="stockai.title">StockAI</h3>
+                    <p class="card-description" data-i18n="stockai.desc">
                         AI 기반 주식 분석 플랫폼으로 머신러닝과 빅데이터를 활용하여 투자자들에게 정확한 시장 분석과 예측을 제공합니다.
                     </p>
                     <div class="tech-tags">
@@ -1150,20 +1383,20 @@
                         <span class="tech-tag tag-blue">Big Data</span>
                     </div>
                     <a href="https://github.com/jeromwolf/greatworld" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- MP4 Compress -->
-                <div class="project-card">
+                <div class="project-card" data-category="video">
                     <div class="card-header">
                         <div class="card-icon icon-red">
                             <i class="fas fa-compress"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">MP4 압축 도구</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="mp4compress.title">MP4 압축 도구</h3>
+                    <p class="card-description" data-i18n="mp4compress.desc">
                         고품질을 유지하면서 동영상 파일 크기를 효율적으로 줄여주는 강력한 압축 유틸리티입니다.
                     </p>
                     <div class="tech-tags">
@@ -1171,20 +1404,20 @@
                         <span class="tech-tag tag-pink">Compression</span>
                     </div>
                     <a href="https://github.com/ryhyh98/MP4Compress" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- YouTube Downloader -->
-                <div class="project-card">
+                <div class="project-card" data-category="video">
                     <div class="card-header">
                         <div class="card-icon icon-youtube">
                             <i class="fab fa-youtube"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">유튜브 다운로더</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="youtubedownload.title">유튜브 다운로더</h3>
+                    <p class="card-description" data-i18n="youtubedownload.desc">
                         유튜브 영상과 음악을 고품질로 다운로드할 수 있는 사용자 친화적인 유틸리티입니다.
                     </p>
                     <div class="tech-tags">
@@ -1193,20 +1426,20 @@
                         <span class="tech-tag tag-yellow">Utility</span>
                     </div>
                     <a href="https://github.com/ryhyh98/Youtubedownload" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Docker Management -->
-                <div class="project-card">
+                <div class="project-card" data-category="devops">
                     <div class="card-header">
                         <div class="card-icon icon-docker">
                             <i class="fab fa-docker"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">도커 관리 사이트</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="dockermanage.title">도커 관리 사이트</h3>
+                    <p class="card-description" data-i18n="dockermanage.desc">
                         Docker 컨테이너와 이미지를 쉽게 관리할 수 있는 웹 기반 대시보드로 개발 워크플로우를 향상시킵니다.
                     </p>
                     <div class="tech-tags">
@@ -1215,20 +1448,20 @@
                         <span class="tech-tag tag-purple">Management</span>
                     </div>
                     <a href="https://codeindocker.com/mains/list" target="_blank" rel="noopener noreferrer" class="card-link">
-                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Crypto Factory -->
-                <div class="project-card">
+                <div class="project-card" data-category="finance">
                     <div class="card-header">
                         <div class="card-icon icon-bitcoin">
                             <i class="fab fa-bitcoin"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">Crypto Factory</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="cryptofactory.title">Crypto Factory</h3>
+                    <p class="card-description" data-i18n="cryptofactory.desc">
                         실시간 암호화폐 시장 데이터와 차트 분석을 제공하는 종합 플랫폼입니다. Python 컨테이너 기반으로 구축되었으며, 향후 DB 최적화를 통해 성능을 지속적으로 개선할 예정입니다.
                     </p>
                     <div class="tech-tags">
@@ -1238,20 +1471,20 @@
                         <span class="tech-tag tag-purple">Container</span>
                     </div>
                     <a href="https://crypto-factory.cloud/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- PayLens -->
-                <div class="project-card">
+                <div class="project-card" data-category="finance">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-bar"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">PayLens</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="paylens.title">PayLens</h3>
+                    <p class="card-description" data-i18n="paylens.desc">
                         한국과 미국의 공식 정부 통계를 기반으로 연봉 퍼센타일을 분석해주는 현대적인 웹 애플리케이션입니다. 정확한 데이터로 자신의 연봉 위치를 확인하세요.
                     </p>
                     <div class="tech-tags">
@@ -1260,20 +1493,20 @@
                         <span class="tech-tag tag-purple">Government Data</span>
                     </div>
                     <a href="https://paylens-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Backtesting Framework (Source) -->
-                <div class="project-card">
+                <div class="project-card" data-category="finance">
                     <div class="card-header">
                         <div class="card-icon icon-blue-dark">
                             <i class="fas fa-code"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">백테스팅 프레임워크 (소스코드)</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="backtesting.framework.title">백테스팅 프레임워크 (소스코드)</h3>
+                    <p class="card-description" data-i18n="backtesting.framework.desc">
                         트레이딩 전략을 검증하는 오픈소스 백테스팅 프레임워크입니다. prd.md 파일만으로 원하는 도구에서 직접 코드를 생성할 수 있어, 개발자가 자신만의 백테스팅 시스템을 빠르게 구축할 수 있습니다.
                     </p>
                     <div class="tech-tags">
@@ -1283,20 +1516,20 @@
                         <span class="tech-tag tag-teal">Investment Analysis</span>
                     </div>
                     <a href="https://github.com/simverse/TradingBackTester" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Trading Backtest System (Web UI) -->
-                <div class="project-card">
+                <div class="project-card" data-category="finance">
                     <div class="card-header">
                         <div class="card-icon icon-green">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">백테스팅 시스템 (웹 UI)</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="backtesting.webui.title">백테스팅 시스템 (웹 UI)</h3>
+                    <p class="card-description" data-i18n="backtesting.webui.desc">
                         웹 브라우저에서 바로 사용할 수 있는 인터랙티브 백테스팅 시스템입니다. 다양한 트레이딩 전략을 선택하고, 기간 설정 및 초기 자본을 조정하며 상세한 성과 분석과 차트를 확인할 수 있습니다.
                     </p>
                     <div class="tech-tags">
@@ -1306,20 +1539,20 @@
                         <span class="tech-tag tag-teal">Dashboard</span>
                     </div>
                     <a href="https://backtesting-flux.up.railway.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Income Tax Calculator -->
-                <div class="project-card">
+                <div class="project-card" data-category="finance">
                     <div class="card-header">
                         <div class="card-icon icon-green-dark">
                             <i class="fas fa-calculator"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">종합소득세 계산기</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="incometax.title">종합소득세 계산기</h3>
+                    <p class="card-description" data-i18n="incometax.desc">
                         금융이자소득, 배당금, 양도소득세 등 복잡한 소득세 항목별 세액을 정확하게 계산해주는 종합 세무 프로그램입니다. 다양한 소득 유형별 세율과 공제 혜택을 한눈에 확인하세요.
                     </p>
                     <div class="tech-tags">
@@ -1329,20 +1562,20 @@
                         <span class="tech-tag tag-teal">Tax Calculator</span>
                     </div>
                     <a href="https://github.com/ryhyh98/IncomeTax" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- WorldFlow PDF Translation -->
-                <div class="project-card">
+                <div class="project-card" data-category="aiml">
                     <div class="card-header">
                         <div class="card-icon icon-purple">
                             <i class="fas fa-language"></i>
                         </div>
-                        <span class="status-badge status-complete">완료</span>
+                        <span class="status-badge status-complete" data-i18n="projects.status.complete">완료</span>
                     </div>
-                    <h3 class="card-title">WorldFlow</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="worldflow.title">WorldFlow</h3>
+                    <p class="card-description" data-i18n="worldflow.desc">
                         AI 기반 PDF 번역 시스템으로 한국어 강의 자료를 해외 강사에게 빠르고 정확하게 전달합니다. PDF → Markdown → AI 번역 → 편집 → PDF 생성까지 한 번에 처리하는 통합 솔루션입니다.
                     </p>
                     <div class="tech-tags">
@@ -1352,20 +1585,20 @@
                         <span class="tech-tag tag-green">Automation</span>
                     </div>
                     <a href="https://worldflow-frontend.up.railway.app/" target="_blank" rel="noopener noreferrer" class="card-link">
-                        사이트 방문하기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.visit">사이트 방문하기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
 
                 <!-- Business Plan MCP -->
-                <div class="project-card working">
+                <div class="project-card working" data-category="aiml">
                     <div class="card-header">
                         <div class="card-icon icon-orange">
                             <i class="fas fa-file-alt"></i>
                         </div>
-                        <span class="status-badge status-working">작업중</span>
+                        <span class="status-badge status-working" data-i18n="projects.status.working">작업중</span>
                     </div>
-                    <h3 class="card-title">사업계획서 도우미 MCP</h3>
-                    <p class="card-description">
+                    <h3 class="card-title" data-i18n="businessplan.title">사업계획서 도우미 MCP</h3>
+                    <p class="card-description" data-i18n="businessplan.desc">
                         AI를 활용하여 전문적인 사업계획서 작성을 도와주는 혁신적인 Model Context Protocol 기반 도구입니다.
                     </p>
                     <div class="tech-tags">
@@ -1374,7 +1607,7 @@
                         <span class="tech-tag tag-green">MCP</span>
                     </div>
                     <a href="https://github.com/jeromwolf/business-plan-hwp-mcp" target="_blank" rel="noopener noreferrer" class="card-link">
-                        GitHub에서 보기 <i class="fas fa-external-link-alt"></i>
+                        <span data-i18n="projects.link.github">GitHub에서 보기</span> <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
             </div>
@@ -1384,8 +1617,8 @@
     <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">데이터공작소 개발 TFT</h2>
-            <p class="section-subtitle fade-in">
+            <h2 class="section-title fade-in" data-i18n="about.title">데이터공작소 개발 TFT</h2>
+            <p class="section-subtitle fade-in" data-i18n="about.subtitle">
                 혁신적인 기술과 창의적인 아이디어로 실용적인 솔루션을 만들어가는 개발팀입니다
             </p>
 
@@ -1394,24 +1627,24 @@
                     <div class="about-icon icon-blue">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3 class="about-title">혁신적 사고</h3>
-                    <p class="about-description">새로운 아이디어와 최신 기술을 접목하여 독창적인 솔루션을 개발합니다</p>
+                    <h3 class="about-title" data-i18n="about.innovation.title">혁신적 사고</h3>
+                    <p class="about-description" data-i18n="about.innovation.desc">새로운 아이디어와 최신 기술을 접목하여 독창적인 솔루션을 개발합니다</p>
                 </div>
-                
+
                 <div class="about-item">
                     <div class="about-icon icon-green">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="about-title">협업 중심</h3>
-                    <p class="about-description">팀워크와 지식 공유를 통해 더 나은 결과를 만들어냅니다</p>
+                    <h3 class="about-title" data-i18n="about.collaboration.title">협업 중심</h3>
+                    <p class="about-description" data-i18n="about.collaboration.desc">팀워크와 지식 공유를 통해 더 나은 결과를 만들어냅니다</p>
                 </div>
-                
+
                 <div class="about-item">
                     <div class="about-icon icon-orange">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3 class="about-title">빠른 실행력</h3>
-                    <p class="about-description">아이디어를 빠르게 실현하여 실용적인 도구로 만들어냅니다</p>
+                    <h3 class="about-title" data-i18n="about.execution.title">빠른 실행력</h3>
+                    <p class="about-description" data-i18n="about.execution.desc">아이디어를 빠르게 실현하여 실용적인 도구로 만들어냅니다</p>
                 </div>
             </div>
         </div>
@@ -1420,11 +1653,11 @@
     <!-- Support Section -->
     <section id="support" class="section support-section">
         <div class="container support-content">
-            <h2 class="support-title fade-in">☕ 커피 한 잔의 후원</h2>
+            <h2 class="support-title fade-in" data-i18n="support.title">☕ 커피 한 잔의 후원</h2>
             <p class="support-subtitle fade-in">
-                우리는 오픈소스와 기술 공유를 통해 더 나은 개발 생태계를 만들어가고 있습니다.<br>
-                Claude Code, GitHub Copilot 등 AI 도구의 정액제 비용을 후원해 주시면,<br>
-                더 많은 프로젝트를 개발하고 소스를 공개할 수 있습니다. 💜
+                <span data-i18n="support.subtitle.1">우리는 오픈소스와 기술 공유를 통해 더 나은 개발 생태계를 만들어가고 있습니다.</span><br>
+                <span data-i18n="support.subtitle.2">Claude Code, GitHub Copilot 등 AI 도구의 정액제 비용을 후원해 주시면,</span><br>
+                <span data-i18n="support.subtitle.3">더 많은 프로젝트를 개발하고 소스를 공개할 수 있습니다. 💜</span>
             </p>
 
             <!-- QR 코드 메인 섹션 -->
@@ -1433,27 +1666,27 @@
                     <div class="qr-text-section">
                         <h3 class="qr-main-title">
                             <span class="qr-icon-wrapper">☕</span>
-                            따뜻한 마음을 담아
+                            <span data-i18n="support.qr.title">따뜻한 마음을 담아</span>
                         </h3>
                         <p class="qr-main-description">
-                            여러분의 후원은 더 나은 오픈소스 프로젝트를 만드는 데 사용됩니다.<br>
-                            원하시는 금액으로 자유롭게 후원해주세요.
+                            <span data-i18n="support.qr.desc.1">여러분의 후원은 더 나은 오픈소스 프로젝트를 만드는 데 사용됩니다.</span><br>
+                            <span data-i18n="support.qr.desc.2">원하시는 금액으로 자유롭게 후원해주세요.</span>
                         </p>
                         <div class="qr-suggestions">
-                            <div class="suggestion-chip">☕ ₩5,000 커피 한 잔</div>
-                            <div class="suggestion-chip featured-chip">⭐ ₩20,000 AI 도구 지원</div>
-                            <div class="suggestion-chip">💝 자유 금액</div>
+                            <div class="suggestion-chip" data-i18n="support.chip.coffee">☕ ₩5,000 커피 한 잔</div>
+                            <div class="suggestion-chip featured-chip" data-i18n="support.chip.ai">⭐ ₩20,000 AI 도구 지원</div>
+                            <div class="suggestion-chip" data-i18n="support.chip.free">💝 자유 금액</div>
                         </div>
                     </div>
                     <div class="qr-code-section">
                         <button onclick="openTossPayment()" class="toss-main-button">
-                            💝 토스로 후원하기
+                            <span data-i18n="support.toss.button">💝 토스로 후원하기</span>
                         </button>
                         <div class="qr-code-wrapper">
                             <img src="toss-qr.png" alt="데이터공작소 TFT 후원을 위한 토스 송금 QR 코드 - 카메라로 스캔하여 후원하기" class="qr-code-image">
                             <p class="qr-scan-text">
                                 <i class="fas fa-mobile-alt"></i>
-                                또는 QR 코드를 스캔하세요
+                                <span data-i18n="support.qr.scan">또는 QR 코드를 스캔하세요</span>
                             </p>
                         </div>
                     </div>
@@ -1463,28 +1696,28 @@
             <div class="support-info fade-in">
                 <h3>
                     <i class="fas fa-lightbulb"></i>
-                    후원금은 이렇게 사용됩니다
+                    <span data-i18n="support.usage.title">후원금은 이렇게 사용됩니다</span>
                 </h3>
                 <ul class="support-info-list">
                     <li>
                         <i class="fas fa-robot"></i>
-                        <span>Claude Code, GitHub Copilot 등 AI 개발 도구 구독료</span>
+                        <span data-i18n="support.usage.1">Claude Code, GitHub Copilot 등 AI 개발 도구 구독료</span>
                     </li>
                     <li>
                         <i class="fas fa-code"></i>
-                        <span>더 많은 오픈소스 프로젝트 개발 및 유지보수</span>
+                        <span data-i18n="support.usage.2">더 많은 오픈소스 프로젝트 개발 및 유지보수</span>
                     </li>
                     <li>
                         <i class="fas fa-server"></i>
-                        <span>서버 호스팅 및 인프라 운영 비용</span>
+                        <span data-i18n="support.usage.3">서버 호스팅 및 인프라 운영 비용</span>
                     </li>
                     <li>
                         <i class="fas fa-graduation-cap"></i>
-                        <span>기술 문서화 및 튜토리얼 제작</span>
+                        <span data-i18n="support.usage.4">기술 문서화 및 튜토리얼 제작</span>
                     </li>
                     <li>
                         <i class="fas fa-heart"></i>
-                        <span>커뮤니티와 함께 성장하는 개발 생태계 조성</span>
+                        <span data-i18n="support.usage.5">커뮤니티와 함께 성장하는 개발 생태계 조성</span>
                     </li>
                 </ul>
             </div>
@@ -1498,17 +1731,297 @@
                 <div class="footer-logo-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
-                <span class="footer-title">데이터공작소 개발 TFT</span>
+                <span class="footer-title" data-i18n="nav.logo">데이터공작소 개발 TFT</span>
             </div>
-            <p class="footer-subtitle">혁신적인 솔루션으로 더 나은 세상을 만들어갑니다</p>
-            
+            <p class="footer-subtitle" data-i18n="footer.tagline">혁신적인 솔루션으로 더 나은 세상을 만들어갑니다</p>
+
             <div class="footer-divider">
-                <p class="footer-copyright">© <span id="currentYear"></span> 데이터공작소 개발 TFT. All rights reserved.</p>
+                <p class="footer-copyright">© <span id="currentYear"></span> <span data-i18n="footer.copyright">데이터공작소 개발 TFT. All rights reserved.</span></p>
             </div>
         </div>
     </footer>
 
     <script>
+        // 다국어 번역 데이터
+        const translations = {
+            ko: {
+                // Navigation
+                'nav.logo': '데이터공작소 TFT',
+                'nav.projects': '프로젝트',
+                'nav.about': '소개',
+                'nav.support': '후원',
+                'nav.contact': '연락처',
+                'nav.skip': '메인 콘텐츠로 건너뛰기',
+
+                // Hero
+                'hero.title.1': '혁신적인 솔루션을',
+                'hero.title.2': '창조합니다',
+                'hero.subtitle': '데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼으로 여러분의 작업을 더욱 효율적으로 만들어보세요',
+                'hero.cta': '프로젝트 둘러보기',
+
+                // Projects Section
+                'projects.title': '데이터공작소 TFT 프로젝트',
+                'projects.subtitle': '다양한 분야에서 혁신적인 솔루션을 제공하는 우리의 프로젝트들을 만나보세요',
+                'projects.filter.all': '전체',
+                'projects.filter.aiml': 'AI/ML',
+                'projects.filter.finance': '금융',
+                'projects.filter.video': '비디오',
+                'projects.filter.devops': 'DevOps',
+                'projects.status.complete': '완료',
+                'projects.status.working': '작업중',
+                'projects.link.github': 'GitHub에서 보기',
+                'projects.link.visit': '사이트 방문하기',
+
+                // About
+                'about.title': '데이터공작소 개발 TFT',
+                'about.subtitle': '혁신적인 기술과 창의적인 아이디어로 실용적인 솔루션을 만들어가는 개발팀입니다',
+                'about.innovation.title': '혁신적 사고',
+                'about.innovation.desc': '새로운 아이디어와 최신 기술을 접목하여 독창적인 솔루션을 개발합니다',
+                'about.collaboration.title': '협업 중심',
+                'about.collaboration.desc': '팀워크와 지식 공유를 통해 더 나은 결과를 만들어냅니다',
+                'about.execution.title': '빠른 실행력',
+                'about.execution.desc': '아이디어를 빠르게 실현하여 실용적인 도구로 만들어냅니다',
+
+                // Support
+                'support.title': '☕ 커피 한 잔의 후원',
+                'support.subtitle.1': '우리는 오픈소스와 기술 공유를 통해 더 나은 개발 생태계를 만들어가고 있습니다.',
+                'support.subtitle.2': 'Claude Code, GitHub Copilot 등 AI 도구의 정액제 비용을 후원해 주시면,',
+                'support.subtitle.3': '더 많은 프로젝트를 개발하고 소스를 공개할 수 있습니다. 💜',
+                'support.qr.title': '따뜻한 마음을 담아',
+                'support.qr.desc.1': '여러분의 후원은 더 나은 오픈소스 프로젝트를 만드는 데 사용됩니다.',
+                'support.qr.desc.2': '원하시는 금액으로 자유롭게 후원해주세요.',
+                'support.chip.coffee': '☕ ₩5,000 커피 한 잔',
+                'support.chip.ai': '⭐ ₩20,000 AI 도구 지원',
+                'support.chip.free': '💝 자유 금액',
+                'support.toss.button': '💝 토스로 후원하기',
+                'support.qr.scan': '또는 QR 코드를 스캔하세요',
+                'support.usage.title': '후원금은 이렇게 사용됩니다',
+                'support.usage.1': 'Claude Code, GitHub Copilot 등 AI 개발 도구 구독료',
+                'support.usage.2': '더 많은 오픈소스 프로젝트 개발 및 유지보수',
+                'support.usage.3': '서버 호스팅 및 인프라 운영 비용',
+                'support.usage.4': '기술 문서화 및 튜토리얼 제작',
+                'support.usage.5': '커뮤니티와 함께 성장하는 개발 생태계 조성',
+
+                // Footer
+                'footer.tagline': '혁신적인 솔루션으로 더 나은 세상을 만들어갑니다',
+                'footer.copyright': '데이터공작소 개발 TFT. All rights reserved.',
+
+                // Project Cards
+                'cutstudio.title': 'CutStudio',
+                'cutstudio.desc': '직관적이고 강력한 비디오 편집 도구로, 전문가부터 초보자까지 모두가 쉽게 사용할 수 있는 스튜디오급 편집 환경을 제공합니다.',
+                'stockai.title': 'StockAI',
+                'stockai.desc': 'AI 기반 주식 분석 플랫폼으로 머신러닝과 빅데이터를 활용하여 투자자들에게 정확한 시장 분석과 예측을 제공합니다.',
+                'mp4compress.title': 'MP4 압축 도구',
+                'mp4compress.desc': '고품질을 유지하면서 동영상 파일 크기를 효율적으로 줄여주는 강력한 압축 유틸리티입니다.',
+                'youtubedownload.title': '유튜브 다운로더',
+                'youtubedownload.desc': '유튜브 영상과 음악을 고품질로 다운로드할 수 있는 사용자 친화적인 유틸리티입니다.',
+                'dockermanage.title': '도커 관리 사이트',
+                'dockermanage.desc': 'Docker 컨테이너와 이미지를 쉽게 관리할 수 있는 웹 기반 대시보드로 개발 워크플로우를 향상시킵니다.',
+                'cryptofactory.title': 'Crypto Factory',
+                'cryptofactory.desc': '실시간 암호화폐 시장 데이터와 차트 분석을 제공하는 종합 플랫폼입니다. Python 컨테이너 기반으로 구축되었으며, 향후 DB 최적화를 통해 성능을 지속적으로 개선할 예정입니다.',
+                'paylens.title': 'PayLens',
+                'paylens.desc': '한국과 미국의 공식 정부 통계를 기반으로 연봉 퍼센타일을 분석해주는 현대적인 웹 애플리케이션입니다. 정확한 데이터로 자신의 연봉 위치를 확인하세요.',
+                'backtesting.framework.title': '백테스팅 프레임워크 (소스코드)',
+                'backtesting.framework.desc': '트레이딩 전략을 검증하는 오픈소스 백테스팅 프레임워크입니다. prd.md 파일만으로 원하는 도구에서 직접 코드를 생성할 수 있어, 개발자가 자신만의 백테스팅 시스템을 빠르게 구축할 수 있습니다.',
+                'backtesting.webui.title': '백테스팅 시스템 (웹 UI)',
+                'backtesting.webui.desc': '웹 브라우저에서 바로 사용할 수 있는 인터랙티브 백테스팅 시스템입니다. 다양한 트레이딩 전략을 선택하고, 기간 설정 및 초기 자본을 조정하며 상세한 성과 분석과 차트를 확인할 수 있습니다.',
+                'incometax.title': '종합소득세 계산기',
+                'incometax.desc': '금융이자소득, 배당금, 양도소득세 등 복잡한 소득세 항목별 세액을 정확하게 계산해주는 종합 세무 프로그램입니다. 다양한 소득 유형별 세율과 공제 혜택을 한눈에 확인하세요.',
+                'worldflow.title': 'WorldFlow',
+                'worldflow.desc': 'AI 기반 PDF 번역 시스템으로 한국어 강의 자료를 해외 강사에게 빠르고 정확하게 전달합니다. PDF → Markdown → AI 번역 → 편집 → PDF 생성까지 한 번에 처리하는 통합 솔루션입니다.',
+                'businessplan.title': '사업계획서 도우미 MCP',
+                'businessplan.desc': 'AI를 활용하여 전문적인 사업계획서 작성을 도와주는 혁신적인 Model Context Protocol 기반 도구입니다.'
+            },
+            en: {
+                // Navigation
+                'nav.logo': 'Gongjakso TFT',
+                'nav.projects': 'Projects',
+                'nav.about': 'About',
+                'nav.support': 'Support',
+                'nav.contact': 'Contact',
+                'nav.skip': 'Skip to main content',
+
+                // Hero
+                'hero.title.1': 'Creating Innovative',
+                'hero.title.2': 'Solutions',
+                'hero.subtitle': 'Make your work more efficient with cutting-edge tools and platforms developed by Gongjakso Development TFT',
+                'hero.cta': 'Explore Projects',
+
+                // Projects Section
+                'projects.title': 'Gongjakso TFT Projects',
+                'projects.subtitle': 'Discover our projects providing innovative solutions across various domains',
+                'projects.filter.all': 'All',
+                'projects.filter.aiml': 'AI/ML',
+                'projects.filter.finance': 'Finance',
+                'projects.filter.video': 'Video',
+                'projects.filter.devops': 'DevOps',
+                'projects.status.complete': 'Complete',
+                'projects.status.working': 'In Progress',
+                'projects.link.github': 'View on GitHub',
+                'projects.link.visit': 'Visit Site',
+
+                // About
+                'about.title': 'Gongjakso Development TFT',
+                'about.subtitle': 'A development team creating practical solutions with innovative technology and creative ideas',
+                'about.innovation.title': 'Innovative Thinking',
+                'about.innovation.desc': 'We develop unique solutions by combining new ideas with the latest technology',
+                'about.collaboration.title': 'Collaboration-Focused',
+                'about.collaboration.desc': 'We create better results through teamwork and knowledge sharing',
+                'about.execution.title': 'Fast Execution',
+                'about.execution.desc': 'We quickly turn ideas into practical tools',
+
+                // Support
+                'support.title': '☕ Support Us with Coffee',
+                'support.subtitle.1': 'We are building a better development ecosystem through open source and technology sharing.',
+                'support.subtitle.2': 'Your support helps us cover subscription costs for AI tools like Claude Code and GitHub Copilot,',
+                'support.subtitle.3': 'enabling us to develop more projects and share source code. 💜',
+                'support.qr.title': 'With Warm Heart',
+                'support.qr.desc.1': 'Your support is used to create better open source projects.',
+                'support.qr.desc.2': 'Feel free to donate any amount you wish.',
+                'support.chip.coffee': '☕ ₩5,000 A Cup of Coffee',
+                'support.chip.ai': '⭐ ₩20,000 AI Tools Support',
+                'support.chip.free': '💝 Any Amount',
+                'support.toss.button': '💝 Support via Toss',
+                'support.qr.scan': 'Or scan the QR code',
+                'support.usage.title': 'How Your Support is Used',
+                'support.usage.1': 'Subscription fees for AI development tools like Claude Code and GitHub Copilot',
+                'support.usage.2': 'Development and maintenance of more open source projects',
+                'support.usage.3': 'Server hosting and infrastructure operation costs',
+                'support.usage.4': 'Technical documentation and tutorial creation',
+                'support.usage.5': 'Building a development ecosystem that grows with the community',
+
+                // Footer
+                'footer.tagline': 'Making a better world with innovative solutions',
+                'footer.copyright': 'Gongjakso Development TFT. All rights reserved.',
+
+                // Project Cards
+                'cutstudio.title': 'CutStudio',
+                'cutstudio.desc': 'An intuitive and powerful video editing tool that provides studio-grade editing environment accessible to both professionals and beginners.',
+                'stockai.title': 'StockAI',
+                'stockai.desc': 'An AI-powered stock analysis platform that provides accurate market analysis and predictions to investors using machine learning and big data.',
+                'mp4compress.title': 'MP4 Compression Tool',
+                'mp4compress.desc': 'A powerful compression utility that efficiently reduces video file sizes while maintaining high quality.',
+                'youtubedownload.title': 'YouTube Downloader',
+                'youtubedownload.desc': 'A user-friendly utility for downloading YouTube videos and music in high quality.',
+                'dockermanage.title': 'Docker Management Dashboard',
+                'dockermanage.desc': 'A web-based dashboard that enhances development workflow by enabling easy management of Docker containers and images.',
+                'cryptofactory.title': 'Crypto Factory',
+                'cryptofactory.desc': 'A comprehensive platform providing real-time cryptocurrency market data and chart analysis. Built with Python containers, with ongoing performance improvements through DB optimization.',
+                'paylens.title': 'PayLens',
+                'paylens.desc': 'A modern web application that analyzes salary percentiles based on official government statistics from Korea and the United States. Check your salary position with accurate data.',
+                'backtesting.framework.title': 'Backtesting Framework (Source Code)',
+                'backtesting.framework.desc': 'An open-source backtesting framework for validating trading strategies. Generate code directly in your preferred tool using just the prd.md file, enabling developers to quickly build their own backtesting systems.',
+                'backtesting.webui.title': 'Backtesting System (Web UI)',
+                'backtesting.webui.desc': 'An interactive backtesting system accessible directly in your web browser. Select various trading strategies, adjust period settings and initial capital, and review detailed performance analysis and charts.',
+                'incometax.title': 'Income Tax Calculator',
+                'incometax.desc': 'A comprehensive tax program that accurately calculates taxes for complex income categories including financial interest income, dividends, and capital gains tax. Check tax rates and deduction benefits for various income types at a glance.',
+                'worldflow.title': 'WorldFlow',
+                'worldflow.desc': 'An AI-powered PDF translation system that quickly and accurately delivers Korean lecture materials to international instructors. An integrated solution handling PDF → Markdown → AI Translation → Editing → PDF Generation all at once.',
+                'businessplan.title': 'Business Plan Assistant MCP',
+                'businessplan.desc': 'An innovative Model Context Protocol-based tool that helps create professional business plans using AI.'
+            }
+        };
+
+        // 햄버거 메뉴 토글
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+        function toggleMobileMenu() {
+            const isActive = hamburgerMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            hamburgerMenu.setAttribute('aria-expanded', isActive);
+            hamburgerMenu.setAttribute('aria-label', isActive ? '메뉴 닫기' : '메뉴 열기');
+        }
+
+        function closeMobileMenu() {
+            hamburgerMenu.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            hamburgerMenu.setAttribute('aria-expanded', 'false');
+            hamburgerMenu.setAttribute('aria-label', '메뉴 열기');
+        }
+
+        // 햄버거 버튼 클릭
+        hamburgerMenu.addEventListener('click', toggleMobileMenu);
+
+        // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // 언어 전환 함수
+        let currentLang = localStorage.getItem('language') || 'ko';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+
+            // 모든 data-i18n 속성을 가진 요소 업데이트
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // 데스크톱 버튼 active 상태 업데이트
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // 모바일 버튼 active 상태 업데이트
+            document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        // 초기 언어 설정
+        switchLanguage(currentLang);
+
+        // 데스크톱 언어 버튼 이벤트
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // 모바일 언어 버튼 이벤트
+        document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // 카테고리 필터 기능
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects(category) {
+            projectCards.forEach(card => {
+                const cardCategories = card.getAttribute('data-category').split(' ');
+
+                if (category === 'all' || cardCategories.includes(category)) {
+                    card.style.display = 'block';
+                    // 애니메이션 효과
+                    card.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // 필터 버튼 active 상태 업데이트
+            filterButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+        }
+
+        // 필터 버튼 이벤트
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterProjects(btn.dataset.category);
+            });
+        });
+
         // 부드러운 스크롤
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
