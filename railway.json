@@ -1,4 +1,0 @@
-{
-  "$schema": "https://railway.app/railway.schema.json",
-  "$comment": "이 파일은 Monorepo 루트 설정입니다. 실제 서비스 설정은 frontend/railway.json과 backend/railway.json을 참고하세요. 자세한 배포 가이드는 RAILWAY_DEPLOYMENT.md를 확인하세요."
-}
