@@ -20,7 +20,8 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://gongjakso-tft.up.railway.app"
+        "https://gongjakso-tft.up.railway.app",
+        "https://gongjakso-tft-frontend.onrender.com"
     ]
 
     # AI Services
