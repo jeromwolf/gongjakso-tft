@@ -89,7 +89,7 @@ Render 배포 시도 결과:
 
 **🔑 deploy/backend-root 브랜치 특징:**
 - `backend/` 디렉토리 내용이 **루트에 평평하게** 배치
-- Railway 배포용으로 원래 만들었지만 Render에서도 잘 작동
+- Render 배포 최적화를 위해 생성된 브랜치
 - Root Directory 설정 없이 바로 Docker 빌드
 
 **📝 브랜치 업데이트 방법 (중요!):**
