@@ -1,8 +1,9 @@
 # 공작소 TFT 기능 구현 계획
 
 **작성일**: 2025-10-04
-**버전**: 1.0
+**버전**: 2.0 (확장판)
 **기준 문서**: 운영 정책 1.0, SWOT 분석
+**총 구현 기간**: 약 20개월 (Phase 1-8)
 
 ---
 
@@ -12,6 +13,14 @@
 2. [회원 관리 및 프로필 시스템](#1-회원-관리-및-프로필-시스템)
 3. [프로젝트 Q&A 시스템](#2-프로젝트-qa-시스템)
 4. [구현 우선순위 로드맵](#3-구현-우선순위-로드맵)
+   - Phase 1: MVP - 기본 회원 시스템
+   - Phase 2: 기여 추적 & 배지
+   - Phase 3: Q&A 시스템
+   - Phase 4: 고급 기능 (알림, 관리자 도구)
+   - **Phase 5: 커뮤니티 게시판** ⭐ NEW
+   - **Phase 6: 스터디 관리 시스템** ⭐ NEW
+   - **Phase 7: 프로젝트 협업 기능 강화** ⭐ NEW
+   - **Phase 8: 행사/세미나 관리** ⭐ NEW
 5. [기술 스택 및 아키텍처](#4-기술-스택-및-아키텍처)
 
 ---
@@ -22,11 +31,19 @@
 운영 정책과 SWOT 분석을 기반으로 데이터공작소 TFT의 핵심 기능을 체계적으로 구현하여 커뮤니티 활성화와 지속 가능성을 확보합니다.
 
 ### 핵심 목표
+
+**Phase 1-4: 핵심 기능 (9개월)**
 - ✅ **회원 등급 시스템**: 5단계 회원 등급 체계 구현 (Visitor → Core Team)
 - ✅ **기여도 추적**: PR, 이슈, 스터디 참여 등 자동 집계
 - ✅ **프로필 시스템**: 멤버 포트폴리오 및 활동 이력 관리
 - ✅ **Q&A 기능**: 프로젝트별 질문/답변 커뮤니티
 - ✅ **게이미피케이션**: 배지, 레벨, 리더보드
+
+**Phase 5-8: 커뮤니티 확장 (11개월)** ⭐ NEW
+- 📢 **게시판**: 공지사항, 자유게시판, 건의사항
+- 📚 **스터디**: 스터디 그룹 생성, 일정 관리, 자료 공유
+- 👥 **프로젝트 협업**: Kanban 보드, 작업 관리, 토론
+- 🎉 **행사 관리**: 세미나/밋업 생성, 참가 신청, QR 출석
 
 ---
 
@@ -947,6 +964,537 @@ async def add_reputation(user_id: int, action: str, db: AsyncSession):
 - 실시간 알림 시스템
 - 고성능 검색
 - 관리자 도구
+
+---
+
+### Phase 5: 커뮤니티 게시판 (2개월) - 소통 활성화
+
+**목표**: 공지사항, 자유게시판, 건의사항 등 커뮤니티 게시판 구축
+
+**Backend (3주)**
+
+데이터베이스 스키마:
+```python
+# backend/models/board.py
+
+from enum import Enum
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
+
+class BoardType(str, Enum):
+    NOTICE = "notice"           # 공지사항 (운영진만 작성)
+    FREE = "free"               # 자유게시판
+    FEEDBACK = "feedback"       # 건의사항
+    QNA = "qna"                 # 질문/답변 (간단한 Q&A)
+
+class Board(Base):
+    __tablename__ = "boards"
+
+    id = Column(Integer, primary_key=True)
+    type = Column(Enum(BoardType), nullable=False)
+    title = Column(String(200), nullable=False)
+    content = Column(Text, nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    # 메타데이터
+    views = Column(Integer, default=0)
+    likes = Column(Integer, default=0)
+    is_pinned = Column(Boolean, default=False)  # 상단 고정
+    is_notice = Column(Boolean, default=False)  # 중요 공지
+
+    # 파일 첨부
+    attachments = Column(JSON)  # [{"name": "file.pdf", "url": "..."}]
+
+    # 타임스탬프
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime)
+
+    # Relationships
+    author = relationship("User", back_populates="board_posts")
+    comments = relationship("BoardComment", back_populates="post", cascade="all, delete-orphan")
+
+class BoardComment(Base):
+    __tablename__ = "board_comments"
+
+    id = Column(Integer, primary_key=True)
+    post_id = Column(Integer, ForeignKey("boards.id"), nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    parent_id = Column(Integer, ForeignKey("board_comments.id"))  # 대댓글
+
+    likes = Column(Integer, default=0)
+
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime)
+
+    # Relationships
+    post = relationship("Board", back_populates="comments")
+    author = relationship("User")
+    replies = relationship("BoardComment", backref="parent", remote_side=[id])
+```
+
+API 엔드포인트:
+```python
+# backend/api/board.py
+
+# 게시글 목록
+GET /api/boards?type=notice&page=1&limit=20
+
+# 게시글 상세
+GET /api/boards/{post_id}
+
+# 게시글 작성 (인증 필요)
+POST /api/boards
+{
+    "type": "free",
+    "title": "제목",
+    "content": "내용",
+    "attachments": []
+}
+
+# 게시글 수정
+PUT /api/boards/{post_id}
+
+# 게시글 삭제
+DELETE /api/boards/{post_id}
+
+# 댓글 작성
+POST /api/boards/{post_id}/comments
+{
+    "content": "댓글 내용",
+    "parent_id": null  # 대댓글이면 부모 댓글 ID
+}
+
+# 좋아요
+POST /api/boards/{post_id}/like
+DELETE /api/boards/{post_id}/like
+```
+
+**Frontend (3주)**
+
+페이지 구조:
+```typescript
+// /app/board/page.tsx - 게시판 홈
+// - 공지사항, 자유게시판, 건의사항 탭
+
+// /app/board/[type]/page.tsx - 게시판 목록
+// - type: notice, free, feedback
+
+// /app/board/[type]/[id]/page.tsx - 게시글 상세
+
+// /app/board/[type]/new/page.tsx - 게시글 작성
+```
+
+주요 컴포넌트:
+- `<BoardList>` - 게시글 목록 (페이지네이션)
+- `<BoardPost>` - 게시글 상세 + 댓글
+- `<BoardEditor>` - 게시글 작성/수정 (마크다운)
+- `<CommentSection>` - 댓글/대댓글
+
+**테스트 & 배포 (1주)**
+
+**주요 deliverable:**
+- 공지사항, 자유게시판, 건의사항 완성
+- 댓글/대댓글 시스템
+- 파일 첨부 기능
+
+---
+
+### Phase 6: 스터디 관리 시스템 (3개월) - 학습 커뮤니티
+
+**목표**: 스터디 그룹 생성 및 관리, 학습 활동 추적
+
+**Backend (4주)**
+
+데이터베이스 스키마:
+```python
+# backend/models/study.py
+
+from enum import Enum
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON
+from sqlalchemy.orm import relationship
+
+class StudyStatus(str, Enum):
+    RECRUITING = "recruiting"   # 모집 중
+    IN_PROGRESS = "in_progress" # 진행 중
+    COMPLETED = "completed"     # 완료
+    CANCELLED = "cancelled"     # 취소
+
+class Study(Base):
+    __tablename__ = "studies"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(200), nullable=False)
+    description = Column(Text, nullable=False)
+
+    # 스터디 정보
+    category = Column(String(50))  # Python, JavaScript, AI, etc.
+    max_members = Column(Integer, default=10)
+    status = Column(Enum(StudyStatus), default=StudyStatus.RECRUITING)
+
+    # 일정
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    meeting_schedule = Column(String(200))  # "매주 토요일 오후 2시"
+
+    # 요구사항
+    required_level = Column(String(50))  # Beginner, Intermediate, Advanced
+    prerequisites = Column(Text)  # 사전 요구사항
+
+    # 메타데이터
+    tags = Column(JSON)  # ["Python", "Django", "웹개발"]
+    study_materials = Column(JSON)  # [{"name": "자료.pdf", "url": "..."}]
+
+    # 리더
+    leader_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime)
+
+    # Relationships
+    leader = relationship("User", foreign_keys=[leader_id])
+    members = relationship("StudyMember", back_populates="study")
+    sessions = relationship("StudySession", back_populates="study")
+
+class StudyMember(Base):
+    __tablename__ = "study_members"
+
+    id = Column(Integer, primary_key=True)
+    study_id = Column(Integer, ForeignKey("studies.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    role = Column(String(50), default="member")  # leader, mentor, member
+    status = Column(String(50), default="active")  # active, pending, left
+
+    # 참여 통계
+    attendance_count = Column(Integer, default=0)
+    total_sessions = Column(Integer, default=0)
+
+    joined_at = Column(DateTime, nullable=False)
+
+    # Relationships
+    study = relationship("Study", back_populates="members")
+    user = relationship("User")
+
+class StudySession(Base):
+    __tablename__ = "study_sessions"
+
+    id = Column(Integer, primary_key=True)
+    study_id = Column(Integer, ForeignKey("studies.id"), nullable=False)
+
+    title = Column(String(200), nullable=False)
+    description = Column(Text)
+    session_date = Column(DateTime, nullable=False)
+
+    # 세션 자료
+    materials = Column(JSON)  # [{"name": "발표자료.pdf", "url": "..."}]
+    recording_url = Column(String(500))  # 녹화 영상 링크
+
+    # 출석
+    attendees = Column(JSON)  # [user_id1, user_id2, ...]
+
+    created_at = Column(DateTime, nullable=False)
+
+    # Relationships
+    study = relationship("Study", back_populates="sessions")
+```
+
+API 엔드포인트:
+```python
+# 스터디 목록
+GET /api/studies?status=recruiting&category=Python
+
+# 스터디 상세
+GET /api/studies/{study_id}
+
+# 스터디 생성 (인증 필요, Member 이상)
+POST /api/studies
+
+# 스터디 가입 신청
+POST /api/studies/{study_id}/join
+
+# 스터디 멤버 관리
+GET /api/studies/{study_id}/members
+PUT /api/studies/{study_id}/members/{user_id}  # 승인/역할 변경
+
+# 세션 관리
+GET /api/studies/{study_id}/sessions
+POST /api/studies/{study_id}/sessions
+PUT /api/studies/{study_id}/sessions/{session_id}
+
+# 출석 체크
+POST /api/studies/{study_id}/sessions/{session_id}/attendance
+```
+
+**Frontend (4주)**
+
+페이지 구조:
+```typescript
+// /app/studies/page.tsx - 스터디 목록
+// /app/studies/[id]/page.tsx - 스터디 상세
+// /app/studies/[id]/sessions/page.tsx - 세션 목록
+// /app/studies/[id]/members/page.tsx - 멤버 관리
+// /app/studies/new/page.tsx - 스터디 생성
+```
+
+**테스트 & 배포 (1주)**
+
+**주요 deliverable:**
+- 스터디 그룹 생성 및 모집
+- 멤버 관리 및 출석 체크
+- 세션 자료 공유
+- 스터디 완료 시 자동 등급 승급
+
+---
+
+### Phase 7: 프로젝트 협업 기능 강화 (2개월) - 팀워크
+
+**목표**: 기존 Project 모델 확장, 실시간 협업 기능 추가
+
+**Backend (3주)**
+
+데이터베이스 스키마 확장:
+```python
+# backend/models/project.py 확장
+
+class ProjectMember(Base):
+    __tablename__ = "project_members"
+
+    id = Column(Integer, primary_key=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    role = Column(String(50))  # owner, maintainer, contributor
+    permissions = Column(JSON)  # ["write", "admin", "deploy"]
+
+    joined_at = Column(DateTime)
+
+    # Relationships
+    project = relationship("Project")
+    user = relationship("User")
+
+class ProjectTask(Base):
+    __tablename__ = "project_tasks"
+
+    id = Column(Integer, primary_key=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+
+    title = Column(String(200), nullable=False)
+    description = Column(Text)
+    status = Column(String(50))  # todo, in_progress, review, done
+    priority = Column(String(50))  # low, medium, high, urgent
+
+    assignee_id = Column(Integer, ForeignKey("users.id"))
+    created_by = Column(Integer, ForeignKey("users.id"))
+
+    due_date = Column(DateTime)
+    created_at = Column(DateTime)
+    completed_at = Column(DateTime)
+
+    # Relationships
+    project = relationship("Project")
+    assignee = relationship("User", foreign_keys=[assignee_id])
+    creator = relationship("User", foreign_keys=[created_by])
+
+class ProjectDiscussion(Base):
+    __tablename__ = "project_discussions"
+
+    id = Column(Integer, primary_key=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+
+    title = Column(String(200), nullable=False)
+    content = Column(Text, nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"))
+
+    is_pinned = Column(Boolean, default=False)
+
+    created_at = Column(DateTime)
+
+    # Relationships
+    project = relationship("Project")
+    author = relationship("User")
+    comments = relationship("DiscussionComment", back_populates="discussion")
+```
+
+API 엔드포인트:
+```python
+# 프로젝트 멤버
+GET /api/projects/{project_id}/members
+POST /api/projects/{project_id}/members  # 멤버 초대
+PUT /api/projects/{project_id}/members/{user_id}  # 역할 변경
+DELETE /api/projects/{project_id}/members/{user_id}
+
+# 작업 관리
+GET /api/projects/{project_id}/tasks
+POST /api/projects/{project_id}/tasks
+PUT /api/projects/{project_id}/tasks/{task_id}
+DELETE /api/projects/{project_id}/tasks/{task_id}
+
+# 토론
+GET /api/projects/{project_id}/discussions
+POST /api/projects/{project_id}/discussions
+```
+
+**Frontend (3주)**
+
+페이지 구조:
+```typescript
+// /app/projects/[id]/board/page.tsx - 작업 칸반 보드
+// /app/projects/[id]/discussions/page.tsx - 프로젝트 토론
+// /app/projects/[id]/members/page.tsx - 멤버 관리
+// /app/projects/[id]/settings/page.tsx - 프로젝트 설정
+```
+
+주요 컴포넌트:
+- `<KanbanBoard>` - 드래그앤드롭 작업 보드
+- `<TaskCard>` - 작업 카드
+- `<MemberList>` - 멤버 목록 및 권한 관리
+
+**주요 deliverable:**
+- Kanban 스타일 작업 보드
+- 멤버별 역할 및 권한 관리
+- 프로젝트 토론 기능
+
+---
+
+### Phase 8: 행사/세미나 관리 (2개월) - 오프라인 연결
+
+**목표**: 온라인/오프라인 행사 관리 및 아카이브
+
+**Backend (3주)**
+
+데이터베이스 스키마:
+```python
+# backend/models/event.py
+
+from enum import Enum
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON
+from sqlalchemy.orm import relationship
+
+class EventType(str, Enum):
+    SEMINAR = "seminar"         # 세미나
+    WORKSHOP = "workshop"       # 워크샵
+    MEETUP = "meetup"           # 밋업
+    HACKATHON = "hackathon"     # 해커톤
+    CONFERENCE = "conference"   # 컨퍼런스
+
+class Event(Base):
+    __tablename__ = "events"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(200), nullable=False)
+    description = Column(Text, nullable=False)
+
+    # 행사 정보
+    type = Column(Enum(EventType), nullable=False)
+    category = Column(String(50))  # AI, Web, Mobile, Data, etc.
+
+    # 일정
+    start_datetime = Column(DateTime, nullable=False)
+    end_datetime = Column(DateTime, nullable=False)
+
+    # 장소
+    is_online = Column(Boolean, default=False)
+    location = Column(String(200))  # 오프라인 주소
+    online_link = Column(String(500))  # Zoom, Google Meet 링크
+
+    # 등록 정보
+    max_participants = Column(Integer)
+    registration_deadline = Column(DateTime)
+    requires_approval = Column(Boolean, default=False)
+
+    # 메타데이터
+    tags = Column(JSON)
+    speakers = Column(JSON)  # [{"name": "홍길동", "bio": "..."}]
+    agenda = Column(JSON)  # [{"time": "14:00", "title": "세션1"}]
+
+    # 자료
+    materials = Column(JSON)  # 행사 자료
+    recording_url = Column(String(500))  # 녹화 영상
+    photos = Column(JSON)  # 행사 사진
+
+    # 주최자
+    organizer_id = Column(Integer, ForeignKey("users.id"))
+
+    created_at = Column(DateTime)
+
+    # Relationships
+    organizer = relationship("User")
+    registrations = relationship("EventRegistration", back_populates="event")
+
+class EventRegistration(Base):
+    __tablename__ = "event_registrations"
+
+    id = Column(Integer, primary_key=True)
+    event_id = Column(Integer, ForeignKey("events.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    status = Column(String(50))  # pending, approved, attended, cancelled
+
+    # 참가 정보
+    questions_answers = Column(JSON)  # 참가 신청 시 질문 응답
+    attended = Column(Boolean, default=False)
+    attended_at = Column(DateTime)
+
+    registered_at = Column(DateTime)
+
+    # Relationships
+    event = relationship("Event", back_populates="registrations")
+    user = relationship("User")
+```
+
+API 엔드포인트:
+```python
+# 행사 목록
+GET /api/events?type=seminar&upcoming=true
+
+# 행사 상세
+GET /api/events/{event_id}
+
+# 행사 생성 (Member 이상)
+POST /api/events
+
+# 참가 신청
+POST /api/events/{event_id}/register
+{
+    "questions_answers": {"질문1": "답변1"}
+}
+
+# 참가 신청 관리 (주최자)
+GET /api/events/{event_id}/registrations
+PUT /api/events/{event_id}/registrations/{registration_id}  # 승인/거절
+
+# 출석 체크
+POST /api/events/{event_id}/attendance/{user_id}
+
+# 행사 아카이브
+GET /api/events/archive?year=2024
+```
+
+**Frontend (3주)**
+
+페이지 구조:
+```typescript
+// /app/events/page.tsx - 행사 목록 (예정/지난)
+// /app/events/[id]/page.tsx - 행사 상세 및 참가 신청
+// /app/events/[id]/registrations/page.tsx - 참가자 관리 (주최자)
+// /app/events/archive/page.tsx - 행사 아카이브
+// /app/events/new/page.tsx - 행사 생성
+```
+
+주요 컴포넌트:
+- `<EventCard>` - 행사 카드
+- `<EventRegistrationForm>` - 참가 신청 폼
+- `<EventAttendanceCheck>` - QR 출석 체크
+- `<EventGallery>` - 행사 사진 갤러리
+
+**테스트 & 배포 (1주)**
+
+**주요 deliverable:**
+- 온라인/오프라인 행사 생성 및 관리
+- 참가 신청 및 승인 시스템
+- 출석 체크 (QR 코드)
+- 행사 아카이브 및 영상 공유
 
 ---
 
