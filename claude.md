@@ -70,7 +70,7 @@ gongjakso-tft/
 
 ---
 
-## 브랜치 관리 전략 ⚠️
+## 🚨 브랜치 관리 전략 (매우 중요!)
 
 ### 현재 브랜치 구조
 
@@ -79,20 +79,20 @@ main                           # 메인 개발 브랜치 (프론트엔드 배포
 └── deploy/backend-root        # Render 백엔드 배포 전용 ⚠️
 ```
 
-### ⚠️ 중요: deploy/backend-root 브랜치
+### ⚠️ **중요: deploy/backend-root 브랜치 (반드시 읽을 것!)**
 
-**왜 별도 브랜치를 사용하나요?**
+**❓ 왜 별도 브랜치를 사용하나요?**
 
-Render 배포 시도:
-- ❌ `main` + Root Directory: `backend` → **타임아웃 발생**
-- ✅ `deploy/backend-root` + Root Directory: (없음) → **정상 작동**
+Render 배포 시도 결과:
+- ❌ `main` + Root Directory: `backend` → **타임아웃 발생 (10분 초과)**
+- ✅ `deploy/backend-root` + Root Directory: (없음) → **정상 작동 (2분 완료)**
 
-**deploy/backend-root 브랜치 특징:**
+**🔑 deploy/backend-root 브랜치 특징:**
 - `backend/` 디렉토리 내용이 **루트에 평평하게** 배치
 - Railway 배포용으로 원래 만들었지만 Render에서도 잘 작동
 - Root Directory 설정 없이 바로 Docker 빌드
 
-**브랜치 업데이트 방법:**
+**📝 브랜치 업데이트 방법 (중요!):**
 
 ```bash
 # 1. main에서 백엔드 작업 후 커밋
@@ -117,17 +117,17 @@ git push origin deploy/backend-root
 
 ## Render 배포 설정
 
-### Backend 설정
+### 🔧 Backend 설정 (정확히 따라하세요!)
 
 **Settings → Build & Deploy:**
 
-| 항목 | 값 |
-|------|-----|
-| Branch | `deploy/backend-root` ⚠️ |
-| Root Directory | **(비어있음)** |
-| Dockerfile Path | `Dockerfile` |
-| Docker Build Context | `.` |
-| Docker Command | **(비어있음)** |
+| 항목 | 값 | 중요도 |
+|------|-----|--------|
+| Branch | `deploy/backend-root` | 🚨 필수 |
+| Root Directory | **(비어있음)** | 🚨 반드시 비워두기 |
+| Dockerfile Path | `Dockerfile` | ✅ |
+| Docker Build Context | `.` | ✅ |
+| Docker Command | **(비어있음)** | ✅ |
 
 **Environment Variables:**
 
@@ -149,9 +149,10 @@ DEBUG=false
 NEWSLETTER_ENABLED=true
 ```
 
-⚠️ **CORS_ORIGINS 환경변수는 설정하지 마세요!**
-- 코드의 기본값이 이미 프론트엔드 URL 포함
-- 환경변수 설정 시 Pydantic 파싱 에러 발생
+🚨 **CORS_ORIGINS 환경변수는 절대 설정하지 마세요!**
+- ✅ 코드의 기본값이 이미 프론트엔드 URL 포함
+- ❌ 환경변수 설정 시 Pydantic 파싱 에러 발생
+- ❌ JSON 배열로 설정 시 `SettingsError` 발생
 
 ### Frontend 설정
 
@@ -366,9 +367,9 @@ postgresql://user:pass@host:5432/dbname  # asyncpg 누락
 
 ---
 
-## Git 워크플로우
+## 🔄 Git 워크플로우 (중요!)
 
-### 일반 개발
+### 🟢 프론트엔드 개발 (간단)
 
 ```bash
 # 1. main 브랜치에서 작업
@@ -384,10 +385,10 @@ git push origin main
 ```
 
 **자동 배포:**
-- Frontend: main 푸시 → Render 자동 배포
-- Backend: deploy/backend-root 푸시 → Render 자동 배포
+- ✅ Frontend: `main` 푸시 → Render 자동 배포
+- ⚠️ Backend: `deploy/backend-root` 푸시 → Render 자동 배포
 
-### 백엔드 배포
+### 🔴 백엔드 개발 (주의 필요!)
 
 ```bash
 # main 작업 후
