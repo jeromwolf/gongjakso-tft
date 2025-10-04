@@ -1,338 +1,431 @@
-# 데이터공작소 TFT 홈페이지 개발 기록
+# 데이터공작소 TFT 풀스택 프로젝트
 
 ## 프로젝트 개요
 
-**프로젝트명**: 데이터공작소 개발 TFT 홈페이지
-**배포 URL**: https://gongjakso-tft.up.railway.app
+**프로젝트명**: 데이터공작소 개발 TFT 홈페이지 (풀스택)
+**배포 URL**:
+- Frontend: https://gongjakso-tft-frontend.onrender.com
+- Backend API: https://gongjakso-tft.onrender.com
+- API Docs: https://gongjakso-tft.onrender.com/api/docs
+
 **GitHub**: https://github.com/jeromwolf/gongjakso-tft
-**개발 기간**: 2025-10-02
+**배포 플랫폼**: Render.com
 **개발 도구**: Claude Code
 
 ---
 
 ## 기술 스택
 
-- **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+)
-- **Backend**: Node.js + Express
-- **배포**: Railway
-- **폰트**: Google Fonts (Inter, Noto Sans KR)
-- **아이콘**: Font Awesome 6.4.0
+### Backend
+- **Framework**: FastAPI (Python 3.11)
+- **Database**: PostgreSQL 17 (Render)
+- **ORM**: SQLAlchemy (Async)
+- **Auth**: JWT
+- **AI**: Anthropic Claude API, OpenAI API
+- **Email**: Resend API
+- **Migration**: Alembic
+
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State**: React Query (TanStack Query)
+- **UI Components**: Radix UI, shadcn/ui
+
+### DevOps
+- **Deployment**: Render.com (Docker)
+- **Database**: Render PostgreSQL
+- **CI/CD**: GitHub → Render 자동 배포
+- **Containerization**: Docker, Docker Compose
+
+---
+
+## 프로젝트 구조
+
+```
+gongjakso-tft/
+├── backend/                   # FastAPI 백엔드
+│   ├── api/                   # API 라우터
+│   ├── core/                  # 설정, DB
+│   ├── models/                # SQLAlchemy 모델
+│   ├── schemas/               # Pydantic 스키마
+│   ├── services/              # 비즈니스 로직
+│   ├── utils/                 # 유틸리티
+│   ├── scripts/               # 데이터 마이그레이션 스크립트
+│   ├── alembic/               # DB 마이그레이션
+│   ├── main.py                # FastAPI 앱
+│   ├── Dockerfile             # Docker 이미지
+│   └── requirements.txt       # Python 의존성
+│
+├── frontend/                  # Next.js 프론트엔드
+│   ├── app/                   # App Router 페이지
+│   ├── components/            # React 컴포넌트
+│   ├── lib/                   # 유틸리티
+│   ├── hooks/                 # Custom Hooks
+│   ├── types/                 # TypeScript 타입
+│   └── public/                # 정적 파일
+│
+└── docker-compose.yml         # 로컬 개발 환경
+```
+
+---
+
+## 브랜치 관리 전략 ⚠️
+
+### 현재 브랜치 구조
+
+```
+main                           # 메인 개발 브랜치 (프론트엔드 배포용)
+└── deploy/backend-root        # Render 백엔드 배포 전용 ⚠️
+```
+
+### ⚠️ 중요: deploy/backend-root 브랜치
+
+**왜 별도 브랜치를 사용하나요?**
+
+Render 배포 시도:
+- ❌ `main` + Root Directory: `backend` → **타임아웃 발생**
+- ✅ `deploy/backend-root` + Root Directory: (없음) → **정상 작동**
+
+**deploy/backend-root 브랜치 특징:**
+- `backend/` 디렉토리 내용이 **루트에 평평하게** 배치
+- Railway 배포용으로 원래 만들었지만 Render에서도 잘 작동
+- Root Directory 설정 없이 바로 Docker 빌드
+
+**브랜치 업데이트 방법:**
+
+```bash
+# 1. main에서 백엔드 작업 후 커밋
+git checkout main
+git add backend/
+git commit -m "백엔드 기능 추가"
+
+# 2. deploy/backend-root로 전환
+git checkout deploy/backend-root
+
+# 3. main 변경사항 머지
+git merge main
+
+# 4. 충돌 해결 (backend/ 디렉토리 관련)
+# backend/* 파일들이 루트로 이동했는지 확인
+
+# 5. 푸시 (자동 배포 트리거)
+git push origin deploy/backend-root
+```
+
+---
+
+## Render 배포 설정
+
+### Backend 설정
+
+**Settings → Build & Deploy:**
+
+| 항목 | 값 |
+|------|-----|
+| Branch | `deploy/backend-root` ⚠️ |
+| Root Directory | **(비어있음)** |
+| Dockerfile Path | `Dockerfile` |
+| Docker Build Context | `.` |
+| Docker Command | **(비어있음)** |
+
+**Environment Variables:**
+
+```bash
+# 필수
+DATABASE_URL=postgresql+asyncpg://...  # Render 자동 설정
+SECRET_KEY=<강력한-랜덤-키>
+
+# 선택 (AI 기능 사용 시)
+ANTHROPIC_API_KEY=<키>
+OPENAI_API_KEY=<키>
+
+# 선택 (이메일 기능 사용 시)
+RESEND_API_KEY=<키>
+FROM_EMAIL=noreply@gongjakso-tft.onrender.com
+
+# 앱 설정
+DEBUG=false
+NEWSLETTER_ENABLED=true
+```
+
+⚠️ **CORS_ORIGINS 환경변수는 설정하지 마세요!**
+- 코드의 기본값이 이미 프론트엔드 URL 포함
+- 환경변수 설정 시 Pydantic 파싱 에러 발생
+
+### Frontend 설정
+
+**Settings → Build & Deploy:**
+
+| 항목 | 값 |
+|------|-----|
+| Branch | `main` |
+| Root Directory | `frontend` |
+| Build Command | `npm install && npm run build` |
+| Start Command | `npm start` |
+
+**Environment Variables:**
+
+```bash
+NEXT_PUBLIC_API_URL=https://gongjakso-tft.onrender.com
+NODE_ENV=production
+```
+
+---
+
+## 로컬 개발 환경
+
+### 1. Docker Compose로 전체 스택 실행
+
+```bash
+# 전체 서비스 시작 (PostgreSQL + Backend + Frontend)
+docker-compose up -d
+
+# 로그 확인
+docker-compose logs -f
+
+# 중지
+docker-compose down
+```
+
+**접속:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/api/docs
+
+### 2. 개별 실행 (권장)
+
+**Backend:**
+```bash
+cd backend
+
+# PostgreSQL만 실행
+docker-compose up -d postgres
+
+# Python 가상환경
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 의존성 설치
+pip install -r requirements.txt
+
+# 서버 실행
+uvicorn main:app --reload --port 8000
+```
+
+**Frontend:**
+```bash
+cd frontend
+
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+```
+
+---
+
+## 데이터베이스 관리
+
+### Admin 계정 생성 및 데이터 업로드
+
+```bash
+cd backend
+
+# 프로덕션 데이터 업로드 스크립트 실행
+python3 scripts/upload_to_production.py
+```
+
+**스크립트 동작:**
+1. Admin 계정 생성 (`admin@example.com` / `admin123`)
+2. 로그인 및 토큰 획득
+3. 기존 블로그/프로젝트 삭제
+4. 새로운 블로그 6개 업로드
+5. 새로운 프로젝트 12개 업로드
+
+### Admin 권한 부여
+
+**Render PostgreSQL Shell에서:**
+
+```sql
+-- Admin 역할 부여
+UPDATE users SET role = 'ADMIN' WHERE email = 'admin@example.com';
+
+-- 확인
+SELECT email, role FROM users WHERE email = 'admin@example.com';
+```
 
 ---
 
 ## 주요 기능
 
-### 1. 반응형 디자인
-- 다크 모드 테마 (#0f0f1e 기반)
-- 모바일, 태블릿, 데스크톱 대응
-- CSS Grid 기반 레이아웃
+### 1. 블로그 시스템
+- Markdown 콘텐츠 작성/수정
+- 태그 기반 분류
+- 조회수 추적
+- AI 자동 콘텐츠 생성 (Claude API)
 
-### 2. 인터랙티브 효과
-- ⭐ **별 애니메이션** (75개 은빛 별 + 금빛 유성)
-- 🎨 **그래디언트 오브** 배경 효과
-- 🖱️ **3D 카드 호버** (터치 디바이스 제외)
-- 📜 **스무스 스크롤** 네비게이션
+### 2. 프로젝트 전시
+- 12개 프로젝트 소개
+- GitHub 링크, 데모 URL
+- 기술 스택 표시
+- 난이도 및 카테고리 분류
 
-### 3. 프로젝트 전시
-- 11개 프로젝트 소개
-- GitHub 링크 연결
-- 실시간 웹 서비스 링크
-- 진행 상태 뱃지 (완료/작업중)
+### 3. 뉴스레터
+- 구독자 관리
+- 뉴스레터 발송 (Resend API)
+- 스케줄링 (Celery)
 
-### 4. 후원 기능
-- 토스 QR 코드 후원
-- 제안 금액 칩 (₩5,000, ₩20,000, 자유)
-- 후원금 사용처 안내
+### 4. 인증/권한
+- JWT 기반 인증
+- Admin/User 역할 구분
+- 비밀번호 해싱 (bcrypt)
 
 ---
 
-## SEO & 소셜 미디어 최적화
+## 트러블슈팅
 
-### Open Graph 메타 태그
-```html
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://gongjakso-tft.up.railway.app">
-<meta property="og:title" content="데이터공작소 개발 TFT - 혁신적인 솔루션">
-<meta property="og:description" content="데이터공작소 개발 TFT가 만든 최첨단 도구와 플랫폼...">
-<meta property="og:image" content="https://gongjakso-tft.up.railway.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+### 1. CORS 에러
+
+**증상:**
+```
+Access to XMLHttpRequest has been blocked by CORS policy
 ```
 
-### OG 이미지
-- **크기**: 1200 x 630px
-- **포맷**: PNG (115KB)
-- **디자인**: 다크 테마, 별 효과, 타이포그래피 강조
-- **생성 방법**: SVG → PNG 변환 (rsvg-convert)
+**해결:**
 
----
+1. `backend/core/config.py` 확인:
+   ```python
+   CORS_ORIGINS: list[str] = [
+       "http://localhost:3000",
+       "https://gongjakso-tft-frontend.onrender.com"  # 필수!
+   ]
+   ```
 
-## 접근성 (WCAG 2.1 준수)
+2. `deploy/backend-root` 브랜치에 머지:
+   ```bash
+   git checkout deploy/backend-root
+   git merge main
+   git push origin deploy/backend-root
+   ```
 
-### 구현된 기능
-- ✅ **키보드 포커스 스타일** - 모든 링크와 버튼에 명확한 아웃라인
-- ✅ **Skip Navigation** - 메인 콘텐츠로 바로가기 링크
-- ✅ **의미있는 Alt 텍스트** - 이미지 설명 개선
-- ✅ **ARIA 레이블** - 스크린 리더 지원
-- ✅ **색상 대비** - 텍스트 가독성 확보
+### 2. 환경변수 파싱 에러
 
-### CSS 포커스 스타일
-```css
-a:focus, button:focus {
-    outline: 2px solid var(--accent-primary);
-    outline-offset: 2px;
-}
+**증상:**
+```
+pydantic_settings.sources.SettingsError: error parsing value for field "CORS_ORIGINS"
 ```
 
----
+**원인:** CORS_ORIGINS 환경변수를 JSON 배열로 설정
 
-## 보안 강화
+**해결:** Render에서 CORS_ORIGINS 환경변수 **삭제**
 
-### 1. 외부 링크 보안
-모든 `target="_blank"` 링크에 보안 속성 추가:
-```html
-<a href="..." target="_blank" rel="noopener noreferrer">
-```
-- **noopener**: 역참조 방지 (reverse tabnabbing 공격 차단)
-- **noreferrer**: Referrer 정보 숨김
+### 3. 배포 타임아웃
 
-### 2. HTTPS 적용
-- HTTP → HTTPS 링크 변경 (crypto-factory.cloud)
-- 모든 외부 리소스 HTTPS 사용
+**증상:** Build exceeded maximum time limit
 
----
+**원인:** `main` 브랜치 + `backend` Root Directory 조합
 
-## 성능 최적화
+**해결:** `deploy/backend-root` 브랜치 사용
 
-### 폰트 로딩 최적화
-- **이전**: 14개 폰트 굵기 (Inter 7 + Noto Sans KR 6)
-- **이후**: 8개 폰트 굵기 (각 4개씩)
-- **결과**: 약 30-40% 로딩 속도 개선
+### 4. Database Connection 에러
 
-```css
-/* 최적화 전 */
-@import url('...Inter:wght@300;400;500;600;700;800;900&...');
+**증상:** `asyncpg` 드라이버 에러
 
-/* 최적화 후 */
-@import url('...Inter:wght@400;600;700;800&...');
-```
+**원인:** DATABASE_URL 형식 오류
 
-### 이미지 최적화
-- QR 코드: 52KB (PNG)
-- OG 이미지: 115KB (PNG)
-- 에러 핸들링: 이미지 로딩 실패 시 대체 텍스트
-
----
-
-## 파일 구조
-
-```
-gongjakso-tft/
-├── data-workshop-site.html    # 메인 HTML
-├── server.js                   # Express 서버
-├── package.json                # 의존성 관리
-├── railway.json                # Railway 배포 설정
-├── toss-qr.png                 # 토스 QR 코드
-├── og-image.png                # OG 이미지 (1200x630)
-├── og-image.svg                # OG 이미지 소스
-├── .gitignore                  # Git 제외 파일
-└── README.md                   # 프로젝트 설명
-```
-
----
-
-## 주요 개선 사항
-
-### 보안 & 성능
-- ✅ 모든 외부 링크에 `rel="noopener noreferrer"` 추가
-- ✅ HTTP → HTTPS 변경
-- ✅ 폰트 로딩 최적화 (14개 → 8개)
-
-### SEO & 메타데이터
-- ✅ Open Graph 메타 태그 추가
-- ✅ Twitter Card 메타 태그 추가
-- ✅ Favicon 추가
-- ✅ OG 이미지 생성 및 적용
-
-### 접근성 (WCAG 2.1)
-- ✅ 키보드 포커스 스타일
-- ✅ Skip Navigation 링크
-- ✅ QR 코드 alt 텍스트 개선
-- ✅ ARIA 레이블 (향후 추가 가능)
-
-### 코드 품질
-- ✅ 중복 CSS 제거
-- ✅ 인라인 스타일 → CSS 클래스 변경
-- ✅ 저작권 연도 자동화
-- ✅ Footer에 contact ID 추가
-
-### UX 개선
-- ✅ 터치 디바이스 감지 및 호버 효과 제거
-- ✅ 이미지 에러 핸들링
-
----
-
-## 배포 과정
-
-### 1. Git 저장소 초기화
+**해결:**
 ```bash
-git init
+# 올바른 형식
+postgresql+asyncpg://user:pass@host:5432/dbname
+
+# 잘못된 형식
+postgresql://user:pass@host:5432/dbname  # asyncpg 누락
+```
+
+---
+
+## 배포 체크리스트
+
+### 배포 전
+
+- [ ] `deploy/backend-root`가 최신 코드 포함
+- [ ] CORS_ORIGINS에 프론트엔드 URL 포함
+- [ ] 환경변수 설정 완료 (DATABASE_URL, SECRET_KEY)
+- [ ] Dockerfile 빌드 테스트
+
+### 배포 후
+
+- [ ] Backend Health Check: https://gongjakso-tft.onrender.com/api/health
+- [ ] Frontend 정상 로딩
+- [ ] API Docs 접근: https://gongjakso-tft.onrender.com/api/docs
+- [ ] 블로그 목록 표시 확인
+- [ ] 프로젝트 목록 표시 확인
+- [ ] CORS 에러 없음
+
+---
+
+## Git 워크플로우
+
+### 일반 개발
+
+```bash
+# 1. main 브랜치에서 작업
+git checkout main
+git pull origin main
+
+# 2. 기능 개발
 git add .
-git commit -m "Initial commit"
+git commit -m "기능 추가"
+
+# 3. 푸시
+git push origin main
 ```
 
-### 2. GitHub 연결
+**자동 배포:**
+- Frontend: main 푸시 → Render 자동 배포
+- Backend: deploy/backend-root 푸시 → Render 자동 배포
+
+### 백엔드 배포
+
 ```bash
-git remote add origin https://github.com/jeromwolf/gongjakso-tft.git
-git branch -M main
-git push -u origin main
-```
-
-### 3. Railway 배포
-- Railway 대시보드에서 GitHub 저장소 연결
-- 자동 배포 설정
-- 도메인 설정: `gongjakso-tft.up.railway.app`
-
-### 4. 배포 설정 (railway.json)
-```json
-{
-  "$schema": "https://railway.app/railway.schema.json",
-  "build": {
-    "builder": "NIXPACKS"
-  },
-  "deploy": {
-    "startCommand": "npm start",
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
-  }
-}
+# main 작업 후
+git checkout deploy/backend-root
+git merge main
+git push origin deploy/backend-root
 ```
 
 ---
 
-## 카카오톡 공유 최적화
+## 참고 링크
 
-### 문제
-- 카카오톡 캐시로 인해 OG 이미지가 즉시 반영되지 않음
-
-### 해결 방법
-1. **카카오톡 캐시 초기화**
-   - URL: https://developers.kakao.com/tool/clear/og
-   - 사이트 URL 입력 후 "캐시 초기화" 클릭
-
-2. **메타 태그 순서 최적화**
-   - `og:type`, `og:url`, `og:title` 순서로 정렬
-   - `og:image:secure_url` 추가
-   - `og:image:type` 명시
-   - `og:locale` 추가 (ko_KR)
-
-3. **결과**
-   - 제목, 설명, 이미지 모두 정상 표시 ✅
+- **Frontend**: https://gongjakso-tft-frontend.onrender.com
+- **Backend API**: https://gongjakso-tft.onrender.com
+- **API Docs**: https://gongjakso-tft.onrender.com/api/docs
+- **Render Dashboard**: https://dashboard.render.com
+- **GitHub**: https://github.com/jeromwolf/gongjakso-tft
 
 ---
 
-## CSS 변수 (디자인 토큰)
+## 개발 히스토리
 
-```css
-:root {
-    --bg-primary: #0f0f1e;
-    --bg-secondary: #1a1a2e;
-    --bg-tertiary: #25253a;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0b0;
-    --accent-primary: #6366f1;
-    --accent-secondary: #8b5cf6;
-    --border-color: #2d2d45;
-}
-```
+### Phase 1: 정적 사이트 (완료)
+- HTML/CSS/JS 기반 랜딩 페이지
+- Railway 배포
 
----
+### Phase 2: 풀스택 전환 (완료)
+- FastAPI 백엔드 구축
+- Next.js 프론트엔드 구축
+- PostgreSQL 데이터베이스
+- Render 배포 전환
 
-## 애니메이션
-
-### 별 애니메이션
-```css
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 0.5;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
-    }
-}
-```
-
-### 유성 애니메이션
-- 방향: 대각선 상승 (-45deg)
-- 색상: 금빛 (#ffd700)
-- 속도: 3초 (랜덤 1.5-3초)
+### Phase 3: 데이터 마이그레이션 (완료)
+- 블로그 6개, 프로젝트 12개 업로드
+- Admin 계정 설정
+- CORS 설정 완료
 
 ---
 
-## 향후 개선 계획
-
-### 기능 추가
-- [ ] 다국어 지원 (영어)
-- [ ] 블로그 섹션 추가
-- [ ] 팀 멤버 소개 페이지
-- [ ] Contact 폼 추가
-
-### 성능 개선
-- [ ] 이미지 lazy loading
-- [ ] Service Worker (PWA)
-- [ ] CSS/JS 번들 최적화
-
-### 접근성 개선
-- [ ] 더 많은 ARIA 레이블
-- [ ] 색맹 모드 지원
-- [ ] 폰트 크기 조절 기능
-
----
-
-## 참고 자료
-
-- **디자인 영감**: https://www.awwwards.com, https://engine.needle.tools
-- **OG 이미지 검증**: https://www.opengraph.xyz
-- **카카오톡 캐시 초기화**: https://developers.kakao.com/tool/clear/og
-- **WCAG 2.1 가이드**: https://www.w3.org/WAI/WCAG21/quickref/
-
----
-
-## 커밋 히스토리
-
-### 주요 커밋
-1. `5c46239` - 데이터공작소 TFT 홈페이지 개선 및 최적화
-2. `15b810b` - OG 이미지 추가 및 소셜 미디어 최적화
-3. `f66e0cb` - 메타 태그 URL 업데이트
-4. `d8b309a` - OG 메타 태그 개선 (카카오톡 호환성 향상)
-
----
-
-## 라이선스
-
-MIT License
-
----
-
-## 개발자 노트
-
-### 사이드 이펙트 없는 안전한 수정
-모든 수정사항은 기존 기능을 해치지 않으면서 점진적으로 개선됨:
-- ✅ 시각적 변화 없음
-- ✅ 기능 변화 없음
-- ✅ 성능 향상
-- ✅ 보안 강화
-- ✅ 접근성 향상
-
-### 배운 점
-1. **카카오톡 캐싱**: SNS 플랫폼마다 캐싱 전략이 다름
-2. **OG 메타 태그 순서**: 순서와 속성이 중요함
-3. **Railway 배포**: GitHub 연동으로 CI/CD 자동화
-4. **접근성**: 작은 개선도 사용자 경험에 큰 영향
-
----
-
-**마지막 업데이트**: 2025-10-02
+**마지막 업데이트**: 2025-10-04
 **작성자**: Claude Code AI Assistant
