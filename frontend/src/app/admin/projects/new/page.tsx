@@ -35,6 +35,14 @@ export default function NewProjectPage() {
       return;
     }
 
+    // 토큰 확인
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      setError('로그인이 필요합니다. 다시 로그인해주세요.');
+      router.push('/admin/login');
+      return;
+    }
+
     setAiLoading(true);
     setError('');
 
@@ -43,7 +51,7 @@ export default function NewProjectPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           github_url: githubUrl || undefined,
@@ -52,6 +60,12 @@ export default function NewProjectPage() {
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          setError('세션이 만료되었습니다. 다시 로그인해주세요.');
+          setTimeout(() => router.push('/admin/login'), 2000);
+          return;
+        }
+
         const errorData = await response.json();
         throw new Error(errorData.detail || 'AI 생성에 실패했습니다.');
       }

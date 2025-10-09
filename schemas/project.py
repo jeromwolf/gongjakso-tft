@@ -9,7 +9,7 @@ from datetime import datetime
 class ProjectCreate(BaseModel):
     """Schema for creating a new project"""
     name: str = Field(..., min_length=1, max_length=200, description="Project name")
-    slug: str = Field(..., min_length=1, max_length=250, description="URL-friendly slug")
+    slug: Optional[str] = Field(None, min_length=1, max_length=250, description="URL-friendly slug (auto-generated from name if not provided)")
     description: Optional[str] = Field(None, max_length=500, description="Short description")
     content: Optional[str] = Field(None, description="Detailed description in Markdown")
 

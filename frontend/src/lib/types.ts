@@ -208,7 +208,7 @@ export interface ProjectListResponse {
 
 export interface ProjectCreateRequest {
   name: string;
-  slug: string;
+  slug?: string;  // Optional - auto-generated from name if not provided
   description?: string;
   content?: string;
   github_url?: string;
