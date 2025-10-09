@@ -18,6 +18,7 @@ export default function EditProjectPage() {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [status, setStatus] = useState<'completed' | 'in_progress'>('in_progress');
   const [techStack, setTechStack] = useState('');
@@ -40,6 +41,7 @@ export default function EditProjectPage() {
     if (project) {
       setName(project.name);
       setDescription(project.description);
+      setContent(project.content || '');
       setCategory(project.category || '');
       setStatus(project.status);
       setTechStack(project.tech_stack?.join(', ') || '');
@@ -59,6 +61,7 @@ export default function EditProjectPage() {
       await projectAPI.update(projectId, {
         name,
         description,
+        content: content || undefined,
         category: category || undefined,
         status,
         tech_stack: techArray,
@@ -117,6 +120,18 @@ export default function EditProjectPage() {
               rows={4}
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">상세 콘텐츠 (Markdown)</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={12}
+              placeholder="## 프로젝트 소개&#10;&#10;상세한 설명을 Markdown 형식으로 작성하세요..."
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 font-mono text-sm"
+            />
+            <p className="text-xs text-gray-500 mt-1">Markdown 형식으로 작성하면 프로젝트 상세 페이지에 표시됩니다</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">

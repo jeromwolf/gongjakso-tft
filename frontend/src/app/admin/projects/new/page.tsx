@@ -14,6 +14,7 @@ export default function NewProjectPage() {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [status, setStatus] = useState<'completed' | 'in_progress'>('in_progress');
   const [techStack, setTechStack] = useState('');
@@ -37,6 +38,7 @@ export default function NewProjectPage() {
       await projectAPI.create({
         name,
         description,
+        content: content || undefined,
         category: category || undefined,
         status,
         tech_stack: techArray,
@@ -97,6 +99,18 @@ export default function NewProjectPage() {
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
               placeholder="프로젝트에 대한 설명을 작성하세요"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">상세 콘텐츠 (Markdown)</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={12}
+              placeholder="## 프로젝트 소개&#10;&#10;상세한 설명을 Markdown 형식으로 작성하세요..."
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 font-mono text-sm"
+            />
+            <p className="text-xs text-gray-500 mt-1">Markdown 형식으로 작성하면 프로젝트 상세 페이지에 표시됩니다</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">

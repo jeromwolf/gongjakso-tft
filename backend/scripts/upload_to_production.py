@@ -642,7 +642,7 @@ prd.md 파일만으로 원하는 도구에서 직접 코드를 생성할 수 있
 ## 사용 예시
 근로소득과 금융소득 입력 → 공식 세율표 기반 종합소득세 계산 → 추가 세금, ETF 세금, 건강보험료 확인
 """,
-        "github_url": "https://github.com/ryhyh98/IncomeTax",
+        "github_url": "https://github.com/ryhyh98/TaxVibe",
         "demo_url": None,
         "thumbnail_url": None,
         "tech_stack": ["Python", "Flask", "HTML", "CSS", "JavaScript"],
