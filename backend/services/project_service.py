@@ -9,7 +9,7 @@ from loguru import logger
 
 from models.project import Project, ProjectStatus
 from schemas.project import ProjectCreate, ProjectUpdate
-from utils.slug import generate_unique_slug
+from utils.slug import slugify
 
 
 async def create_project(
@@ -26,8 +26,13 @@ async def create_project(
     Returns:
         Created project
     """
+    # Generate slug from name if not provided
+    if project_data.slug:
+        slug = project_data.slug
+    else:
+        slug = slugify(project_data.name)
+
     # Ensure slug is unique
-    slug = project_data.slug
     counter = 1
     original_slug = slug
     while True:

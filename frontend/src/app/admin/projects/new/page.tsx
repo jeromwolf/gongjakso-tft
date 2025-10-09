@@ -87,17 +87,6 @@ export default function NewProjectPage() {
     }
   };
 
-  const generateSlug = (name: string): string => {
-    return name
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-')           // 공백 → 하이픈
-      .replace(/[^\w\-가-힣]/g, '')   // 특수문자 제거 (한글, 영문, 숫자, 하이픈만 유지)
-      .replace(/\-\-+/g, '-')         // 연속 하이픈 → 단일 하이픈
-      .replace(/^-+/, '')              // 시작 하이픈 제거
-      .replace(/-+$/, '');             // 끝 하이픈 제거
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -105,11 +94,9 @@ export default function NewProjectPage() {
 
     try {
       const techArray = techStack.split(',').map(t => t.trim()).filter(t => t);
-      const slug = generateSlug(name);
 
       await projectAPI.create({
         name,
-        slug,
         description,
         content: content || undefined,
         category: category || undefined,
