@@ -265,13 +265,18 @@ SELECT email, role FROM users WHERE email = 'admin@example.com';
 - Markdown 콘텐츠 작성/수정
 - 태그 기반 분류
 - 조회수 추적
-- AI 자동 콘텐츠 생성 (Claude API)
+- AI 자동 콘텐츠 생성 (OpenAI GPT-4)
 
 ### 2. 프로젝트 전시
 - 12개 프로젝트 소개
-- GitHub 링크, 데모 URL
+- **GitHub URL #2 지원** - 메인/서브 리포지토리 2개 등록 가능
+- **Markdown 상세 콘텐츠** - 프로젝트 설명을 풍부하게 작성
 - 기술 스택 표시
 - 난이도 및 카테고리 분류
+- **✨ AI 자동 프로젝트 정보 생성**
+  - GitHub URL만 입력하면 자동으로 프로젝트 정보 생성
+  - OpenAI GPT-4로 README 분석
+  - 프로젝트 이름, 설명, 콘텐츠, 카테고리, 기술 스택 자동 입력
 
 ### 3. 뉴스레터
 - 구독자 관리
@@ -282,6 +287,11 @@ SELECT email, role FROM users WHERE email = 'admin@example.com';
 - JWT 기반 인증
 - Admin/User 역할 구분
 - 비밀번호 해싱 (bcrypt)
+- 세션 만료 시 자동 리다이렉트
+
+### 5. 자동화 기능
+- **Slug 자동 생성** - 프로젝트 이름에서 URL-safe slug 자동 생성
+- 중복 slug 자동 처리 (프로젝트-1, 프로젝트-2...)
 
 ---
 
@@ -426,7 +436,24 @@ git push origin deploy/backend-root
 - Admin 계정 설정
 - CORS 설정 완료
 
+### Phase 4: 기능 확장 (2025-10-09 완료)
+- **Footer 추가** - YouTube, GitHub 소셜 미디어 링크
+- **프로젝트 Content 필드** - Markdown 상세 설명 지원
+- **GitHub URL #2 필드** - 서브 리포지토리 등록 가능
+- **AI 자동 프로젝트 정보 생성**
+  - GitHub API 연동으로 리포지토리 정보 수집
+  - OpenAI GPT-4로 README 분석 및 프로젝트 정보 생성
+  - Admin 페이지에 "✨ AI로 작성" 버튼 추가
+- **자동 Slug 생성** - 백엔드에서 프로젝트 이름 기반 자동 생성
+- **인증 개선** - 세션 만료 시 명확한 에러 메시지 및 자동 리다이렉트
+
+### 기술 부채 해결
+- TypeScript 타입 정의 완성 (github_url_2 필드 추가)
+- Backend Service 레이어 개선
+- 프론트엔드 에러 핸들링 강화
+- Database 마이그레이션 스크립트 작성
+
 ---
 
-**마지막 업데이트**: 2025-10-04
+**마지막 업데이트**: 2025-10-09
 **작성자**: Claude Code AI Assistant
