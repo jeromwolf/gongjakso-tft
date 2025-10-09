@@ -32,6 +32,7 @@ class Project(Base):
 
     # Links
     github_url = Column(String(500), nullable=True)
+    github_url_2 = Column(String(500), nullable=True)  # Secondary GitHub repository
     demo_url = Column(String(500), nullable=True)
     thumbnail_url = Column(String(500), nullable=True)
 
@@ -71,6 +72,7 @@ class Project(Base):
             "description": self.description,
             "content": self.content,
             "github_url": self.github_url,
+            "github_url_2": self.github_url_2,
             "demo_url": self.demo_url,
             "thumbnail_url": self.thumbnail_url,
             "tech_stack": self.tech_stack,

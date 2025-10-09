@@ -23,6 +23,7 @@ export default function EditProjectPage() {
   const [status, setStatus] = useState<'completed' | 'in_progress'>('in_progress');
   const [techStack, setTechStack] = useState('');
   const [githubUrl, setGithubUrl] = useState('');
+  const [githubUrl2, setGithubUrl2] = useState('');
   const [demoUrl, setDemoUrl] = useState('');
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function EditProjectPage() {
       setStatus(project.status);
       setTechStack(project.tech_stack?.join(', ') || '');
       setGithubUrl(project.github_url || '');
+      setGithubUrl2(project.github_url_2 || '');
       setDemoUrl(project.demo_url || '');
     }
   }, [project]);
@@ -66,6 +68,7 @@ export default function EditProjectPage() {
         status,
         tech_stack: techArray,
         github_url: githubUrl || undefined,
+        github_url_2: githubUrl2 || undefined,
         demo_url: demoUrl || undefined,
       });
 
@@ -184,7 +187,20 @@ export default function EditProjectPage() {
               value={githubUrl}
               onChange={(e) => setGithubUrl(e.target.value)}
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
+              placeholder="https://github.com/..."
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">GitHub URL #2 (선택)</label>
+            <input
+              type="url"
+              value={githubUrl2}
+              onChange={(e) => setGithubUrl2(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
+              placeholder="https://github.com/... (관련/서브 리포지토리)"
+            />
+            <p className="text-xs text-gray-500 mt-1">관련 또는 서브 리포지토리가 있을 경우 입력하세요</p>
           </div>
 
           <div>
