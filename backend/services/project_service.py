@@ -46,6 +46,7 @@ async def create_project(
         description=project_data.description,
         content=project_data.content,
         github_url=project_data.github_url,
+        github_url_2=project_data.github_url_2,
         demo_url=project_data.demo_url,
         thumbnail_url=project_data.thumbnail_url,
         tech_stack=project_data.tech_stack,
@@ -174,6 +175,9 @@ async def update_project(
 
     if project_data.github_url is not None:
         project.github_url = project_data.github_url
+
+    if project_data.github_url_2 is not None:
+        project.github_url_2 = project_data.github_url_2
 
     if project_data.demo_url is not None:
         project.demo_url = project_data.demo_url
