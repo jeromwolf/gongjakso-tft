@@ -5,6 +5,8 @@ from typing import Optional, List, Dict, Any
 from openai import AsyncOpenAI
 from core.config import settings
 from loguru import logger
+import httpx
+import re
 
 
 # Initialize OpenAI client
@@ -321,5 +323,227 @@ def _parse_newsletter_response(content: str) -> Dict[str, str]:
 
     return {
         "title": title or "데이터공작소 TFT 뉴스레터",
+        "content": content_text,
+    }
+
+
+async def fetch_github_repo_info(github_url: str) -> Optional[Dict[str, Any]]:
+    """
+    Fetch GitHub repository information
+
+    Args:
+        github_url: GitHub repository URL
+
+    Returns:
+        Dict with repo info or None
+    """
+    # Extract owner and repo from URL
+    # Example: https://github.com/owner/repo
+    match = re.match(r'https?://github\.com/([^/]+)/([^/]+)', github_url)
+    if not match:
+        logger.warning(f"Invalid GitHub URL: {github_url}")
+        return None
+
+    owner, repo = match.groups()
+    repo = repo.replace('.git', '')  # Remove .git if present
+
+    try:
+        async with httpx.AsyncClient() as client:
+            # Get repo info
+            repo_response = await client.get(
+                f"https://api.github.com/repos/{owner}/{repo}",
+                headers={"Accept": "application/vnd.github.v3+json"},
+                timeout=10.0
+            )
+
+            if repo_response.status_code != 200:
+                logger.warning(f"GitHub API error: {repo_response.status_code}")
+                return None
+
+            repo_data = repo_response.json()
+
+            # Try to get README
+            readme_content = None
+            try:
+                readme_response = await client.get(
+                    f"https://api.github.com/repos/{owner}/{repo}/readme",
+                    headers={"Accept": "application/vnd.github.v3.raw"},
+                    timeout=10.0
+                )
+                if readme_response.status_code == 200:
+                    readme_content = readme_response.text[:3000]  # Limit to 3000 chars
+            except Exception as e:
+                logger.warning(f"Failed to fetch README: {e}")
+
+            return {
+                "name": repo_data.get("name"),
+                "description": repo_data.get("description"),
+                "language": repo_data.get("language"),
+                "topics": repo_data.get("topics", []),
+                "stars": repo_data.get("stargazers_count"),
+                "homepage": repo_data.get("homepage"),
+                "readme": readme_content,
+            }
+
+    except Exception as e:
+        logger.error(f"Failed to fetch GitHub repo info: {e}")
+        return None
+
+
+async def generate_project_info(
+    github_url: Optional[str] = None,
+    demo_url: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    Generate project information using AI
+
+    Args:
+        github_url: GitHub repository URL
+        demo_url: Demo/live site URL
+
+    Returns:
+        Dict with name, description, content, category, tech_stack
+    """
+    if not client:
+        raise ValueError("OPENAI_API_KEY is not configured")
+
+    # Fetch GitHub repo info if URL provided
+    github_info = None
+    if github_url:
+        github_info = await fetch_github_repo_info(github_url)
+
+    # Build prompt
+    prompt = _build_project_info_prompt(github_url, demo_url, github_info)
+
+    try:
+        logger.info(f"Generating project info from GitHub: {github_url}")
+
+        response = await client.chat.completions.create(
+            model="gpt-4o",
+            max_tokens=3000,
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "당신은 GitHub 리포지토리를 분석하고 프로젝트 정보를 작성하는 전문가입니다. 한국어로 명확하고 간결하게 작성합니다."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        content = response.choices[0].message.content
+        parsed = _parse_project_info_response(content)
+
+        logger.info(f"Successfully generated project info: {parsed.get('name')}")
+        return parsed
+
+    except Exception as e:
+        logger.error(f"Failed to generate project info: {e}")
+        raise
+
+
+def _build_project_info_prompt(
+    github_url: Optional[str],
+    demo_url: Optional[str],
+    github_info: Optional[Dict[str, Any]],
+) -> str:
+    """Build prompt for project info generation"""
+
+    prompt = """GitHub 리포지토리 정보를 바탕으로 프로젝트 정보를 작성해주세요.
+
+"""
+
+    if github_url:
+        prompt += f"**GitHub URL**: {github_url}\n\n"
+
+    if demo_url:
+        prompt += f"**Demo URL**: {demo_url}\n\n"
+
+    if github_info:
+        prompt += "**리포지토리 정보**:\n"
+        if github_info.get("name"):
+            prompt += f"- 이름: {github_info['name']}\n"
+        if github_info.get("description"):
+            prompt += f"- 설명: {github_info['description']}\n"
+        if github_info.get("language"):
+            prompt += f"- 주요 언어: {github_info['language']}\n"
+        if github_info.get("topics"):
+            prompt += f"- 토픽: {', '.join(github_info['topics'])}\n"
+        if github_info.get("homepage"):
+            prompt += f"- 홈페이지: {github_info['homepage']}\n"
+
+        if github_info.get("readme"):
+            prompt += f"\n**README 내용 (일부)**:\n```\n{github_info['readme']}\n```\n"
+
+    prompt += """
+**요구사항**:
+1. 프로젝트 이름: 짧고 명확한 한국어 이름 (영어 이름이 있으면 함께 표기)
+2. 설명: 2-3문장으로 프로젝트의 핵심 기능 설명
+3. 상세 콘텐츠: Markdown 형식으로 프로젝트의 주요 기능, 사용 방법, 특징 등을 상세히 설명 (500-1000자)
+4. 카테고리: AI/ML, Finance, Video, DevOps, Blockchain, Web, Mobile 중 하나 선택
+5. 기술 스택: 사용된 주요 기술/프레임워크 목록 (최대 7개)
+
+**응답 형식** (다음 형식을 정확히 따라주세요):
+
+NAME: [프로젝트 이름]
+
+DESCRIPTION: [간단한 설명]
+
+CATEGORY: [카테고리]
+
+TECH_STACK: [기술1, 기술2, 기술3] (쉼표로 구분)
+
+CONTENT:
+[여기에 Markdown 형식의 상세 설명 작성]
+
+---
+
+위 형식을 정확히 지켜서 작성해주세요."""
+
+    return prompt
+
+
+def _parse_project_info_response(content: str) -> Dict[str, Any]:
+    """Parse AI's project info response into structured data"""
+
+    lines = content.split('\n')
+
+    name = ""
+    description = ""
+    category = ""
+    tech_stack = []
+    project_content = []
+
+    current_section = None
+
+    for line in lines:
+        line_stripped = line.strip()
+
+        if line_stripped.startswith("NAME:"):
+            name = line_stripped.replace("NAME:", "").strip()
+        elif line_stripped.startswith("DESCRIPTION:"):
+            description = line_stripped.replace("DESCRIPTION:", "").strip()
+        elif line_stripped.startswith("CATEGORY:"):
+            category = line_stripped.replace("CATEGORY:", "").strip()
+        elif line_stripped.startswith("TECH_STACK:"):
+            tech_str = line_stripped.replace("TECH_STACK:", "").strip()
+            tech_stack = [t.strip() for t in tech_str.split(',') if t.strip()]
+        elif line_stripped.startswith("CONTENT:"):
+            current_section = "content"
+        elif current_section == "content" and line:
+            project_content.append(line)
+
+    # Join content lines
+    content_text = '\n'.join(project_content).strip()
+    content_text = content_text.replace('---', '').strip()
+
+    return {
+        "name": name or "새 프로젝트",
+        "description": description or "",
+        "category": category or "Web",
+        "tech_stack": tech_stack,
         "content": content_text,
     }

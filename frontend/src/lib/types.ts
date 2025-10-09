@@ -166,6 +166,7 @@ export interface Project {
   description: string | null;
   content: string | null;
   github_url: string | null;
+  github_url_2: string | null;
   demo_url: string | null;
   thumbnail_url: string | null;
   tech_stack: string[] | null;
@@ -184,6 +185,7 @@ export interface ProjectListItem {
   slug: string;
   description: string | null;
   github_url: string | null;
+  github_url_2: string | null;
   demo_url: string | null;
   thumbnail_url: string | null;
   tech_stack: string[] | null;
@@ -210,6 +212,7 @@ export interface ProjectCreateRequest {
   description?: string;
   content?: string;
   github_url?: string;
+  github_url_2?: string;
   demo_url?: string;
   thumbnail_url?: string;
   tech_stack?: string[];
@@ -224,6 +227,7 @@ export interface ProjectUpdateRequest {
   description?: string;
   content?: string;
   github_url?: string;
+  github_url_2?: string;
   demo_url?: string;
   thumbnail_url?: string;
   tech_stack?: string[];
