@@ -42,6 +42,12 @@ class ContentPreviewRequest(BaseModel):
     style: str = Field("technical", description="Writing style")
 
 
+class GenerateProjectInfoRequest(BaseModel):
+    """Request schema for project info generation"""
+    github_url: Optional[str] = Field(None, description="GitHub repository URL")
+    demo_url: Optional[str] = Field(None, description="Demo/live site URL")
+
+
 # ============ Response Schemas ============
 
 class GeneratedBlogResponse(BaseModel):
@@ -60,6 +66,15 @@ class GeneratedNewsletterResponse(BaseModel):
     title: str
     content: str
     status: str
+
+
+class GeneratedProjectInfoResponse(BaseModel):
+    """Response schema for generated project info"""
+    name: str
+    description: str
+    content: str
+    category: str
+    tech_stack: list[str]
 
 
 # ============ Endpoints ============
@@ -238,4 +253,56 @@ async def preview_content(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="미리보기 생성에 실패했습니다.",
+        )
+
+
+@router.post("/generate-project-info", response_model=GeneratedProjectInfoResponse)
+async def generate_project_info(
+    request: GenerateProjectInfoRequest,
+    current_user: User = Depends(get_current_admin_user),
+):
+    """
+    Generate project information from GitHub/Demo URL using AI (Admin only)
+
+    - Fetches repository information from GitHub
+    - Uses AI to generate project name, description, content, category, and tech stack
+    - Returns structured data to populate project creation form
+    """
+    try:
+        from services.ai_service import generate_project_info as ai_generate_project_info
+
+        if not request.github_url and not request.demo_url:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="GitHub URL 또는 Demo URL 중 하나를 제공해야 합니다.",
+            )
+
+        # Generate project info using AI
+        project_info = await ai_generate_project_info(
+            github_url=request.github_url,
+            demo_url=request.demo_url,
+        )
+
+        logger.info(f"Successfully generated project info: {project_info['name']}")
+
+        return GeneratedProjectInfoResponse(
+            name=project_info["name"],
+            description=project_info["description"],
+            content=project_info["content"],
+            category=project_info["category"],
+            tech_stack=project_info["tech_stack"],
+        )
+
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        )
+    except Exception as e:
+        logger.error(f"Failed to generate project info: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="프로젝트 정보 생성에 실패했습니다.",
         )

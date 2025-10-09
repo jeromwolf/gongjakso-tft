@@ -10,6 +10,7 @@ export default function NewProjectPage() {
   const { user, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState('');
 
   const [name, setName] = useState('');
@@ -27,6 +28,50 @@ export default function NewProjectPage() {
       router.push('/');
     }
   }, [user, authLoading, router]);
+
+  const handleAIGenerate = async () => {
+    if (!githubUrl && !demoUrl) {
+      setError('GitHub URL 또는 Demo URL을 먼저 입력해주세요.');
+      return;
+    }
+
+    setAiLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ai/generate-project-info`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        body: JSON.stringify({
+          github_url: githubUrl || undefined,
+          demo_url: demoUrl || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'AI 생성에 실패했습니다.');
+      }
+
+      const data = await response.json();
+
+      // 폼 자동 채우기
+      setName(data.name);
+      setDescription(data.description);
+      setContent(data.content);
+      setCategory(data.category);
+      setTechStack(data.tech_stack.join(', '));
+
+      alert('✨ AI가 프로젝트 정보를 생성했습니다!');
+    } catch (err: any) {
+      setError(err.message || 'AI 생성에 실패했습니다.');
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,6 +236,38 @@ export default function NewProjectPage() {
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
               placeholder="https://..."
             />
+          </div>
+
+          {/* AI 자동 생성 버튼 */}
+          <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="font-semibold text-blue-400 mb-1 flex items-center gap-2">
+                  <span>✨</span> AI로 자동 작성
+                </h3>
+                <p className="text-sm text-gray-400">
+                  GitHub 또는 Demo URL을 입력하면 AI가 프로젝트 이름, 설명, 상세 콘텐츠, 카테고리, 기술 스택을 자동으로 생성합니다.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleAIGenerate}
+                disabled={aiLoading || (!githubUrl && !demoUrl)}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap flex items-center gap-2"
+              >
+                {aiLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    생성 중...
+                  </>
+                ) : (
+                  <>
+                    <span>✨</span>
+                    AI로 작성
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="flex gap-4">
