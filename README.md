@@ -2,7 +2,10 @@
 
 켈리 데이터공작소 TFT의 공식 커뮤니티 플랫폼입니다.
 
-**배포 URL**: https://gongjakso-tft.up.railway.app
+**배포 URL**:
+- Frontend: https://gongjakso-tft-frontend.onrender.com
+- Backend API: https://gongjakso-tft.onrender.com
+- API Docs: https://gongjakso-tft.onrender.com/api/docs
 
 ---
 
@@ -16,14 +19,15 @@ gongjakso-tft/
 │   ├── schemas/         # Pydantic 스키마
 │   ├── core/            # 핵심 설정 (DB, 보안)
 │   ├── services/        # 비즈니스 로직
+│   ├── scripts/         # 데이터 마이그레이션 스크립트
 │   └── main.py          # 엔트리포인트
 │
 ├── frontend/            # Next.js 프론트엔드
-│   ├── src/
-│   │   ├── app/        # App Router 페이지
-│   │   ├── components/ # React 컴포넌트
-│   │   ├── contexts/   # React Context (Auth 등)
-│   │   └── lib/        # 유틸리티, API 클라이언트
+│   ├── app/            # App Router 페이지
+│   ├── components/     # React 컴포넌트
+│   ├── lib/            # 유틸리티, API 클라이언트
+│   ├── hooks/          # Custom Hooks
+│   ├── types/          # TypeScript 타입
 │   └── public/         # 정적 파일
 │
 ├── docs/                # 문서
@@ -32,9 +36,9 @@ gongjakso-tft/
 ├── archive/             # 아카이브
 │   └── v1-static-site/ # 기존 정적 사이트
 │
-├── DEPLOYMENT_CHECKLIST.md  # Railway 배포 가이드
-├── TEST_REPORT.md           # 테스트 결과
-└── docker-compose.yml       # 로컬 개발 환경
+├── claude.md           # 프로젝트 개발 기록 및 배포 가이드
+├── TEST_REPORT.md      # 테스트 결과
+└── docker-compose.yml  # 로컬 개발 환경
 ```
 
 ---
@@ -43,10 +47,10 @@ gongjakso-tft/
 
 ### 현재 구현 완료 ✅
 - **회원 인증**: 회원가입, 로그인 (JWT)
-- **블로그**: 기술 블로그 게시판
-- **프로젝트**: 프로젝트 쇼케이스
+- **블로그**: 기술 블로그 게시판 (6개 게시물)
+- **프로젝트**: 프로젝트 쇼케이스 (12개 프로젝트)
 - **Newsletter**: 이메일 구독 관리
-- **AI 컨텐츠**: OpenAI 기반 컨텐츠 생성
+- **AI 컨텐츠**: Claude/OpenAI 기반 컨텐츠 생성
 
 ### 향후 구현 예정 📋
 - **Phase 1-4** (9개월): 회원 프로필, Q&A, 배지 시스템
@@ -63,9 +67,9 @@ gongjakso-tft/
 
 ### Backend
 - **Framework**: FastAPI (Python 3.11)
-- **Database**: PostgreSQL 15 + SQLAlchemy (async)
+- **Database**: PostgreSQL 17 + SQLAlchemy (async)
 - **Auth**: JWT (python-jose)
-- **AI**: OpenAI GPT-4 API
+- **AI**: Anthropic Claude API, OpenAI API
 - **Email**: Resend API
 
 ### Frontend
@@ -73,12 +77,12 @@ gongjakso-tft/
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **State**: React Query (TanStack Query)
-- **Forms**: React Hook Form
+- **UI Components**: Radix UI, shadcn/ui
 
 ### Infrastructure
-- **Hosting**: Railway
-- **Database**: Railway PostgreSQL
-- **CI/CD**: GitHub Actions (예정)
+- **Hosting**: Render.com (Docker)
+- **Database**: Render PostgreSQL 17
+- **CI/CD**: GitHub → Render 자동 배포
 
 ---
 
@@ -121,9 +125,6 @@ pip install -r requirements.txt
 cp .env.example .env
 # .env 파일 편집
 
-# 데이터베이스 마이그레이션
-# (앱 시작 시 자동 실행됨)
-
 # 서버 실행
 uvicorn main:app --reload --port 8000
 ```
@@ -146,33 +147,60 @@ npm run dev
 
 ---
 
-## 🚂 Railway 배포
+## 🌐 Render 배포
 
-자세한 배포 가이드는 [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)를 참고하세요.
+자세한 배포 가이드는 [claude.md](./claude.md)를 참고하세요.
 
-### 빠른 배포 요약
+### 🚨 중요: 브랜치 전략
 
-1. **GitHub 연동**
-   - Railway 대시보드에서 GitHub 저장소 연결
-   - Branch: `main` (또는 `feature/backend-integration`)
+- **Frontend**: `main` 브랜치 사용
+- **Backend**: `deploy/backend-root` 브랜치 사용 (필수!)
+  - Root Directory 설정 없이 사용
+  - `main` + Root Directory 조합은 타임아웃 발생
 
-2. **Backend 서비스 생성**
-   - Root Directory: `/backend`
-   - Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-   - 환경 변수 설정 (DATABASE_URL, SECRET_KEY, API 키 등)
+### Backend 배포 설정
 
-3. **Frontend 서비스 생성**
-   - Root Directory: `/frontend`
-   - Start Command: `npm start`
-   - 환경 변수: `NEXT_PUBLIC_API_URL=<backend-url>`
+**Render Settings:**
+- Branch: `deploy/backend-root` 🚨
+- Root Directory: (비워두기) 🚨
+- Dockerfile Path: `Dockerfile`
+- Docker Build Context: `.`
 
-4. **PostgreSQL 추가**
-   - Railway 플러그인에서 PostgreSQL 추가
-   - Backend 서비스에 연결
+**Environment Variables:**
+```bash
+DATABASE_URL=postgresql+asyncpg://...  # Render 자동 설정
+SECRET_KEY=<강력한-랜덤-키>
+ANTHROPIC_API_KEY=<키>
+OPENAI_API_KEY=<키>
+RESEND_API_KEY=<키>
+FROM_EMAIL=noreply@gongjakso-tft.onrender.com
+DEBUG=false
+```
 
-5. **도메인 설정**
-   - Frontend: `gongjakso-tft.up.railway.app` (메인)
-   - Backend: `gongjakso-tft-backend.up.railway.app`
+⚠️ **CORS_ORIGINS 환경변수는 설정하지 마세요** (코드 기본값 사용)
+
+### Frontend 배포 설정
+
+**Render Settings:**
+- Branch: `main`
+- Root Directory: `frontend`
+- Build Command: `npm install && npm run build`
+- Start Command: `npm start`
+
+**Environment Variables:**
+```bash
+NEXT_PUBLIC_API_URL=https://gongjakso-tft.onrender.com
+NODE_ENV=production
+```
+
+### 배포 후 체크리스트
+
+- [ ] Backend Health: https://gongjakso-tft.onrender.com/api/health
+- [ ] API Docs: https://gongjakso-tft.onrender.com/api/docs
+- [ ] Frontend: https://gongjakso-tft-frontend.onrender.com
+- [ ] 블로그 목록 표시 확인 (6개)
+- [ ] 프로젝트 목록 표시 확인 (12개)
+- [ ] CORS 에러 없음
 
 ---
 
@@ -202,10 +230,11 @@ open http://localhost:3000
 ```bash
 DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/dbname
 SECRET_KEY=<32자 이상의 강력한 랜덤 키>
+ANTHROPIC_API_KEY=<your-anthropic-api-key>
 OPENAI_API_KEY=<your-openai-api-key>
 RESEND_API_KEY=<your-resend-api-key>
 FROM_EMAIL=<your-email>@resend.dev
-CORS_ORIGINS=["http://localhost:3000"]
+DEBUG=true
 ```
 
 ### Frontend (.env.local)
@@ -217,8 +246,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ## 📚 문서
 
+- [개발 기록 & 배포 가이드](./claude.md) - 프로젝트 전체 문서 (Render 배포 포함)
 - [구현 계획](./docs/IMPLEMENTATION_PLAN.md) - Phase 1-8 상세 계획 (20개월)
-- [배포 체크리스트](./DEPLOYMENT_CHECKLIST.md) - Railway 배포 가이드
 - [테스트 리포트](./TEST_REPORT.md) - 배포 전 테스트 결과
 - [운영 정책](./docs/공작소%20TFT%20사이트%20운영%20정책(가상).pdf) - 회원 등급, 행동 규칙
 - [SWOT 분석](./docs/공작소%20TFT%20SWOT%20분석.pdf) - 전략적 방향성
@@ -228,9 +257,12 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ## 🔄 최근 변경사항
 
 ### 2025-10-04
+- ✅ **Render.com 배포 완료** (Railway → Render 전환)
+- ✅ 프로덕션 데이터 업로드 (블로그 6개, 프로젝트 12개)
+- ✅ 브랜치 전략 최적화 (`deploy/backend-root` 브랜치 생성)
+- ✅ CORS 설정 완료
 - ✅ 로그인/회원가입 에러 메시지 UX 개선
 - ✅ 전체 시스템 테스트 완료 (Docker)
-- ✅ Railway 배포 가이드 작성
 - ✅ Phase 5-8 구현 계획 추가 (게시판, 스터디, 협업, 행사)
 - ✅ 기존 정적 사이트 아카이브 (`archive/v1-static-site`)
 
@@ -263,7 +295,7 @@ MIT License
 **데이터공작소 개발 TFT**
 
 - GitHub: https://github.com/jeromwolf/gongjakso-tft
-- Website: https://gongjakso-tft.up.railway.app
+- Website: https://gongjakso-tft-frontend.onrender.com
 
 ---
 

@@ -14,6 +14,7 @@ class ProjectCreate(BaseModel):
     content: Optional[str] = Field(None, description="Detailed description in Markdown")
 
     github_url: Optional[str] = Field(None, max_length=500, description="GitHub repository URL")
+    github_url_2: Optional[str] = Field(None, max_length=500, description="Secondary GitHub repository URL")
     demo_url: Optional[str] = Field(None, max_length=500, description="Live demo URL")
     thumbnail_url: Optional[str] = Field(None, max_length=500, description="Thumbnail image URL")
 
@@ -31,6 +32,7 @@ class ProjectUpdate(BaseModel):
     content: Optional[str] = None
 
     github_url: Optional[str] = Field(None, max_length=500)
+    github_url_2: Optional[str] = Field(None, max_length=500)
     demo_url: Optional[str] = Field(None, max_length=500)
     thumbnail_url: Optional[str] = Field(None, max_length=500)
 
@@ -49,6 +51,7 @@ class ProjectResponse(BaseModel):
     content: Optional[str] = None
 
     github_url: Optional[str] = None
+    github_url_2: Optional[str] = None
     demo_url: Optional[str] = None
     thumbnail_url: Optional[str] = None
 
@@ -74,6 +77,7 @@ class ProjectListItem(BaseModel):
     description: Optional[str] = None
 
     github_url: Optional[str] = None
+    github_url_2: Optional[str] = None
     demo_url: Optional[str] = None
     thumbnail_url: Optional[str] = None
 

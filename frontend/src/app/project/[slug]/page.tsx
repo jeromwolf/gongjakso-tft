@@ -114,6 +114,17 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 GitHub
               </a>
             )}
+            {project.github_url_2 && (
+              <a
+                href={project.github_url_2}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg font-medium transition flex items-center gap-2"
+              >
+                <i className="fab fa-github"></i>
+                GitHub #2
+              </a>
+            )}
             {project.demo_url && (
               <a
                 href={project.demo_url}

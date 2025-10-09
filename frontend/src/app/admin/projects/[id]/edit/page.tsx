@@ -18,10 +18,12 @@ export default function EditProjectPage() {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [status, setStatus] = useState<'completed' | 'in_progress'>('in_progress');
   const [techStack, setTechStack] = useState('');
   const [githubUrl, setGithubUrl] = useState('');
+  const [githubUrl2, setGithubUrl2] = useState('');
   const [demoUrl, setDemoUrl] = useState('');
 
   useEffect(() => {
@@ -40,10 +42,12 @@ export default function EditProjectPage() {
     if (project) {
       setName(project.name);
       setDescription(project.description);
+      setContent(project.content || '');
       setCategory(project.category || '');
       setStatus(project.status);
       setTechStack(project.tech_stack?.join(', ') || '');
       setGithubUrl(project.github_url || '');
+      setGithubUrl2(project.github_url_2 || '');
       setDemoUrl(project.demo_url || '');
     }
   }, [project]);
@@ -59,10 +63,12 @@ export default function EditProjectPage() {
       await projectAPI.update(projectId, {
         name,
         description,
+        content: content || undefined,
         category: category || undefined,
         status,
         tech_stack: techArray,
         github_url: githubUrl || undefined,
+        github_url_2: githubUrl2 || undefined,
         demo_url: demoUrl || undefined,
       });
 
@@ -119,6 +125,18 @@ export default function EditProjectPage() {
             />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium mb-2">상세 콘텐츠 (Markdown)</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={12}
+              placeholder="## 프로젝트 소개&#10;&#10;상세한 설명을 Markdown 형식으로 작성하세요..."
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500 font-mono text-sm"
+            />
+            <p className="text-xs text-gray-500 mt-1">Markdown 형식으로 작성하면 프로젝트 상세 페이지에 표시됩니다</p>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium mb-2">카테고리</label>
@@ -169,7 +187,20 @@ export default function EditProjectPage() {
               value={githubUrl}
               onChange={(e) => setGithubUrl(e.target.value)}
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
+              placeholder="https://github.com/..."
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">GitHub URL #2 (선택)</label>
+            <input
+              type="url"
+              value={githubUrl2}
+              onChange={(e) => setGithubUrl2(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-green-500"
+              placeholder="https://github.com/... (관련/서브 리포지토리)"
+            />
+            <p className="text-xs text-gray-500 mt-1">관련 또는 서브 리포지토리가 있을 경우 입력하세요</p>
           </div>
 
           <div>
