@@ -1,6 +1,6 @@
-# 데이터공작소 TFT 플랫폼
+# AI ON 플랫폼
 
-켈리 데이터공작소 TFT의 공식 커뮤니티 플랫폼입니다.
+AI 기술 스터디와 바이브코딩 프로젝트를 공유하는 플랫폼입니다.
 
 **배포 URL**:
 - Frontend: https://gongjakso-tft-frontend.onrender.com
@@ -49,8 +49,12 @@ gongjakso-tft/
 - **회원 인증**: 회원가입, 로그인 (JWT)
 - **블로그**: 기술 블로그 게시판 (6개 게시물)
 - **프로젝트**: 프로젝트 쇼케이스 (12개 프로젝트)
+  - GitHub URL #2 지원 (메인/서브 리포지토리)
+  - Markdown 상세 콘텐츠
+  - ✨ **AI 자동 정보 생성** - GitHub URL만 입력하면 자동 작성
 - **Newsletter**: 이메일 구독 관리
-- **AI 컨텐츠**: Claude/OpenAI 기반 컨텐츠 생성
+- **AI 컨텐츠**: OpenAI GPT-4 기반 컨텐츠 생성
+- **자동화**: Slug 자동 생성, 중복 처리
 
 ### 향후 구현 예정 📋
 - **Phase 1-4** (9개월): 회원 프로필, Q&A, 배지 시스템
@@ -292,11 +296,12 @@ MIT License
 
 ## 👥 팀
 
-**데이터공작소 개발 TFT**
+**AI ON**
 
 - GitHub: https://github.com/jeromwolf/gongjakso-tft
 - Website: https://gongjakso-tft-frontend.onrender.com
+- YouTube: https://www.youtube.com/channel/UCzwPW_BSlr4Art7ckUYK5kw
 
 ---
 
-**Built with ❤️ by Data Workshop TFT**
+**Built with ❤️ by AI ON**

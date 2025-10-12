@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     """Application settings with environment variable support"""
 
     # App Info
-    APP_NAME: str = "Gongjakso TFT API"
+    APP_NAME: str = "AI ON API"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
 

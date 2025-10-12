@@ -7,9 +7,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">데이터공작소 TFT</h3>
+            <h3 className="text-white font-bold text-lg mb-4">AI ON</h3>
             <p className="text-sm leading-relaxed">
-              데이터 분석, AI/ML, 풀스택 개발 프로젝트를 공유하는 커뮤니티 플랫폼입니다.
+              AI 기술 스터디와 바이브코딩 프로젝트를 공유하는 플랫폼입니다.
             </p>
           </div>
 
@@ -98,7 +98,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
           <p>
-            © {new Date().getFullYear()} 데이터공작소 개발 TFT. All rights reserved.
+            © {new Date().getFullYear()} AI ON. All rights reserved.
           </p>
           <p className="mt-2 text-xs text-gray-500">
             Built with Next.js, FastAPI, and PostgreSQL

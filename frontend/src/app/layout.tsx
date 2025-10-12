@@ -12,13 +12,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "데이터공작소 개발 TFT - Blog & Newsletter",
-  description: "데이터공작소 개발 TFT의 블로그와 뉴스레터를 만나보세요. 최신 개발 소식과 기술 인사이트를 공유합니다.",
-  keywords: "데이터공작소, 개발, 블로그, 뉴스레터, TFT",
-  authors: [{ name: "데이터공작소 TFT" }],
+  title: "AI ON - AI 기술 스터디 × 바이브코딩 프로젝트",
+  description: "AI ON에서 AI 기술 스터디와 바이브코딩 프로젝트를 만나보세요. 최신 AI 개발 소식과 기술 인사이트를 공유합니다.",
+  keywords: "AI ON, AI, 인공지능, 바이브코딩, 기술 스터디, 블로그, 프로젝트",
+  authors: [{ name: "AI ON" }],
   openGraph: {
-    title: "데이터공작소 개발 TFT",
-    description: "데이터공작소 개발 TFT의 블로그와 뉴스레터",
+    title: "AI ON - AI 기술 스터디 × 바이브코딩 프로젝트",
+    description: "AI ON의 블로그와 프로젝트 쇼케이스",
     type: "website",
     locale: "ko_KR",
   },
