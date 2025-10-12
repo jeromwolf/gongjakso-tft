@@ -1,5 +1,5 @@
 """
-Gongjakso TFT Backend - FastAPI Main Application
+AI ON Backend - FastAPI Main Application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,7 +27,7 @@ from api.ai_content import router as ai_router
 async def lifespan(app: FastAPI):
     """Application lifespan - startup and shutdown"""
     # Startup
-    logger.info("🚀 Starting Gongjakso TFT Backend...")
+    logger.info("🚀 Starting AI ON Backend...")
     logger.info(f"Database URL: {settings.DATABASE_URL}")
 
     # Create database tables
@@ -36,14 +36,14 @@ async def lifespan(app: FastAPI):
     yield
 
     # Shutdown
-    logger.info("👋 Shutting down Gongjakso TFT Backend...")
+    logger.info("👋 Shutting down AI ON Backend...")
 
 
 # Initialize FastAPI app
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description="Blog & Newsletter Backend for Gongjakso TFT",
+    description="Blog & Newsletter Backend for AI ON",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
     lifespan=lifespan,

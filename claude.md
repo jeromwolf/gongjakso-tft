@@ -1,8 +1,8 @@
-# 데이터공작소 TFT 풀스택 프로젝트
+# AI ON 풀스택 프로젝트
 
 ## 프로젝트 개요
 
-**프로젝트명**: 데이터공작소 개발 TFT 홈페이지 (풀스택)
+**프로젝트명**: AI ON 홈페이지 (풀스택)
 **배포 URL**:
 - Frontend: https://gongjakso-tft-frontend.onrender.com
 - Backend API: https://gongjakso-tft.onrender.com
@@ -447,6 +447,13 @@ git push origin deploy/backend-root
 - **자동 Slug 생성** - 백엔드에서 프로젝트 이름 기반 자동 생성
 - **인증 개선** - 세션 만료 시 명확한 에러 메시지 및 자동 리다이렉트
 
+### Phase 5: 브랜딩 변경 (2025-10-13)
+- **리브랜딩** - "데이터공작소 TFT" → "AI ON"
+  - 프론트엔드: 메타데이터, 네비게이션 바, Footer 업데이트
+  - 백엔드: API 설정, 앱 이름 업데이트
+  - 문서: README.md, claude.md 업데이트
+- 새로운 타겟라인: "AI 기술 스터디 × 바이브코딩 프로젝트"
+
 ### 기술 부채 해결
 - TypeScript 타입 정의 완성 (github_url_2 필드 추가)
 - Backend Service 레이어 개선
@@ -455,5 +462,5 @@ git push origin deploy/backend-root
 
 ---
 
-**마지막 업데이트**: 2025-10-09
+**마지막 업데이트**: 2025-10-13
 **작성자**: Claude Code AI Assistant
