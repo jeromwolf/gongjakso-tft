@@ -21,7 +21,9 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://localhost:5173",
         "https://gongjakso-tft.up.railway.app",
-        "https://gongjakso-tft-frontend.onrender.com"
+        "https://gongjakso-tft-frontend.onrender.com",
+        "https://aion.io.kr",
+        "https://www.aion.io.kr"
     ]
 
     # AI Services
@@ -30,7 +32,7 @@ class Settings(BaseSettings):
 
     # Email
     RESEND_API_KEY: Optional[str] = None
-    FROM_EMAIL: str = "noreply@gongjakso-tft.up.railway.app"
+    FROM_EMAIL: str = "noreply@aion.io.kr"
 
     # Newsletter
     NEWSLETTER_SCHEDULE: str = "0 9 * * *"  # Daily at 9 AM
