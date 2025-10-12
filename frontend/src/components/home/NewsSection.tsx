@@ -2,39 +2,39 @@
 
 import Link from 'next/link';
 
-// 임시 뉴스 데이터 (나중에 API 연동)
+// 최신 한글 IT 뉴스 (2025년 10월 기준)
 const PLACEHOLDER_NEWS = [
   {
     id: 1,
-    title: 'OpenAI Launches GPT-5 with Advanced Reasoning',
-    source: 'TechCrunch',
-    summary: 'OpenAI announces GPT-5 with significantly improved reasoning and problem-solving capabilities.',
-    url: '#',
-    publishedAt: '2시간 전',
+    title: '넷마블 신작 뱀피르, 출시 8시간 만에 앱스토어 1위 달성',
+    source: 'ZDNet Korea',
+    summary: '넷마블이 출시한 뱀파이어 테마 MMORPG 뱀피르가 애플 앱스토어에서 출시 8시간 만에 1위를 기록했습니다.',
+    url: 'https://zdnet.co.kr/',
+    publishedAt: '오늘',
   },
   {
     id: 2,
-    title: 'Google Gemini Enterprise Expands AI Workplace Tools',
-    source: 'The Verge',
-    summary: 'Google ramps up its AI in the workplace ambitions with new Gemini Enterprise features.',
-    url: '#',
-    publishedAt: '4시간 전',
+    title: '통신사 해킹 사고로 국회 과기정통위 '보안' 이슈 집중',
+    source: '전자신문',
+    summary: 'SK텔레콤, KT, LG유플러스 대표가 증인으로 출석한 가운데 최근 통신 해킹 사건으로 보안이 최대 이슈로 부상했습니다.',
+    url: 'https://www.etnews.com/',
+    publishedAt: '오늘',
   },
   {
     id: 3,
-    title: 'Meta Releases Llama 3.5 Open Source Model',
-    source: 'TechCrunch',
-    summary: 'Meta continues its open-source AI push with the release of Llama 3.5, competing with GPT-4.',
-    url: '#',
-    publishedAt: '6시간 전',
+    title: '한국 AI 스타트업 4곳, CB인사이트 글로벌 AI 100 선정',
+    source: 'Forbes Korea',
+    summary: '업스테이지, 트웰브랩스, 노타AI 등 한국 스타트업 4곳이 역대 최다로 세계 100대 AI 기업에 선정되었습니다.',
+    url: 'https://www.forbeskorea.co.kr/',
+    publishedAt: '1일 전',
   },
   {
     id: 4,
-    title: 'Tesla AI Day Reveals New Autopilot Features',
-    source: 'The Verge',
-    summary: 'Tesla showcases next-generation AI capabilities at annual AI Day event.',
-    url: '#',
-    publishedAt: '8시간 전',
+    title: 'NC소프트, 서브컬처 게임 리밋 제로 브레이커스 공개',
+    source: 'ZDNet Korea',
+    summary: 'NC소프트가 신규 서브컬처 게임 리밋 제로 브레이커스 티저 사이트를 오픈하고 본격 홍보에 나섰습니다.',
+    url: 'https://zdnet.co.kr/',
+    publishedAt: '1일 전',
   },
 ];
 
