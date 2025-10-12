@@ -286,6 +286,17 @@ def _parse_blog_response(content: str) -> Dict[str, str]:
     # Remove any trailing --- markers
     content_text = content_text.replace('---', '').strip()
 
+    # Remove code block markers if GPT wrapped content in backticks
+    if content_text.startswith('```') and content_text.endswith('```'):
+        # Remove first line (```markdown or ```)
+        lines = content_text.split('\n')
+        if lines[0].strip().startswith('```'):
+            lines = lines[1:]
+        # Remove last line (```)
+        if lines and lines[-1].strip() == '```':
+            lines = lines[:-1]
+        content_text = '\n'.join(lines).strip()
+
     return {
         "title": title or "생성된 블로그 제목",
         "excerpt": excerpt or "",
@@ -539,6 +550,17 @@ def _parse_project_info_response(content: str) -> Dict[str, Any]:
     # Join content lines
     content_text = '\n'.join(project_content).strip()
     content_text = content_text.replace('---', '').strip()
+
+    # Remove code block markers if GPT wrapped content in backticks
+    if content_text.startswith('```') and content_text.endswith('```'):
+        # Remove first line (```markdown or ```)
+        lines = content_text.split('\n')
+        if lines[0].strip().startswith('```'):
+            lines = lines[1:]
+        # Remove last line (```)
+        if lines and lines[-1].strip() == '```':
+            lines = lines[:-1]
+        content_text = '\n'.join(lines).strip()
 
     return {
         "name": name or "새 프로젝트",
