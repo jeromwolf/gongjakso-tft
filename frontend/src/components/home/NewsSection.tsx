@@ -14,7 +14,7 @@ const PLACEHOLDER_NEWS = [
   },
   {
     id: 2,
-    title: '통신사 해킹 사고로 국회 과기정통위 '보안' 이슈 집중',
+    title: '통신사 해킹 사고로 국회 과기정통위 "보안" 이슈 집중',
     source: '전자신문',
     summary: 'SK텔레콤, KT, LG유플러스 대표가 증인으로 출석한 가운데 최근 통신 해킹 사건으로 보안이 최대 이슈로 부상했습니다.',
     url: 'https://www.etnews.com/',
