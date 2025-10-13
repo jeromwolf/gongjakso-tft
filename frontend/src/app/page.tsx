@@ -1,13 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import HeroSection from '@/components/home/HeroSection';
 import Stats from '@/components/home/Stats';
 import RecentBlogs from '@/components/home/RecentBlogs';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
-import UseCases from '@/components/home/UseCases';
 import NewsletterForm from '@/components/home/NewsletterForm';
-import CoffeeSupport from '@/components/home/CoffeeSupport';
+import NewsSection from '@/components/home/NewsSection';
 
 export default function Home() {
   return (
@@ -16,44 +14,29 @@ export default function Home() {
         {/* Hero Section */}
         <HeroSection />
 
+        {/* Newsletter Form - 상단으로 이동 */}
+        <NewsletterForm />
+
+        {/* 2단 레이아웃: 뉴스(왼쪽) + 블로그(오른쪽) */}
+        <section className="mb-24">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-white mb-2">주간 뉴스와 활동</h2>
+            <p className="text-gray-400">매주 업데이트되는 최신 IT 뉴스와 블로그 콘텐츠</p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* 왼쪽: 뉴스 */}
+            <NewsSection />
+
+            {/* 오른쪽: 블로그 */}
+            <RecentBlogs />
+          </div>
+        </section>
+
         {/* Stats */}
         <Stats />
 
-        {/* Featured Projects */}
+        {/* Featured Projects - 하단으로 이동 */}
         <FeaturedProjects />
-
-        {/* Recent Blogs */}
-        <RecentBlogs />
-
-        {/* Use Cases */}
-        <UseCases />
-
-        {/* Newsletter Form */}
-        <NewsletterForm />
-
-        {/* Coffee Support */}
-        <CoffeeSupport />
-
-        {/* Footer */}
-        <footer className="mt-16 text-center text-gray-400">
-          <p>© 2025 데이터공작소 개발 TFT. All rights reserved.</p>
-          <div className="mt-4 flex gap-4 justify-center">
-            <Link href="/blog" className="hover:text-white transition">
-              블로그
-            </Link>
-            <Link
-              href="https://github.com/jeromwolf/gongjakso-tft"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition"
-            >
-              GitHub
-            </Link>
-            <Link href="mailto:contact@gongjakso-tft.com" className="hover:text-white transition">
-              Contact
-            </Link>
-          </div>
-        </footer>
       </div>
     </div>
   );
