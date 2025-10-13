@@ -14,6 +14,7 @@ from models.user import User
 from models.blog import Blog
 from models.project import Project
 from models.newsletter import Subscriber, Newsletter, NewsletterRequest
+from models.activity import Activity
 
 # Import routers
 from api.auth import router as auth_router
@@ -21,6 +22,7 @@ from api.blog import router as blog_router
 from api.project import router as project_router
 from api.newsletter import router as newsletter_router
 from api.ai_content import router as ai_router
+from api.activity import router as activity_router
 
 
 @asynccontextmanager
@@ -87,6 +89,7 @@ app.include_router(blog_router)
 app.include_router(project_router)
 app.include_router(newsletter_router)
 app.include_router(ai_router)
+app.include_router(activity_router)
 
 
 if __name__ == "__main__":

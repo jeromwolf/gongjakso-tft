@@ -42,6 +42,7 @@ class User(Base):
 
     # Relationships
     blogs = relationship("Blog", back_populates="author", cascade="all, delete-orphan")
+    activities = relationship("Activity", back_populates="creator", cascade="all, delete-orphan")
     newsletter_subscription = relationship("Subscriber", back_populates="user", uselist=False)
     newsletter_requests = relationship("NewsletterRequest", back_populates="user")
 
