@@ -236,6 +236,63 @@ export interface ProjectUpdateRequest {
   difficulty?: string;
 }
 
+// Activity Types
+export type ActivityType = 'meeting' | 'seminar' | 'study' | 'project';
+
+export interface Activity {
+  id: number;
+  title: string;
+  description: string;
+  activity_date: string;
+  type: ActivityType;
+  participants: number | null;
+  location: string | null;
+  images: string[];
+  created_by: number;
+  creator_name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ActivityListItem {
+  id: number;
+  title: string;
+  activity_date: string;
+  type: ActivityType;
+  participants: number | null;
+  location: string | null;
+  images: string[];
+  created_at: string;
+}
+
+export interface ActivityListResponse {
+  items: ActivityListItem[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export interface ActivityCreateRequest {
+  title: string;
+  description: string;
+  activity_date: string;
+  type: ActivityType;
+  participants?: number;
+  location?: string;
+  images?: string[];
+}
+
+export interface ActivityUpdateRequest {
+  title?: string;
+  description?: string;
+  activity_date?: string;
+  type?: ActivityType;
+  participants?: number;
+  location?: string;
+  images?: string[];
+}
+
 // API Error Type
 export interface APIError {
   detail: string;

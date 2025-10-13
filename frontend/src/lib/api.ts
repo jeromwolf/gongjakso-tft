@@ -21,6 +21,10 @@ import type {
   ProjectListResponse,
   ProjectCreateRequest,
   ProjectUpdateRequest,
+  Activity,
+  ActivityListResponse,
+  ActivityCreateRequest,
+  ActivityUpdateRequest,
   APIError,
 } from './types';
 
@@ -349,6 +353,53 @@ export const aiAPI = {
   preview: async (topic: string, style: string = 'technical'): Promise<any> => {
     const response = await api.post('/api/ai/preview', { topic, style });
     return response.data;
+  },
+};
+
+// ============ Activity API ============
+
+export const activityAPI = {
+  /**
+   * Get activity list with pagination
+   */
+  list: async (params: {
+    page?: number;
+    page_size?: number;
+    activity_type?: string;
+  } = {}): Promise<ActivityListResponse> => {
+    const response = await api.get<ActivityListResponse>('/api/activity', { params });
+    return response.data;
+  },
+
+  /**
+   * Get single activity by ID
+   */
+  getById: async (id: number): Promise<Activity> => {
+    const response = await api.get<Activity>(`/api/activity/${id}`);
+    return response.data;
+  },
+
+  /**
+   * Create a new activity (requires auth)
+   */
+  create: async (data: ActivityCreateRequest): Promise<Activity> => {
+    const response = await api.post<Activity>('/api/activity', data);
+    return response.data;
+  },
+
+  /**
+   * Update an existing activity (requires auth)
+   */
+  update: async (id: number, data: ActivityUpdateRequest): Promise<Activity> => {
+    const response = await api.put<Activity>(`/api/activity/${id}`, data);
+    return response.data;
+  },
+
+  /**
+   * Delete an activity (requires auth)
+   */
+  delete: async (id: number): Promise<void> => {
+    await api.delete(`/api/activity/${id}`);
   },
 };
 
