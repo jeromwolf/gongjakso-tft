@@ -36,7 +36,10 @@ export default function Home() {
         {/* Stats */}
         <Stats />
 
-        {/* Donation Section */}
+        {/* Featured Projects */}
+        <FeaturedProjects />
+
+        {/* Donation Section - 맨 아래로 이동 */}
         <DonationSection
           config={{
             accountNumber: '100039997509',
@@ -44,9 +47,6 @@ export default function Home() {
             tossDeepLink: 'supertoss://send?bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100039997509&origin=qr'
           }}
         />
-
-        {/* Featured Projects - 하단으로 이동 */}
-        <FeaturedProjects />
       </div>
     </div>
   );
