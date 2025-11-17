@@ -32,7 +32,7 @@ AI ON의 주간 콘텐츠를 자동으로 수집하고 Claude AI로 뉴스레터
 
 ```bash
 # .env 파일에 추가
-ANTHROPIC_API_KEY=sk-ant-...  # Claude API 키
+OPENAI_API_KEY=sk-...         # OpenAI API 키 (GPT-4)
 RESEND_API_KEY=re_...         # Resend API 키 (이메일 발송용)
 ```
 
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ```
 
 설치되는 주요 패키지:
-- `anthropic==0.39.0` - Claude API
+- `openai==1.54.0` - OpenAI API (GPT-4)
 - `apscheduler==3.10.4` - 스케줄러
 - `resend==0.6.0` - 이메일 발송
 
@@ -211,16 +211,16 @@ python scripts/run_newsletter_scheduler.py --day "*" --hour 10 --minute 0
 
 ## 🐛 트러블슈팅
 
-### 1. ANTHROPIC_API_KEY 오류
+### 1. OPENAI_API_KEY 오류
 
 ```
-ValueError: ANTHROPIC_API_KEY is not configured
+ValueError: OPENAI_API_KEY is not configured
 ```
 
 **해결:**
 ```bash
 # .env 파일에 추가
-ANTHROPIC_API_KEY=sk-ant-your-api-key-here
+OPENAI_API_KEY=sk-your-api-key-here
 ```
 
 ### 2. 데이터베이스 연결 오류
@@ -287,16 +287,16 @@ on:
 
 ## 💰 비용
 
-- **Anthropic Claude API**:
-  - Sonnet 4.5: ~$0.01/뉴스레터
-  - 월 4회: ~$0.04/월
+- **OpenAI GPT-4 API**:
+  - GPT-4 Turbo: ~$0.02/뉴스레터
+  - 월 4회: ~$0.08/월
 
 - **Resend API**:
   - 무료 티어: 월 3,000통
   - 구독자 100명: 월 400통 사용
   - **무료**
 
-**총 비용**: ~$0.04/월 (거의 무료!)
+**총 비용**: ~$0.08/월 (거의 무료!)
 
 ---
 

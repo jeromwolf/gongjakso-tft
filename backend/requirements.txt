@@ -15,8 +15,8 @@ bcrypt==4.1.2
 python-dotenv==1.0.0
 
 # AI & Content Generation
-anthropic==0.39.0  # Claude API
 openai==1.54.0  # OpenAI API (GPT-4)
+# anthropic==0.39.0  # Claude API (alternative)
 
 # Email
 resend==0.6.0

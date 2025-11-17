@@ -14,8 +14,9 @@ from sqlalchemy import select, and_
 from models.blog import Blog
 from models.project import Project
 from models.newsletter import Newsletter, NewsletterStatus
-from core.ai_client import get_anthropic_client
+from core.config import settings
 from loguru import logger
+import openai
 
 
 class NewsletterContent:
@@ -44,7 +45,10 @@ class NewsletterGenerator:
 
     def __init__(self, db: AsyncSession):
         self.db = db
-        self.ai_client = get_anthropic_client()
+        # Set OpenAI API key
+        if not settings.OPENAI_API_KEY:
+            raise ValueError("OPENAI_API_KEY is not configured")
+        openai.api_key = settings.OPENAI_API_KEY
 
     async def collect_weekly_content(
         self,
@@ -174,21 +178,30 @@ HTML 작성 시 주의사항:
 - 인라인 스타일 사용 금지 (CSS는 템플릿에서 처리)
 """
 
-        # Call AI
-        logger.info("Generating newsletter with AI...")
-        response = await self.ai_client.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=4000,
-            temperature=0.7,
+        # Call OpenAI GPT-4
+        logger.info("Generating newsletter with GPT-4...")
+
+        import json
+        from openai import AsyncOpenAI
+
+        client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+
+        response = await client.chat.completions.create(
+            model="gpt-4-turbo-preview",
             messages=[{
+                "role": "system",
+                "content": "당신은 AI ON의 주간 뉴스레터를 작성하는 전문 작가입니다. 친근하지만 전문적인 톤으로 개발자들이 좋아할 만한 콘텐츠를 작성합니다."
+            }, {
                 "role": "user",
                 "content": prompt
-            }]
+            }],
+            max_tokens=4000,
+            temperature=0.7,
+            response_format={"type": "json_object"}
         )
 
         # Parse response
-        import json
-        ai_response = response.content[0].text
+        ai_response = response.choices[0].message.content
 
         # Extract JSON from markdown code blocks if present
         if "```json" in ai_response:
