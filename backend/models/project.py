@@ -17,6 +17,23 @@ class ProjectStatus(str, enum.Enum):
     ARCHIVED = "archived"
 
 
+class ProjectCategory(str, enum.Enum):
+    """Project category"""
+    WEB = "Web"
+    AI = "AI"
+    DATA = "Data"
+    MOBILE = "Mobile"
+    DESKTOP = "Desktop"
+    OTHER = "Other"
+
+
+class ProjectDifficulty(str, enum.Enum):
+    """Project difficulty level"""
+    BEGINNER = "Beginner"
+    INTERMEDIATE = "Intermediate"
+    ADVANCED = "Advanced"
+
+
 class Project(Base):
     """Project model for showcasing work"""
     __tablename__ = "projects"
