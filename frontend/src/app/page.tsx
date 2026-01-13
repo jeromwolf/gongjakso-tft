@@ -6,6 +6,7 @@ import RecentBlogs from '@/components/home/RecentBlogs';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import NewsletterForm from '@/components/home/NewsletterForm';
 import NewsSection from '@/components/home/NewsSection';
+import DonationSection from '@/components/donation/DonationSection';
 
 export default function Home() {
   return (
@@ -35,8 +36,17 @@ export default function Home() {
         {/* Stats */}
         <Stats />
 
-        {/* Featured Projects - 하단으로 이동 */}
+        {/* Featured Projects */}
         <FeaturedProjects />
+
+        {/* Donation Section - 맨 아래로 이동 */}
+        <DonationSection
+          config={{
+            accountNumber: '100039997509',
+            bankName: '토스뱅크',
+            tossDeepLink: 'supertoss://send?bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100039997509&origin=qr'
+          }}
+        />
       </div>
     </div>
   );

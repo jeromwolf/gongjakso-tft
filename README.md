@@ -71,9 +71,9 @@ gongjakso-tft/
 
 ### Backend
 - **Framework**: FastAPI (Python 3.11)
-- **Database**: PostgreSQL 17 + SQLAlchemy (async)
+- **Database**: PostgreSQL 17 (Neon Serverless) + SQLAlchemy (async)
 - **Auth**: JWT (python-jose)
-- **AI**: Anthropic Claude API, OpenAI API
+- **AI**: OpenAI API (GPT-4)
 - **Email**: Resend API
 
 ### Frontend
@@ -85,7 +85,7 @@ gongjakso-tft/
 
 ### Infrastructure
 - **Hosting**: Render.com (Docker)
-- **Database**: Render PostgreSQL 17
+- **Database**: Neon PostgreSQL 17 (Serverless)
 - **CI/CD**: GitHub → Render 자동 배포
 
 ---
@@ -172,9 +172,8 @@ npm run dev
 
 **Environment Variables:**
 ```bash
-DATABASE_URL=postgresql+asyncpg://...  # Render 자동 설정
+DATABASE_URL=postgresql+asyncpg://...@neon.tech/neondb?ssl=require  # Neon DB
 SECRET_KEY=<강력한-랜덤-키>
-ANTHROPIC_API_KEY=<키>
 OPENAI_API_KEY=<키>
 RESEND_API_KEY=<키>
 FROM_EMAIL=noreply@gongjakso-tft.onrender.com
@@ -259,6 +258,11 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ---
 
 ## 🔄 최근 변경사항
+
+### 2025-01-13
+- ✅ **Neon DB 마이그레이션 완료** (Azure → Neon 전환)
+  - 비용 절감을 위한 Serverless PostgreSQL 전환
+  - 데이터 완전 이전 (Users 4, Blogs 7, Projects 12)
 
 ### 2025-10-04
 - ✅ **Render.com 배포 완료** (Railway → Render 전환)

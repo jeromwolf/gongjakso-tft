@@ -15,15 +15,16 @@ bcrypt==4.1.2
 python-dotenv==1.0.0
 
 # AI & Content Generation
-# anthropic==0.7.7  # Claude API (alternative)
 openai==1.54.0  # OpenAI API (GPT-4)
+# anthropic==0.39.0  # Claude API (alternative)
 
 # Email
 resend==0.6.0
 
-# Task Queue (Future: Celery + Redis)
-# celery==5.3.4
-# redis==5.0.1
+# Task Queue & Scheduling
+apscheduler==3.10.4  # For newsletter scheduler
+# celery==5.3.4  # Future: Background tasks
+# redis==5.0.1  # Future: Celery broker
 
 # Utilities
 loguru==0.7.2

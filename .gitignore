@@ -7,6 +7,17 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.azure
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
 
 # Logs
 logs
