@@ -123,7 +123,7 @@ class NewsletterGenerator:
 
         # Prepare content summary for AI
         blog_summaries = [
-            f"- {blog.title}: {blog.summary or blog.content[:200]}"
+            f"- {blog.title}: {blog.excerpt or blog.content[:200]}"
             for blog in blogs
         ]
 

@@ -23,6 +23,7 @@ from api.project import router as project_router
 from api.newsletter import router as newsletter_router
 from api.ai_content import router as ai_router
 from api.activity import router as activity_router
+from api.logs import router as logs_router
 
 
 @asynccontextmanager
@@ -90,6 +91,7 @@ app.include_router(project_router)
 app.include_router(newsletter_router)
 app.include_router(ai_router)
 app.include_router(activity_router)
+app.include_router(logs_router)
 
 
 if __name__ == "__main__":

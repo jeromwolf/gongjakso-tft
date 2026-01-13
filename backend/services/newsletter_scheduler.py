@@ -8,7 +8,7 @@ from apscheduler.triggers.cron import CronTrigger
 from datetime import datetime
 from loguru import logger
 
-from core.database import get_async_session
+from core.database import AsyncSessionLocal
 from services.newsletter_generator import generate_weekly_newsletter
 
 
@@ -36,7 +36,7 @@ class NewsletterScheduler:
         logger.info("=" * 70)
 
         try:
-            async for db in get_async_session():
+            async with AsyncSessionLocal() as db:
                 newsletter = await generate_weekly_newsletter(
                     db=db,
                     auto_send=self.auto_send,
@@ -52,7 +52,6 @@ class NewsletterScheduler:
                         f"✅ Newsletter generated as DRAFT: {newsletter.title} "
                         f"(ID: {newsletter.id})"
                     )
-                break  # Exit after first successful generation
 
         except Exception as e:
             logger.error(f"❌ Newsletter generation failed: {e}", exc_info=True)

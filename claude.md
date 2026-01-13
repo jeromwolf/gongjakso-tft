@@ -18,10 +18,10 @@
 
 ### Backend
 - **Framework**: FastAPI (Python 3.11)
-- **Database**: PostgreSQL 17 (Render)
+- **Database**: PostgreSQL 17 (Neon - Serverless)
 - **ORM**: SQLAlchemy (Async)
 - **Auth**: JWT
-- **AI**: Anthropic Claude API, OpenAI API
+- **AI**: OpenAI API (GPT-4)
 - **Email**: Resend API
 - **Migration**: Alembic
 
@@ -34,7 +34,7 @@
 
 ### DevOps
 - **Deployment**: Render.com (Docker)
-- **Database**: Render PostgreSQL
+- **Database**: Neon PostgreSQL (Serverless)
 - **CI/CD**: GitHub → Render 자동 배포
 - **Containerization**: Docker, Docker Compose
 
@@ -133,11 +133,10 @@ git push origin deploy/backend-root
 
 ```bash
 # 필수
-DATABASE_URL=postgresql+asyncpg://...  # Render 자동 설정
+DATABASE_URL=postgresql+asyncpg://...@neon.tech/neondb?ssl=require  # Neon DB
 SECRET_KEY=<강력한-랜덤-키>
 
 # 선택 (AI 기능 사용 시)
-ANTHROPIC_API_KEY=<키>
 OPENAI_API_KEY=<키>
 
 # 선택 (이메일 기능 사용 시)
@@ -454,6 +453,13 @@ git push origin deploy/backend-root
   - 문서: README.md, claude.md 업데이트
 - 새로운 타겟라인: "AI 기술 스터디 × 바이브코딩 프로젝트"
 
+### Phase 6: DB 마이그레이션 (2025-01-13)
+- **Azure → Neon 마이그레이션** - 비용 절감을 위한 Serverless DB 전환
+  - Azure PostgreSQL → Neon PostgreSQL (Serverless)
+  - 데이터 완전 이전 (Users 4, Blogs 7, Projects 12, Subscribers 3, Newsletters 1)
+  - Render 환경변수 업데이트
+  - 로컬 .env 파일 업데이트
+
 ### 기술 부채 해결
 - TypeScript 타입 정의 완성 (github_url_2 필드 추가)
 - Backend Service 레이어 개선
@@ -462,5 +468,5 @@ git push origin deploy/backend-root
 
 ---
 
-**마지막 업데이트**: 2025-10-13
+**마지막 업데이트**: 2025-01-13
 **작성자**: Claude Code AI Assistant
